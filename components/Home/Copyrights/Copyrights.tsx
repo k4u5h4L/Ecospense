@@ -2,9 +2,7 @@ const Copyrights = () => {
     return (
         <>
             <div className="appFooter">
-                <div className="footer-title">
-                    Copyright © Ecospense 2022. All Rights Reserved.
-                </div>
+                <div className="footer-title">Ecopense.</div>
                 Your personal expense managing assistant.
             </div>
         </>

@@ -1,6 +1,4 @@
-import { AnimationType } from "@/types/animations";
-
-const slideUp: AnimationType = {
+const slideUp = {
     name: "Slide Up",
     variants: {
         initial: {
@@ -24,7 +22,7 @@ const slideUp: AnimationType = {
     },
 };
 
-const slideRight: AnimationType = {
+const slideRight = {
     name: "Slide Right",
     variants: {
         initial: {
@@ -48,7 +46,7 @@ const slideRight: AnimationType = {
     },
 };
 
-const slideLeft: AnimationType = {
+const slideLeft = {
     name: "Slide Left",
     variants: {
         initial: {
@@ -72,7 +70,7 @@ const slideLeft: AnimationType = {
     },
 };
 
-const fadeBack: AnimationType = {
+const fadeBack = {
     name: "Fade Back",
     variants: {
         initial: {
@@ -93,7 +91,7 @@ const fadeBack: AnimationType = {
     },
 };
 
-const rotateY: AnimationType = {
+const rotateY = {
     name: "Rotate Y",
     variants: {
         initial: {
@@ -111,7 +109,7 @@ const rotateY: AnimationType = {
     },
 };
 
-const rotateX: AnimationType = {
+const rotateX = {
     name: "Rotate X",
     variants: {
         initial: {
@@ -135,7 +133,7 @@ const rotateX: AnimationType = {
     },
 };
 
-const rotateZ: AnimationType = {
+const rotateZ = {
     name: "Rotate Z",
     variants: {
         initial: {

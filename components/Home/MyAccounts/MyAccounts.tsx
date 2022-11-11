@@ -19,6 +19,8 @@ const MyAccounts = () => {
                         gap: "1rem",
                         arrows: false,
                         pagination: false,
+                        perPage: 1,
+                        // type: "loop",
                         padding: {
                             left: "9%",
                         },
