@@ -1,12 +1,15 @@
-import { ChevronBackOutline, NotificationsOutline } from "react-ionicons";
+import { ChevronBackOutline } from "react-ionicons";
 import { useRouter } from "next/router";
 
 type PropTypes = {
     title: string;
+    cta: any;
 };
 
-const InnerHeader = ({ title }: PropTypes) => {
+const InnerHeader = ({ title, cta }: PropTypes) => {
     const router = useRouter();
+
+    const Cta = cta;
 
     return (
         <>
@@ -22,10 +25,7 @@ const InnerHeader = ({ title }: PropTypes) => {
                 </div>
                 <div className="pageTitle">{title}</div>
                 <div className="right">
-                    <a href="app-notifications.html" className="headerButton">
-                        <NotificationsOutline />
-                        {/* <span className="badge badge-danger">4</span> */}
-                    </a>
+                    <Cta />
                 </div>
             </div>
         </>
