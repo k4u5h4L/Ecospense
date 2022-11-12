@@ -56,6 +56,9 @@ const AddBalanceModal = () => {
                                                 className="form-control"
                                                 placeholder="Enter an amount"
                                                 value="100"
+                                                onChange={() =>
+                                                    console.log("changed")
+                                                }
                                             />
                                         </div>
                                     </div>

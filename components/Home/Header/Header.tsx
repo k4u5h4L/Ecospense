@@ -1,3 +1,5 @@
+import { MenuOutline, NotificationsOutline } from "react-ionicons";
+
 const Header = () => {
     return (
         <>
@@ -9,7 +11,7 @@ const Header = () => {
                         data-bs-toggle="modal"
                         data-bs-target="#sidebarPanel"
                     >
-                        {/* <ion-icon name="menu-outline"></ion-icon> */}
+                        <MenuOutline color={"white"} />
                     </a>
                 </div>
                 <div className="pageTitle">
@@ -21,10 +23,7 @@ const Header = () => {
                 </div>
                 <div className="right">
                     <a href="app-notifications.html" className="headerButton">
-                        {/* <ion-icon
-                        className="icon"
-                        name="notifications-outline"
-                    ></ion-icon> */}
+                        <NotificationsOutline color={"white"} />
                         <span className="badge badge-danger">4</span>
                     </a>
                     <a href="app-settings.html" className="headerButton">

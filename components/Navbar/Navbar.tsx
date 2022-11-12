@@ -1,34 +1,42 @@
+import {
+    PieChartOutline,
+    DocumentTextOutline,
+    AppsOutline,
+    CardOutline,
+    SettingsOutline,
+} from "react-ionicons";
+
 const Navbar = () => {
     return (
         <>
             <div className="appBottomMenu">
                 <a href="index.html" className="item active">
                     <div className="col">
-                        {/* <ion-icon name="pie-chart-outline"></ion-icon> */}
+                        <PieChartOutline />
                         <strong>Overview</strong>
                     </div>
                 </a>
                 <a href="app-pages.html" className="item">
                     <div className="col">
-                        {/* <ion-icon name="document-text-outline"></ion-icon> */}
+                        <DocumentTextOutline />
                         <strong>Pages</strong>
                     </div>
                 </a>
                 <a href="app-components.html" className="item">
                     <div className="col">
-                        {/* <ion-icon name="apps-outline"></ion-icon> */}
+                        <AppsOutline />
                         <strong>Components</strong>
                     </div>
                 </a>
                 <a href="app-cards.html" className="item">
                     <div className="col">
-                        {/* <ion-icon name="card-outline"></ion-icon> */}
+                        <CardOutline />
                         <strong>My Cards</strong>
                     </div>
                 </a>
                 <a href="app-settings.html" className="item">
                     <div className="col">
-                        {/* <ion-icon name="settings-outline"></ion-icon> */}
+                        <SettingsOutline />
                         <strong>Settings</strong>
                     </div>
                 </a>

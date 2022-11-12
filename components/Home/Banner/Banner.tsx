@@ -1,3 +1,11 @@
+import {
+    AddOutline,
+    ArrowDownOutline,
+    ArrowForwardOutline,
+    CardOutline,
+    SwapVertical,
+} from "react-ionicons";
+
 const Banner = () => {
     return (
         <>
@@ -15,7 +23,7 @@ const Banner = () => {
                                 data-bs-toggle="modal"
                                 data-bs-target="#depositActionSheet"
                             >
-                                {/* <ion-icon name="add-outline"></ion-icon> */}
+                                <AddOutline color={"#256H112"} />
                             </a>
                         </div>
                     </div>
@@ -28,9 +36,7 @@ const Banner = () => {
                                 data-bs-target="#withdrawActionSheet"
                             >
                                 <div className="icon-wrapper bg-danger">
-                                    {/* <ion-icon
-                                        name="arrow-down-outline"
-                                    ></ion-icon> */}
+                                    <ArrowDownOutline color={"white"} />
                                 </div>
                                 <strong>Withdraw</strong>
                             </a>
@@ -42,9 +48,7 @@ const Banner = () => {
                                 data-bs-target="#sendActionSheet"
                             >
                                 <div className="icon-wrapper">
-                                    {/* <ion-icon
-                                        name="arrow-forward-outline"
-                                    ></ion-icon> */}
+                                    <ArrowForwardOutline color={"white"} />
                                 </div>
                                 <strong>Send</strong>
                             </a>
@@ -52,7 +56,7 @@ const Banner = () => {
                         <div className="item">
                             <a href="app-cards.html">
                                 <div className="icon-wrapper bg-success">
-                                    {/* <ion-icon name="card-outline"></ion-icon> */}
+                                    <CardOutline color={"white"} />
                                 </div>
                                 <strong>Cards</strong>
                             </a>
@@ -64,7 +68,7 @@ const Banner = () => {
                                 data-bs-target="#exchangeActionSheet"
                             >
                                 <div className="icon-wrapper bg-warning">
-                                    {/* <ion-icon name="swap-vertical"></ion-icon> */}
+                                    <SwapVertical color={"white"} />
                                 </div>
                                 <strong>Exchange</strong>
                             </a>

@@ -53,6 +53,9 @@ const SendMoneyModal = () => {
                                                 className="form-control"
                                                 id="text11"
                                                 placeholder="Enter bank ID"
+                                                onChange={() =>
+                                                    console.log("changed")
+                                                }
                                             />
                                             <i className="clear-input">
                                                 {/* <ion-icon
@@ -78,6 +81,9 @@ const SendMoneyModal = () => {
                                                 className="form-control"
                                                 placeholder="Enter an amount"
                                                 value="100"
+                                                onChange={() =>
+                                                    console.log("changed")
+                                                }
                                             />
                                         </div>
                                     </div>

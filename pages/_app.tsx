@@ -4,8 +4,17 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import NextNprogress from "nextjs-progressbar";
 
 import "@splidejs/react-splide/css";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps, router }: AppProps) {
+    useEffect(() => {
+        if (typeof document !== "undefined") {
+            const theme = localStorage.getItem("theme");
+
+            document.body.className = theme ? "dark-mode" : "";
+        }
+    }, []);
+
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
             <Head>

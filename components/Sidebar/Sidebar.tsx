@@ -1,3 +1,17 @@
+import {
+    CloseOutline,
+    AddOutline,
+    ArrowDownOutline,
+    ArrowForwardOutline,
+    CardOutline,
+    PieChartOutline,
+    DocumentTextOutline,
+    AppsOutline,
+    SettingsOutline,
+    ChatbubbleOutline,
+    LogOutOutline,
+} from "react-ionicons";
+
 const Sidebar = () => {
     return (
         <>
@@ -27,7 +41,7 @@ const Sidebar = () => {
                                     className="btn btn-link btn-icon sidebar-close"
                                     data-bs-dismiss="modal"
                                 >
-                                    {/* <ion-icon name="close-outline"></ion-icon> */}
+                                    <CloseOutline color={"white"} />
                                 </a>
                             </div>
                             <div className="sidebar-balance">
@@ -41,7 +55,7 @@ const Sidebar = () => {
                                 <a href="index.html" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
-                                            {/* <ion-icon name="add-outline"></ion-icon> */}
+                                            <AddOutline color={"white"} />
                                         </div>
                                         Deposit
                                     </div>
@@ -49,9 +63,7 @@ const Sidebar = () => {
                                 <a href="index.html" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
-                                            {/* <ion-icon
-                                            name="arrow-down-outline"
-                                        ></ion-icon> */}
+                                            <ArrowDownOutline color={"white"} />
                                         </div>
                                         Withdraw
                                     </div>
@@ -59,9 +71,9 @@ const Sidebar = () => {
                                 <a href="index.html" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
-                                            {/* <ion-icon
-                                            name="arrow-forward-outline"
-                                        ></ion-icon> */}
+                                            <ArrowForwardOutline
+                                                color={"white"}
+                                            />
                                         </div>
                                         Send
                                     </div>
@@ -72,9 +84,7 @@ const Sidebar = () => {
                                 >
                                     <div className="in">
                                         <div className="iconbox">
-                                            {/* <ion-icon
-                                            name="card-outline"
-                                        ></ion-icon> */}
+                                            <CardOutline color={"white"} />
                                         </div>
                                         My Cards
                                     </div>
@@ -86,9 +96,7 @@ const Sidebar = () => {
                                 <li>
                                     <a href="index.html" className="item">
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="pie-chart-outline"
-                                        ></ion-icon> */}
+                                            <PieChartOutline color={"white"} />
                                         </div>
                                         <div className="in">
                                             Overview
@@ -101,9 +109,9 @@ const Sidebar = () => {
                                 <li>
                                     <a href="app-pages.html" className="item">
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="document-text-outline"
-                                        ></ion-icon> */}
+                                            <DocumentTextOutline
+                                                color={"white"}
+                                            />
                                         </div>
                                         <div className="in">Pages</div>
                                     </a>
@@ -114,9 +122,7 @@ const Sidebar = () => {
                                         className="item"
                                     >
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="apps-outline"
-                                        ></ion-icon> */}
+                                            <AppsOutline color={"white"} />
                                         </div>
                                         <div className="in">Components</div>
                                     </a>
@@ -124,9 +130,7 @@ const Sidebar = () => {
                                 <li>
                                     <a href="app-cards.html" className="item">
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="card-outline"
-                                        ></ion-icon> */}
+                                            <CardOutline color={"white"} />
                                         </div>
                                         <div className="in">My Cards</div>
                                     </a>
@@ -141,9 +145,7 @@ const Sidebar = () => {
                                         className="item"
                                     >
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="settings-outline"
-                                        ></ion-icon> */}
+                                            <SettingsOutline color={"white"} />
                                         </div>
                                         <div className="in">Settings</div>
                                     </a>
@@ -154,9 +156,9 @@ const Sidebar = () => {
                                         className="item"
                                     >
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="chatbubble-outline"
-                                        ></ion-icon> */}
+                                            <ChatbubbleOutline
+                                                color={"white"}
+                                            />
                                         </div>
                                         <div className="in">Support</div>
                                     </a>
@@ -164,9 +166,7 @@ const Sidebar = () => {
                                 <li>
                                     <a href="app-login.html" className="item">
                                         <div className="icon-box bg-primary">
-                                            {/* <ion-icon
-                                            name="log-out-outline"
-                                        ></ion-icon> */}
+                                            <LogOutOutline color={"white"} />
                                         </div>
                                         <div className="in">Log out</div>
                                     </a>
