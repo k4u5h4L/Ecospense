@@ -1,4 +1,4 @@
-import EllipsisMenu from "../EllipsisMenu/EllipsisMenu";
+import EllipsisMenu from "../../../components/Accounts/EllipsisMenu/EllipsisMenu";
 
 const Main = () => {
     return (

@@ -46,6 +46,7 @@ const NotFound = () => {
                         </div>
                         <div className="col-6">
                             <Link
+                                scroll={false}
                                 href={"/"}
                                 className="btn btn-lg btn-primary btn-block"
                             >

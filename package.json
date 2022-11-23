@@ -17,6 +17,7 @@
         "@prisma/client": "^4.5.0",
         "@splidejs/react-splide": "^0.7.12",
         "cors": "^2.8.5",
+        "framer-motion": "^7.6.9",
         "mongodb": "^4.11.0",
         "next": "13.0.2",
         "next-auth": "^4.15.1",

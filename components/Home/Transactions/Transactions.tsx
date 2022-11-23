@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 const Transactions = () => {
     return (
         <>
             <div className="section mt-4">
                 <div className="section-heading">
                     <h2 className="title">Transactions</h2>
-                    <a href="app-transactions.html" className="link">
+                    <Link scroll={false} href="/transactions" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
                 <div className="transactions">
                     <a href="app-transaction-detail.html" className="item">

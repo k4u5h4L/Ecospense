@@ -1,4 +1,5 @@
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import Link from "next/link";
 
 const MyAccounts = () => {
     return (
@@ -6,9 +7,9 @@ const MyAccounts = () => {
             <div className="section full mt-4">
                 <div className="section-heading padding">
                     <h2 className="title">My Accounts</h2>
-                    <a href="app-cards.html" className="link">
+                    <Link scroll={false} href="/accounts" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
 
                 <Splide

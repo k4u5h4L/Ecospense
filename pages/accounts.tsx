@@ -1,5 +1,5 @@
 import AddAccountModal from "@/components/Accounts/AddAccountModal/AddAccountModal";
-import Main from "@/components/Accounts/Main/Main";
+import Main from "@/containers/Accounts/Main/Main";
 import InnerHeader from "@/components/InnerHeader/InnerHeader";
 import Navbar from "@/components/Navbar/Navbar";
 import { AddOutline } from "react-ionicons";

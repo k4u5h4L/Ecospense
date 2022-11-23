@@ -4,9 +4,24 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import NextNprogress from "nextjs-progressbar";
 
 import "@splidejs/react-splide/css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+
+const variantsPop: Variants = {
+    hidden: { opacity: 1, x: "-100%", y: 0 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 1, x: "100%", y: 0 },
+};
+
+const variantsPush: Variants = {
+    hidden: { opacity: 1, x: "100%", y: 0 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 1, x: "-100%", y: 0 },
+};
 
 export default function App({ Component, pageProps, router }: AppProps) {
+    const [variants, setVariants] = useState<Variants>(variantsPush);
+
     useEffect(() => {
         if (typeof document !== "undefined") {
             const theme = localStorage.getItem("theme");
@@ -42,7 +57,22 @@ export default function App({ Component, pageProps, router }: AppProps) {
                 height={3}
                 options={{ showSpinner: false }}
             />
-            <Component {...pageProps} />
+            <AnimatePresence
+                exitBeforeEnter={false}
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}
+            >
+                <motion.main
+                    initial="hidden"
+                    animate="enter"
+                    exit="exit"
+                    variants={variants}
+                    transition={{ type: "linear" }}
+                    key={router.route}
+                >
+                    <Component {...pageProps} />
+                </motion.main>
+            </AnimatePresence>
         </SessionProvider>
     );
 }
