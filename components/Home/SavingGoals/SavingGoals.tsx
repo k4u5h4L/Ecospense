@@ -1,12 +1,14 @@
+import Link from "@/helpers/wrappers/Link/Link";
+
 const SavingGoals = () => {
     return (
         <>
             <div className="section mt-4">
                 <div className="section-heading">
                     <h2 className="title">Saving Goals</h2>
-                    <a href="app-savings.html" className="link">
+                    <Link href="/savings" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
                 <div className="goals">
                     <div className="item">

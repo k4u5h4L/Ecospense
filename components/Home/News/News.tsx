@@ -1,3 +1,4 @@
+import Link from "@/helpers/wrappers/Link/Link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 
 const News = () => {
@@ -6,9 +7,9 @@ const News = () => {
             <div className="section full mt-4 mb-3">
                 <div className="section-heading padding">
                     <h2 className="title">Lastest News</h2>
-                    <a href="app-blog.html" className="link">
+                    <Link href="/blogs" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
 
                 <Splide

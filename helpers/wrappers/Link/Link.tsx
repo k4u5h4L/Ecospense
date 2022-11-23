@@ -1,11 +1,11 @@
-import Link from "next/link";
+import NextLink from "next/link";
 
-const CustomLink = (props: any) => {
+const Link = (props: any) => {
     return (
-        <Link scroll={false} {...props}>
+        <NextLink scroll={false} {...props}>
             {props.children}
-        </Link>
+        </NextLink>
     );
 };
 
-export default CustomLink;
+export default Link;

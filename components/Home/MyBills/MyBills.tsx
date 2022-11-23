@@ -1,3 +1,4 @@
+import Link from "@/helpers/wrappers/Link/Link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 
 const MyBills = () => {
@@ -6,9 +7,9 @@ const MyBills = () => {
             <div className="section full mt-4">
                 <div className="section-heading padding">
                     <h2 className="title">Monthly Bills</h2>
-                    <a href="app-bills.html" className="link">
+                    <Link href="/bills" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
 
                 <Splide
