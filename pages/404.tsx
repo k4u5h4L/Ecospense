@@ -1,6 +1,6 @@
 import { ChevronBackOutline } from "react-ionicons";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import Link from "@/helpers/wrappers/Link/Link";
 
 const NotFound = () => {
     const router = useRouter();
@@ -46,7 +46,6 @@ const NotFound = () => {
                         </div>
                         <div className="col-6">
                             <Link
-                                scroll={false}
                                 href={"/"}
                                 className="btn btn-lg btn-primary btn-block"
                             >

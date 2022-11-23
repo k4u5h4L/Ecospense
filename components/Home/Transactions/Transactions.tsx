@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/helpers/wrappers/Link/Link";
 
 const Transactions = () => {
     return (
@@ -6,7 +6,7 @@ const Transactions = () => {
             <div className="section mt-4">
                 <div className="section-heading">
                     <h2 className="title">Transactions</h2>
-                    <Link scroll={false} href="/transactions" className="link">
+                    <Link href="/transactions" className="link">
                         View All
                     </Link>
                 </div>

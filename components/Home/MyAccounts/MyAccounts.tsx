@@ -1,5 +1,5 @@
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import Link from "next/link";
+import Link from "@/helpers/wrappers/Link/Link";
 
 const MyAccounts = () => {
     return (
