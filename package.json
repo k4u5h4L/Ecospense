@@ -2,14 +2,38 @@
     "name": "ecospense",
     "version": "0.1.0",
     "private": true,
+    "description": "A JAM stack PWA, expense tracker web app built with React, TypeScript, Next.js, Prisma and MongoDB.",
+    "keywords": [
+        "finance",
+        "expense",
+        "budget",
+        "PWA",
+        "React",
+        "TypeScript",
+        "Next.js",
+        "next-auth"
+    ],
     "scripts": {
-        "dev": "next dev",
+        "dev": "NODE_ENV=development next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "export": "next build && next export",
+        "vercel-build": "prisma generate && next build",
+        "migrate:deploy": "prisma migrate deploy",
+        "migrate:prisma": "prisma migrate dev",
+        "dbpush:prisma": "prisma db push",
+        "generate:prisma": "prisma generate",
+        "introspect:prisma": "prisma introspect",
+        "studio:prisma": "prisma studio",
+        "format:prisma": "prisma format",
+        "seed:prisma": "prisma db seed"
     },
     "engines": {
         "node": "^16"
+    },
+    "prisma": {
+        "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
     },
     "dependencies": {
         "@next-auth/mongodb-adapter": "^1.1.1",
@@ -25,6 +49,7 @@
         "nodemailer": "^6.8.0",
         "otp-generator": "^4.0.0",
         "react": "18.2.0",
+        "react-countdown": "^2.3.4",
         "react-dom": "18.2.0",
         "react-ionicons": "^4.2.0",
         "styled-components": "^5.3.6",

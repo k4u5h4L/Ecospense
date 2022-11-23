@@ -7,6 +7,7 @@ import { sendVerificationRequest } from "@/utils/emailVerificationUtils";
 import otpGenerator from "otp-generator";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/prisma/client";
+import { TWO_MINS_IN_S } from "@/constants/commonConstants";
 
 export default (req: NextApiRequest, res: NextApiResponse) =>
     NextAuth(req, res, {
@@ -26,7 +27,7 @@ export default (req: NextApiRequest, res: NextApiResponse) =>
                     },
                 },
                 from: process.env.EMAIL_FROM,
-                maxAge: 10 * 60,
+                maxAge: TWO_MINS_IN_S,
                 // generate & send the OTP from here
                 generateVerificationToken: async () => {
                     return otpGenerator.generate(4, {
@@ -56,9 +57,9 @@ export default (req: NextApiRequest, res: NextApiResponse) =>
         },
         pages: {
             // signIn: "/auth/signin",
-            signIn: "/login",
+            signIn: "/auth/login",
             signOut: "/auth/signout",
-            error: "/otp/error", // Error code passed in query string as ?error=
+            error: "/auth/error", // Error code passed in query string as ?error=
             verifyRequest: "/verify", // (used for check email message)
             newUser: "/newuser", // If set, new users will be directed here on first sign in
         },
