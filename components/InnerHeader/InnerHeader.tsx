@@ -4,16 +4,17 @@ import { useRouter } from "next/router";
 type PropTypes = {
     title: string;
     cta: any;
+    bg?: string;
 };
 
-const InnerHeader = ({ title, cta }: PropTypes) => {
+const InnerHeader = ({ title, cta, bg }: PropTypes) => {
     const router = useRouter();
 
     const Cta = cta;
 
     return (
         <>
-            <div className="appHeader">
+            <div className={`appHeader ${bg}`}>
                 <div className="left">
                     <a
                         style={{ cursor: "pointer" }}
