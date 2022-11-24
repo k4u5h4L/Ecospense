@@ -47,7 +47,12 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="appBottomMenu" style={{ position: "sticky" }}>
+            <div
+                className="appBottomMenu"
+                style={{
+                    position: "sticky",
+                }}
+            >
                 {routes.map((route, index) => (
                     <Link
                         href={route.link}

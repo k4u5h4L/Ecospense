@@ -1014,7 +1014,7 @@ body.animationGoBack:after {
     bottom: 0;
     width: 100%;
     background-color: #6236ff;
-    background-image: url("../img/loading-icon.png");
+    background-image: url("/assets/img/loading-icon.png");
     background-repeat: no-repeat;
     background-size: 42px auto;
     background-position: center center;
