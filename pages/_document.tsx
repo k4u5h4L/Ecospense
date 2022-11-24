@@ -9,7 +9,7 @@ export default class _Document extends Document {
                     <link rel="stylesheet" href="/assets/css/style.css" />
                 </Head>
 
-                <body>
+                <body style={{ visibility: "inherit" }}>
                     <Loader />
                     <Main />
                     <NextScript />

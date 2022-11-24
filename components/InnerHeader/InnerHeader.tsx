@@ -21,7 +21,9 @@ const InnerHeader = ({ title, cta, bg }: PropTypes) => {
                         onClick={() => router.back()}
                         className="headerButton goBack"
                     >
-                        <ChevronBackOutline color={"#256l144"} />
+                        <ChevronBackOutline
+                            color={!bg ? "#256l144" : "white"}
+                        />
                     </a>
                 </div>
                 <div className="pageTitle">{title}</div>
