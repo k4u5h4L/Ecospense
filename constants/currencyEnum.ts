@@ -1,7 +1,30 @@
-enum Currency {
-    GBP = "£",
-    USD = "$",
-    INR = "₹",
-}
+const Currency = {
+    GBP: "£",
+    USD: "$",
+    EUR: "€",
+    JPY: "¥",
+    CNY: "¥",
+    AUD: "$",
+    CAD: "$",
+    CHF: "CHF",
+    HKD: "$",
+    SGD: "$",
+    SEK: "kr",
+    KRW: "₩",
+    NOK: "kr",
+    NZD: "$",
+    INR: "₹",
+    MXN: "$",
+    TWD: "$",
+    ZAR: "R",
+    BRL: "$",
+    DKK: "kr",
+    PLN: "zł",
+    THB: "฿",
+    ILS: "₪",
+    IDR: "Rp",
+    CZK: "Kč",
+    AED: "د.إ",
+};
 
 export { Currency };
