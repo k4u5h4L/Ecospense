@@ -26,7 +26,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         if (typeof document !== "undefined") {
             const theme = localStorage.getItem("theme");
 
-            document.body.className = theme ? "dark-mode" : "";
+            document.body.className = theme == "dark" ? "dark-mode" : "";
         }
     }, []);
 

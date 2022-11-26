@@ -1,6 +1,28 @@
 // import { CameraOutline } from "react-ionicons";
 
+import { signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
+
 const Main = () => {
+    const [isdarkMode, setIsDarkMode] = useState<boolean>();
+
+    useEffect(() => {
+        if (typeof document !== "undefined") {
+            const theme = localStorage.getItem("theme");
+
+            setIsDarkMode(theme == "dark");
+        }
+    }, []);
+
+    const changeTheme = (theme: boolean): void => {
+        if (typeof document !== "undefined") {
+            localStorage.setItem("theme", theme ? "dark" : "light");
+
+            document.body.className = theme ? "dark-mode" : "";
+            setIsDarkMode((prev) => !prev);
+        }
+    };
+
     return (
         <>
             <div className="section mt-3 text-center">
@@ -29,6 +51,10 @@ const Main = () => {
                                     className="form-check-input dark-mode-switch"
                                     type="checkbox"
                                     id="darkmodeSwitch"
+                                    onChange={(e) => {
+                                        changeTheme(e.target.checked);
+                                    }}
+                                    defaultChecked={isdarkMode}
                                 />
                                 <label
                                     className="form-check-label"
@@ -40,7 +66,7 @@ const Main = () => {
                 </li>
             </ul>
 
-            <div className="listview-title mt-1">Notifications</div>
+            {/* <div className="listview-title mt-1">Notifications</div>
             <ul className="listview image-listview text inset">
                 <li>
                     <div className="item">
@@ -73,33 +99,44 @@ const Main = () => {
                         </div>
                     </a>
                 </li>
-            </ul>
+            </ul> */}
 
-            <div className="listview-title mt-1">Profile Settings</div>
+            <div className="listview-title mt-1">Your details</div>
             <ul className="listview image-listview text inset">
                 <li>
                     <a href="#" className="item">
                         <div className="in">
-                            <div>Change Username</div>
+                            <div>Name</div>
+                            <div className="text-muted">Hello</div>
                         </div>
                     </a>
                 </li>
                 <li>
                     <a href="#" className="item">
                         <div className="in">
-                            <div>Update E-mail</div>
+                            <div>E-mail</div>
+                            <div className="text-muted">Hello</div>
                         </div>
                     </a>
                 </li>
                 <li>
                     <a href="#" className="item">
                         <div className="in">
-                            <div>Address</div>
-                            <span className="text-primary">Edit</span>
+                            <div>Currency</div>
+                            <div className="text-muted">GBP</div>
                         </div>
                     </a>
                 </li>
                 <li>
+                    <a href="#" className="item">
+                        <div className="in">
+                            <div>Country</div>
+                            <div className="text-muted">UK</div>
+                            {/* <span className="text-primary">Edit</span> */}
+                        </div>
+                    </a>
+                </li>
+                {/* <li>
                     <div className="item">
                         <div className="in">
                             <div>Private Profile</div>
@@ -116,12 +153,12 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> */}
             </ul>
 
             <div className="listview-title mt-1">Security</div>
             <ul className="listview image-listview text mb-2 inset">
-                <li>
+                {/* <li>
                     <a href="#" className="item">
                         <div className="in">
                             <div>Update Password</div>
@@ -146,11 +183,15 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> */}
                 <li>
-                    <a href="#" className="item">
+                    <a
+                        style={{ cursor: "pointer" }}
+                        className="item"
+                        onClick={() => signOut()}
+                    >
                         <div className="in">
-                            <div>Log out all devices</div>
+                            <div>Log out</div>
                         </div>
                     </a>
                 </li>
