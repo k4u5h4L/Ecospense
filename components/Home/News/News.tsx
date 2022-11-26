@@ -32,7 +32,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/1.jpg"
+                                        src="/assets/img/sample/photo/1.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -50,7 +50,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/2.jpg"
+                                        src="/assets/img/sample/photo/2.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -67,7 +67,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/3.jpg"
+                                        src="/assets/img/sample/photo/3.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -84,7 +84,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/4.jpg"
+                                        src="/assets/img/sample/photo/4.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
