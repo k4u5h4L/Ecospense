@@ -3,9 +3,20 @@ import { CloseCircle } from "react-ionicons";
 type PropType = {
     showNotif: boolean;
     showHeader: boolean;
+    headerTitle?: string;
+    headerText?: string;
+    title: string;
+    text: string;
 };
 
-const PrimaryNotification = ({ showNotif, showHeader }: PropType) => {
+const PrimaryNotification = ({
+    showNotif,
+    showHeader,
+    headerTitle,
+    headerText,
+    title,
+    text,
+}: PropType) => {
     return (
         <>
             <div
@@ -21,11 +32,14 @@ const PrimaryNotification = ({ showNotif, showHeader }: PropType) => {
                                     alt="image"
                                     className="imaged w24 rounded"
                                 />
-                                <strong>John Pacheco</strong>
+                                <strong>{headerTitle}</strong>
                             </div>
                             <div className="right">
-                                <span>5 mins ago</span>
-                                <a href="#" className="close-button">
+                                <span>{headerText}</span>
+                                <a
+                                    style={{ cursor: "pointer" }}
+                                    className="close-button"
+                                >
                                     <CloseCircle />
                                 </a>
                             </div>
@@ -33,8 +47,8 @@ const PrimaryNotification = ({ showNotif, showHeader }: PropType) => {
                     ) : null}
                     <div className="notification-content">
                         <div className="in">
-                            <h3 className="subtitle">Loading...</h3>
-                            <div className="text">Please wait</div>
+                            <h3 className="subtitle">{title}</h3>
+                            <div className="text">{text}</div>
                         </div>
                     </div>
                 </div>

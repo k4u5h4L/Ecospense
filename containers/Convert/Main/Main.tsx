@@ -1,4 +1,4 @@
-import PrimaryNotification from "@/components/PrimaryNotification/PrimaryNotification";
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
 import { Currency } from "@/constants/currencyEnum";
 import { ConvertApiResponse } from "@/types/ConvertApi";
 import { useEffect, useState } from "react";
@@ -256,7 +256,12 @@ const Main = () => {
                 </form>
             </div>
 
-            <PrimaryNotification showNotif={loading} showHeader={false} />
+            <PrimaryNotification
+                title="Loading..."
+                text="Please wait"
+                showNotif={loading}
+                showHeader={false}
+            />
         </>
     );
 };
