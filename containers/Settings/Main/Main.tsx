@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { CameraOutline } from "react-ionicons";
 
 const Main = () => {
     const [isdarkMode, setIsDarkMode] = useState<boolean>();
@@ -25,18 +26,20 @@ const Main = () => {
 
     return (
         <>
+            <br />
+            <br />
             <div className="section mt-3 text-center">
                 <div className="avatar-section">
-                    {/* <a href="#">
+                    <a href="#">
                         <img
-                            src="assets/img/sample/avatar/avatar1.jpg"
+                            src="/assets/img/icon/settings.svg"
                             alt="avatar"
                             className="imaged w100 rounded"
                         />
                         <span className="button">
-                            <CameraOutline />
+                            <CameraOutline color={"white"} />
                         </span>
-                    </a> */}
+                    </a>
                 </div>
             </div>
 

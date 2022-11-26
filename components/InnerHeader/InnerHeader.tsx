@@ -14,7 +14,7 @@ const InnerHeader = ({ title, cta, bg }: PropTypes) => {
 
     return (
         <>
-            <div className={`appHeader ${bg}`}>
+            <div className={`appHeader ${bg ? bg : ""}`}>
                 <div className="left">
                     <a
                         style={{ cursor: "pointer" }}
