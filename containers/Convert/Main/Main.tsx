@@ -1,7 +1,8 @@
+import PrimaryNotification from "@/components/PrimaryNotification/PrimaryNotification";
 import { Currency } from "@/constants/currencyEnum";
 import { ConvertApiResponse } from "@/types/ConvertApi";
 import { useEffect, useState } from "react";
-import { SwapVerticalOutline } from "react-ionicons";
+import { CloseCircle, SwapVerticalOutline } from "react-ionicons";
 
 type CurrencyConvertType = {
     value: number;
@@ -21,6 +22,8 @@ const Main = () => {
     });
 
     const [convRate, setConvRate] = useState<number>(0);
+    const [result, setResult] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchConvRate = async (from: string, to: string, value: number) => {
         const res = await fetch(`/api/convert`, {
@@ -74,6 +77,8 @@ const Main = () => {
     const handleSubmit = async (e: any): Promise<void> => {
         e.preventDefault();
 
+        setLoading(true);
+
         const response: ConvertApiResponse = await fetchConvRate(
             fromCur.type,
             toCur.type,
@@ -85,7 +90,11 @@ const Main = () => {
             return prev;
         });
 
+        setResult(response.rate);
+
         console.log(toCur);
+
+        setLoading(false);
     };
 
     return (
@@ -188,7 +197,7 @@ const Main = () => {
                                                 type="text"
                                                 className="form-control form-control-lg pe-0 border-0"
                                                 id="toAmount"
-                                                value={toCur.value}
+                                                value={result}
                                                 readOnly={true}
                                                 maxLength={10}
                                             />
@@ -246,6 +255,8 @@ const Main = () => {
                     </div>
                 </form>
             </div>
+
+            <PrimaryNotification showNotif={loading} showHeader={false} />
         </>
     );
 };
