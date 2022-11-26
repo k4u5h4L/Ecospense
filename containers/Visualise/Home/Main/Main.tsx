@@ -22,18 +22,12 @@ import {
 import News from "@/components/Home/News/News";
 import Copyrights from "@/components/Home/Copyrights/Copyrights";
 import Banner from "@/components/Visualise/Home/Banner/Banner";
-import DepositModal from "@/components/Visualise/Home/DepositModal";
-import WithdrawModal from "@/components/Visualise/Home/WithdrawModal";
-import SendModal from "@/components/Visualise/Home/SendModal";
 
 const Main = () => {
     return (
         <>
             <div id="appCapsule">
                 <Banner />
-                <DepositModal />
-                <WithdrawModal />
-                <SendModal />
 
                 <div className="section mt-4">
                     <div className="section-heading">

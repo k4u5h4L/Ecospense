@@ -1,3 +1,4 @@
+import { PRIMARY_COLOUR } from "@/constants/commonConstants";
 import Link from "@/helpers/wrappers/Link/Link";
 import { useRouter } from "next/router";
 import {
@@ -14,8 +15,16 @@ type Route = {
     link: string;
 };
 
-const Navbar = () => {
+type PropType = {
+    curRoute?: string;
+};
+
+const Navbar = ({ curRoute }: PropType) => {
     const router = useRouter();
+
+    if (!curRoute) {
+        curRoute = router.pathname;
+    }
 
     const routes: Route[] = [
         {
@@ -58,12 +67,22 @@ const Navbar = () => {
                         href={route.link}
                         key={index}
                         className={`item ${
-                            router.pathname == route.link ? "active" : ""
+                            // router.pathname == route.link ? "active" : ""
+                            curRoute == route.link ? "active" : ""
                         }`}
                     >
                         <div className="col">
-                            <route.icon />
+                            <route.icon
+                                width="24px"
+                                height="24px"
+                                color={
+                                    curRoute == route.link
+                                        ? PRIMARY_COLOUR
+                                        : "black"
+                                }
+                            />
                             <strong>{route.name}</strong>
+                            {/* <HomeOutline /> */}
                         </div>
                     </Link>
                 ))}
