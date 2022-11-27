@@ -1,3 +1,5 @@
+import Link from "@/helpers/wrappers/Link/Link";
+import { signOut } from "next-auth/react";
 import {
     CloseOutline,
     AddOutline,
@@ -34,7 +36,9 @@ const Sidebar = () => {
                                 </div>
                                 <div className="in">
                                     <strong>Sebastian Doe</strong>
-                                    <div className="text-muted">4029209</div>
+                                    <div className="text-muted">
+                                        user@mail.com
+                                    </div>
                                 </div>
                                 <a
                                     href="#"
@@ -51,24 +55,24 @@ const Sidebar = () => {
                                 </div>
                             </div>
 
-                            <div className="action-group">
-                                <a href="index.html" className="action-button">
+                            {/* <div className="action-group">
+                                <Link href="/" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
                                             <AddOutline color={"white"} />
                                         </div>
                                         Deposit
                                     </div>
-                                </a>
-                                <a href="index.html" className="action-button">
+                                </Link>
+                                <Link href="/" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
                                             <ArrowDownOutline color={"white"} />
                                         </div>
                                         Withdraw
                                     </div>
-                                </a>
-                                <a href="index.html" className="action-button">
+                                </Link>
+                                <Link href="/" className="action-button">
                                     <div className="in">
                                         <div className="iconbox">
                                             <ArrowForwardOutline
@@ -77,34 +81,34 @@ const Sidebar = () => {
                                         </div>
                                         Send
                                     </div>
-                                </a>
-                                <a
-                                    href="app-cards.html"
+                                </Link>
+                                <Link
+                                    href="/accounts"
                                     className="action-button"
                                 >
                                     <div className="in">
                                         <div className="iconbox">
                                             <CardOutline color={"white"} />
                                         </div>
-                                        My Cards
+                                        My Accounts
                                     </div>
-                                </a>
-                            </div>
+                                </Link>
+                            </div> */}
 
                             <div className="listview-title mt-1">Menu</div>
                             <ul className="listview flush transparent no-line image-listview">
                                 <li>
-                                    <a href="index.html" className="item">
+                                    <Link href="/visualise" className="item">
                                         <div className="icon-box bg-primary">
                                             <PieChartOutline color={"white"} />
                                         </div>
                                         <div className="in">
-                                            Overview
-                                            <span className="badge badge-primary">
+                                            Stats
+                                            {/* <span className="badge badge-primary">
                                                 10
-                                            </span>
+                                            </span> */}
                                         </div>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a href="app-pages.html" className="item">
@@ -164,7 +168,10 @@ const Sidebar = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="app-login.html" className="item">
+                                    <a
+                                        onClick={() => signOut()}
+                                        className="item"
+                                    >
                                         <div className="icon-box bg-primary">
                                             <LogOutOutline color={"white"} />
                                         </div>
@@ -173,7 +180,7 @@ const Sidebar = () => {
                                 </li>
                             </ul>
 
-                            <div className="listview-title mt-1">
+                            {/* <div className="listview-title mt-1">
                                 Send Money
                             </div>
                             <ul className="listview image-listview flush transparent no-line">
@@ -213,7 +220,7 @@ const Sidebar = () => {
                                         </div>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>
