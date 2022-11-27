@@ -1,50 +1,23 @@
-import { ApolloServer, AuthenticationError } from "apollo-server-micro";
-import { getSession } from "next-auth/react";
+import { ApolloServer } from "@apollo/server";
 import { schema } from "@/graphql/schema";
+import { startServerAndCreateNextHandler } from "@as-integrations/next";
+import { getSession } from "next-auth/react";
 import prisma from "@/prisma/client";
-import Cors from "micro-cors";
-
-const cors = Cors();
+import { AuthenticationError } from "@/graphql/Errors/AuthError";
 
 const server = new ApolloServer({
     schema,
-    context: async ({ req }) => {
+});
+
+export default startServerAndCreateNextHandler(server, {
+    context: async (req, res) => {
         // get user's session
-        // const session = await getSession({ req });
+        const session = await getSession({ req });
 
-        // if (!session) {
-        //     throw new AuthenticationError("User is not logged in.");
-        // }
+        if (!session) {
+            throw AuthenticationError;
+        }
 
-        // return { session, prisma };
-        return { prisma };
-    },
-    // @ts-ignore
-    playground: {
-        settings: {
-            //   "editor.theme": "light",
-            "request.credentials": "same-origin",
-        },
+        return { session, prisma };
     },
 });
-
-const startServer = server.start();
-
-export default cors(async (req, res) => {
-    if (req.method === "OPTIONS") {
-        res.end();
-        return false;
-    }
-
-    await startServer;
-    await server.createHandler({ path: "/api/graphql" })(req, res);
-});
-
-// const handler = server.createHandler({ path: "/api/graphql" });
-// export default handler;
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
