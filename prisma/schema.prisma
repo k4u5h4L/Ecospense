@@ -25,6 +25,9 @@ model Account {
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([provider, providerAccountId])
 }
 
@@ -34,6 +37,9 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
@@ -43,8 +49,12 @@ model User {
   emailVerified DateTime?
   image         String?
   phone         String?
-  Account       Account[]
-  Session       Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Account Account[]
+  Session Session[]
 }
 
 model VerificationToken {
@@ -53,5 +63,61 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([identifier, token])
+}
+
+model BankAccount {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Logs {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Keys {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model News {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  sourceId    String?   @default("NA")
+  sourceName  String?   @default("Unknown")
+  author      String?   @default("Unknown")
+  title       String?   @default("NA")
+  description String?   @default("Unknown")
+  url         String?   @default("NA")
+  imageUrl    String?   @default("NA")
+  publishedAt DateTime?
+  content     String?   @default("NA")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

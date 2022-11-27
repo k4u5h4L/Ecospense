@@ -9,3 +9,5 @@ export const ELLIPSIS_GREY_COLOUR = "#A9ABAD";
 export const TWO_MINS_IN_S = 2 * 60;
 
 export const TWO_MINS_IN_MS = 2 * 60 * 1000;
+
+export const TWELVE_HOURS_IN_S = 12 * 60 * 60;
