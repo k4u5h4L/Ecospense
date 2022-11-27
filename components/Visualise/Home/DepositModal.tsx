@@ -55,7 +55,6 @@ const DepositModal = () => {
                                                         className="form-control form-control-lg pe-0"
                                                         id="depositAmount"
                                                         placeholder="0"
-                                                        value="380"
                                                         maxLength={14}
                                                     />
                                                 </div>

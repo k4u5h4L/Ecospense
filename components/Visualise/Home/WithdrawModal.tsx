@@ -77,7 +77,6 @@ const WithdrawModal = () => {
                                                         className="form-control form-control-lg pe-0"
                                                         id="withdrawAmount"
                                                         placeholder="0"
-                                                        value="380"
                                                         maxLength={14}
                                                     />
                                                 </div>

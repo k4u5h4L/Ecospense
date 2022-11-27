@@ -1,14 +1,14 @@
 import { queryType } from "nexus";
-import { Test } from "./Test";
+import { Test } from "./Objects/Test";
 
 export const Query = queryType({
     definition(t) {
         t.field("Testing", {
             type: Test,
-            description: "Test GraphQL resolver",
+            description: "Health Check GraphQL resolver",
             args: null,
             resolve: async (_root, _args, ctx) => {
-                return { message: "graphql test" };
+                return { message: "Health check passed!" };
             },
         });
     },

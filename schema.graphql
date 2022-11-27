@@ -3,7 +3,7 @@
 
 
 type Query {
-  """Test GraphQL resolver"""
+  """Health Check GraphQL resolver"""
   Testing: Test
 }
 

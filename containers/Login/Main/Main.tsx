@@ -31,7 +31,13 @@ const Main = () => {
         );
     } else {
         return (
-            <VerifyMain otp={otp} setOtp={setOtp} handleSubmit={handleSubmit} />
+            <>
+                <VerifyMain
+                    otp={otp}
+                    setOtp={setOtp}
+                    handleSubmit={handleSubmit}
+                />
+            </>
         );
     }
 };

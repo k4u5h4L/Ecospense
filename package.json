@@ -2,7 +2,7 @@
     "name": "ecospense",
     "version": "0.1.0",
     "private": true,
-    "description": "A JAM stack PWA, expense tracker web app built with React, TypeScript, Next.js, Prisma and MongoDB.",
+    "description": "A JAM stack PWA, expense tracker web app built with React, TypeScript, Next.js, Prisma, Apollo GraphQL, Nexus Schema and MongoDB.",
     "keywords": [
         "finance",
         "expense",

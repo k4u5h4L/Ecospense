@@ -1,2 +1,2 @@
 export * from "./Query";
-export * from "./Test";
+export * from "./Objects/Test";

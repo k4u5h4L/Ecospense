@@ -14,7 +14,7 @@ export default startServerAndCreateNextHandler(server, {
         // get user's session
         const session = await getSession({ req });
 
-        if (!session) {
+        if (!session && process.env.NODE_ENV != "development") {
             throw AuthenticationError;
         }
 
