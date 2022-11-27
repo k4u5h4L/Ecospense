@@ -59,7 +59,7 @@ const SendModal = () => {
                                                     <select className="form-select form-select-lg currency">
                                                         <option
                                                             value="BTC"
-                                                            selected
+                                                            defaultChecked
                                                         >
                                                             BTC
                                                         </option>

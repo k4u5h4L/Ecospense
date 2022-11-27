@@ -11,6 +11,10 @@ export const getAllNewsResolver: FieldResolver<"Query", "News"> = async (
     args: ArgType,
     ctx: GraphQlContextType
 ) => {
+    console.log(
+        `Resolving all news articles, page: ${args.page}, perPage: ${args.itemsPerPage}`
+    );
+
     const skip = args.page * args.itemsPerPage ?? 0;
     const take = args.itemsPerPage ?? 10;
 

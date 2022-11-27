@@ -1,4 +1,5 @@
 import { ApolloServer } from "@apollo/server";
+import { ApolloServerPluginCacheControl } from "@apollo/server/plugin/cacheControl";
 import { schema } from "@/graphql/schema";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { getSession } from "next-auth/react";
@@ -9,6 +10,14 @@ import { GraphQlContextType } from "@/types/GraphQL";
 
 const server = new ApolloServer({
     schema,
+    plugins: [
+        ApolloServerPluginCacheControl({
+            // Cache everything for below seconds by default.
+            defaultMaxAge: 10,
+
+            calculateHttpHeaders: true,
+        }),
+    ],
 });
 
 export default startServerAndCreateNextHandler(server, {

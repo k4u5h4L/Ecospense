@@ -69,6 +69,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
+    getNewsById: NexusGenRootTypes['News'] | null; // News
     testing: NexusGenRootTypes['Test'] | null; // Test
   }
   Test: { // field return type
@@ -90,6 +91,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAllNews: 'News'
+    getNewsById: 'News'
     testing: 'Test'
   }
   Test: { // field return type name
@@ -102,6 +104,9 @@ export interface NexusGenArgTypes {
     getAllNews: { // args
       itemsPerPage?: number | null; // Int
       page?: number | null; // Int
+    }
+    getNewsById: { // args
+      id: string; // ID!
     }
   }
 }

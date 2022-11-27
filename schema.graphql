@@ -18,6 +18,9 @@ type Query {
   """Gets all the news articles."""
   getAllNews(itemsPerPage: Int, page: Int): [News]
 
+  """Get the news by ID"""
+  getNewsById(id: ID!): News
+
   """Health Check GraphQL resolver."""
   testing: Test
 }

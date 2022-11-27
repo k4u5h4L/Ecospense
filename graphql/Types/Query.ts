@@ -1,6 +1,7 @@
-import { intArg, queryType } from "nexus";
+import { idArg, intArg, nonNull, queryType } from "nexus";
 import { healthCheckResolver } from "../resolvers/HealthCheckResolver";
 import { getAllNewsResolver } from "../resolvers/News/getAllNewsResolver";
+import { getNewsByIdResolver } from "../resolvers/News/getNewsByIdResolver";
 import { News } from "./TypeDefs/News";
 import { Test } from "./TypeDefs/Test";
 
@@ -21,6 +22,15 @@ export const Query = queryType({
                 itemsPerPage: intArg(),
             },
             resolve: getAllNewsResolver,
+        });
+
+        t.field("getNewsById", {
+            type: News,
+            description: "Get the news by ID",
+            args: {
+                id: nonNull(idArg()),
+            },
+            resolve: getNewsByIdResolver,
         });
     },
 });
