@@ -27,7 +27,7 @@
             "@/middlewares/*": ["middlewares/*"],
             "@/services/*": ["services/*"],
             "@/styles/*": ["styles/*"],
-            "@/node_modules/*": ["node_modules/*"]
+            "@/graphql/*": ["graphql/*"]
         },
         "incremental": true
     },
