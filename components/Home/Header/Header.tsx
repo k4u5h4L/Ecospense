@@ -16,9 +16,10 @@ const Header = () => {
                 </div>
                 <div className="pageTitle">
                     <img
-                        src="assets/img/logo.png"
+                        src="/assets/img/logo.png"
                         alt="logo"
                         className="logo"
+                        height={42}
                     />
                 </div>
                 <div className="right">

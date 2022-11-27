@@ -1,45 +1,91 @@
+import { PRIMARY_COLOUR } from "@/constants/commonConstants";
+import Link from "@/helpers/wrappers/Link/Link";
+import { useRouter } from "next/router";
 import {
     PieChartOutline,
-    DocumentTextOutline,
-    AppsOutline,
     CardOutline,
     SettingsOutline,
+    HomeOutline,
+    SwapHorizontalOutline,
 } from "react-ionicons";
 
-const Navbar = () => {
+type Route = {
+    icon: Function;
+    name: string;
+    link: string;
+};
+
+type PropType = {
+    curRoute?: string;
+};
+
+const Navbar = ({ curRoute }: PropType) => {
+    const router = useRouter();
+
+    if (!curRoute) {
+        curRoute = router.pathname;
+    }
+
+    const routes: Route[] = [
+        {
+            icon: SwapHorizontalOutline,
+            name: "Convert Currency",
+            link: "/convert",
+        },
+        {
+            icon: PieChartOutline,
+            name: "Stats",
+            link: "/visualise",
+        },
+        {
+            icon: HomeOutline,
+            name: "Home",
+            link: "/",
+        },
+        {
+            icon: CardOutline,
+            name: "My Accounts",
+            link: "/accounts",
+        },
+        {
+            icon: SettingsOutline,
+            name: "Settings",
+            link: "/settings",
+        },
+    ];
+
     return (
         <>
-            <div className="appBottomMenu">
-                <a href="index.html" className="item active">
-                    <div className="col">
-                        <PieChartOutline />
-                        <strong>Overview</strong>
-                    </div>
-                </a>
-                <a href="app-pages.html" className="item">
-                    <div className="col">
-                        <DocumentTextOutline />
-                        <strong>Pages</strong>
-                    </div>
-                </a>
-                <a href="app-components.html" className="item">
-                    <div className="col">
-                        <AppsOutline />
-                        <strong>Components</strong>
-                    </div>
-                </a>
-                <a href="app-cards.html" className="item">
-                    <div className="col">
-                        <CardOutline />
-                        <strong>My Cards</strong>
-                    </div>
-                </a>
-                <a href="app-settings.html" className="item">
-                    <div className="col">
-                        <SettingsOutline />
-                        <strong>Settings</strong>
-                    </div>
-                </a>
+            <div
+                className="appBottomMenu"
+                style={{
+                    position: "sticky",
+                }}
+            >
+                {routes.map((route, index) => (
+                    <Link
+                        href={route.link}
+                        key={index}
+                        className={`item ${
+                            // router.pathname == route.link ? "active" : ""
+                            curRoute == route.link ? "active" : ""
+                        }`}
+                    >
+                        <div className="col">
+                            <route.icon
+                                width="24px"
+                                height="24px"
+                                color={
+                                    curRoute == route.link
+                                        ? PRIMARY_COLOUR
+                                        : "black"
+                                }
+                            />
+                            <strong>{route.name}</strong>
+                            {/* <HomeOutline /> */}
+                        </div>
+                    </Link>
+                ))}
             </div>
         </>
     );

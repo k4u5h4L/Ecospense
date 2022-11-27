@@ -1,3 +1,4 @@
+import Link from "@/helpers/wrappers/Link/Link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 
 const News = () => {
@@ -6,9 +7,9 @@ const News = () => {
             <div className="section full mt-4 mb-3">
                 <div className="section-heading padding">
                     <h2 className="title">Lastest News</h2>
-                    <a href="app-blog.html" className="link">
+                    <Link href="/blogs" className="link">
                         View All
-                    </a>
+                    </Link>
                 </div>
 
                 <Splide
@@ -31,7 +32,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/1.jpg"
+                                        src="/assets/img/sample/photo/1.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -49,7 +50,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/2.jpg"
+                                        src="/assets/img/sample/photo/2.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -66,7 +67,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/3.jpg"
+                                        src="/assets/img/sample/photo/3.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />
@@ -83,7 +84,7 @@ const News = () => {
                             <a href="app-blog-post.html">
                                 <div className="blog-card">
                                     <img
-                                        src="assets/img/sample/photo/4.jpg"
+                                        src="/assets/img/sample/photo/4.jpg"
                                         alt="image"
                                         className="imaged w-100"
                                     />

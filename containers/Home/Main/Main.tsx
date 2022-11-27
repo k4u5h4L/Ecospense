@@ -18,9 +18,6 @@ const Main = () => {
             <div id="appCapsule">
                 <Banner />
                 <AddBalanceModal />
-                <WithdrawModal />
-                <SendMoneyModal />
-                <ExchangeModal />
                 <Metadata />
                 <Transactions />
                 <MyAccounts />
