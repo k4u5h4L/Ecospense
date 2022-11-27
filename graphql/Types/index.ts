@@ -1,2 +1,2 @@
 export * from "./Query";
-export * from "./Objects/Test";
+export * from "./TypeDefs/Test";

@@ -28,6 +28,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  News: { // root type
+    author?: string | null; // String
+    content?: string | null; // String
+    description?: string | null; // String
+    id?: string | null; // String
+    imageUrl?: string | null; // String
+    publishedAt?: string | null; // String
+    sourceName?: string | null; // String
+    title?: string | null; // String
+    url?: string | null; // String
+  }
   Query: {};
   Test: { // root type
     message?: string | null; // String
@@ -45,8 +56,20 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  News: { // field return type
+    author: string | null; // String
+    content: string | null; // String
+    description: string | null; // String
+    id: string | null; // String
+    imageUrl: string | null; // String
+    publishedAt: string | null; // String
+    sourceName: string | null; // String
+    title: string | null; // String
+    url: string | null; // String
+  }
   Query: { // field return type
-    Testing: NexusGenRootTypes['Test'] | null; // Test
+    getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
+    testing: NexusGenRootTypes['Test'] | null; // Test
   }
   Test: { // field return type
     message: string | null; // String
@@ -54,8 +77,20 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  News: { // field return type name
+    author: 'String'
+    content: 'String'
+    description: 'String'
+    id: 'String'
+    imageUrl: 'String'
+    publishedAt: 'String'
+    sourceName: 'String'
+    title: 'String'
+    url: 'String'
+  }
   Query: { // field return type name
-    Testing: 'Test'
+    getAllNews: 'News'
+    testing: 'Test'
   }
   Test: { // field return type name
     message: 'String'
@@ -63,6 +98,12 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    getAllNews: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

@@ -84,7 +84,7 @@ const WithdrawModal = () => {
                                                     <select className="form-select form-select-lg currency">
                                                         <option
                                                             value="USD"
-                                                            selected
+                                                            defaultChecked
                                                         >
                                                             USD
                                                         </option>

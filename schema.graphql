@@ -2,9 +2,24 @@
 ### Do not make changes to this file directly
 
 
+type News {
+  author: String
+  content: String
+  description: String
+  id: String
+  imageUrl: String
+  publishedAt: String
+  sourceName: String
+  title: String
+  url: String
+}
+
 type Query {
-  """Health Check GraphQL resolver"""
-  Testing: Test
+  """Gets all the news articles."""
+  getAllNews(itemsPerPage: Int, page: Int): [News]
+
+  """Health Check GraphQL resolver."""
+  testing: Test
 }
 
 type Test {
