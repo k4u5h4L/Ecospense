@@ -15,8 +15,16 @@ export const getAllNewsResolver: FieldResolver<"Query", "News"> = async (
         `Resolving all news articles, page: ${args.page}, perPage: ${args.itemsPerPage}`
     );
 
-    const skip = args.page * args.itemsPerPage ?? 0;
-    const take = args.itemsPerPage ?? 10;
+    let skip: number;
+    let take: number;
+
+    if (!args.page || !args.itemsPerPage) {
+        skip = 0;
+        take = 10;
+    } else {
+        skip = args.page * args.itemsPerPage;
+        take = args.itemsPerPage;
+    }
 
     return await ctx.prisma.news.findMany({
         skip: skip,
