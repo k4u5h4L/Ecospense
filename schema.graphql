@@ -2,6 +2,13 @@
 ### Do not make changes to this file directly
 
 
+type Chat {
+  message: String
+  sender: String
+  timestamp: String
+  user: String
+}
+
 type News {
   author: String
   content: String
@@ -17,6 +24,9 @@ type News {
 type Query {
   """Gets all the news articles."""
   getAllNews(itemsPerPage: Int, page: Int): [News]
+
+  """Chat with an AI!"""
+  getChatResponse(message: String!, sender: String!): Chat
 
   """Get the news by ID"""
   getNewsById(id: ID!): News

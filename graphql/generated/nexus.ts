@@ -28,6 +28,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Chat: { // root type
+    message?: string | null; // String
+    sender?: string | null; // String
+    timestamp?: string | null; // String
+    user?: string | null; // String
+  }
   News: { // root type
     author?: string | null; // String
     content?: string | null; // String
@@ -56,6 +62,12 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Chat: { // field return type
+    message: string | null; // String
+    sender: string | null; // String
+    timestamp: string | null; // String
+    user: string | null; // String
+  }
   News: { // field return type
     author: string | null; // String
     content: string | null; // String
@@ -69,6 +81,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
+    getChatResponse: NexusGenRootTypes['Chat'] | null; // Chat
     getNewsById: NexusGenRootTypes['News'] | null; // News
     testing: NexusGenRootTypes['Test'] | null; // Test
   }
@@ -78,6 +91,12 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Chat: { // field return type name
+    message: 'String'
+    sender: 'String'
+    timestamp: 'String'
+    user: 'String'
+  }
   News: { // field return type name
     author: 'String'
     content: 'String'
@@ -91,6 +110,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAllNews: 'News'
+    getChatResponse: 'Chat'
     getNewsById: 'News'
     testing: 'Test'
   }
@@ -104,6 +124,10 @@ export interface NexusGenArgTypes {
     getAllNews: { // args
       itemsPerPage?: number | null; // Int
       page?: number | null; // Int
+    }
+    getChatResponse: { // args
+      message: string; // String!
+      sender: string; // String!
     }
     getNewsById: { // args
       id: string; // ID!

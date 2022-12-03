@@ -1,5 +1,6 @@
+import { getPagination } from "@/graphql/utils/getPagination";
 import { GraphQlContextType } from "@/types/GraphQL";
-import { FieldResolver } from "nexus";
+import { arg, FieldResolver } from "nexus";
 
 type ArgType = {
     page: number;
@@ -15,16 +16,7 @@ export const getAllNewsResolver: FieldResolver<"Query", "News"> = async (
         `Resolving all news articles, page: ${args.page}, perPage: ${args.itemsPerPage}`
     );
 
-    let skip: number;
-    let take: number;
-
-    if (!args.page || !args.itemsPerPage) {
-        skip = 0;
-        take = 10;
-    } else {
-        skip = args.page * args.itemsPerPage;
-        take = args.itemsPerPage;
-    }
+    const { skip, take } = getPagination(args.page, args.itemsPerPage);
 
     return await ctx.prisma.news.findMany({
         skip: skip,

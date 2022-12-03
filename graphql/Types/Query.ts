@@ -1,9 +1,9 @@
-import { idArg, intArg, nonNull, queryType } from "nexus";
+import { idArg, intArg, nonNull, queryType, stringArg } from "nexus";
+import { getChatResponseResolver } from "../resolvers/Chat/getChatResponseResolver";
 import { healthCheckResolver } from "../resolvers/HealthCheckResolver";
 import { getAllNewsResolver } from "../resolvers/News/getAllNewsResolver";
 import { getNewsByIdResolver } from "../resolvers/News/getNewsByIdResolver";
-import { News } from "./TypeDefs/News";
-import { Test } from "./TypeDefs/Test";
+import { News, Test, Chat } from "./TypeDefs/index";
 
 export const Query = queryType({
     definition(t) {
@@ -31,6 +31,16 @@ export const Query = queryType({
                 id: nonNull(idArg()),
             },
             resolve: getNewsByIdResolver,
+        });
+
+        t.field("getChatResponse", {
+            type: Chat,
+            description: "Chat with an AI!",
+            args: {
+                message: nonNull(stringArg()),
+                sender: nonNull(stringArg()),
+            },
+            resolve: getChatResponseResolver,
         });
     },
 });
