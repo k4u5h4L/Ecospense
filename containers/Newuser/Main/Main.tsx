@@ -11,10 +11,10 @@ const UPDATE_USER = gql`
     mutation Mutation($name: String!, $currency: String!, $income: Int!) {
         updateUserProfile(name: $name, currency: $currency, income: $income) {
             email
-            username
-            profile {
+            name
+            Profile {
                 currency
-                name
+                id
                 income
             }
         }
@@ -83,7 +83,7 @@ const Main = () => {
             <div id="appCapsule">
                 <div className="section mt-2 text-center">
                     <h1>Let&apos;s get to know each other!</h1>
-                    <h4>Enter some basic of yours below</h4>
+                    <h4>Enter some of your basic details below</h4>
                 </div>
                 <div className="section mb-5 p-2">
                     <form onSubmit={handleSubmit}>

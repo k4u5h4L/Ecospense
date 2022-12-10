@@ -28,6 +28,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Account: { // root type
+    balance?: number | null; // Float
+    desc?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+  }
   Chat: { // root type
     message?: string | null; // String
     sender?: string | null; // String
@@ -48,8 +54,8 @@ export interface NexusGenObjects {
   }
   Profile: { // root type
     currency?: string | null; // String
-    income?: string | null; // String
-    name?: string | null; // String
+    id?: string | null; // String
+    income?: number | null; // Int
   }
   Query: {};
   Test: { // root type
@@ -57,8 +63,8 @@ export interface NexusGenObjects {
   }
   User: { // root type
     email?: string | null; // String
-    profile?: NexusGenRootTypes['Profile'] | null; // Profile
-    username?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
   }
 }
 
@@ -73,6 +79,13 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Account: { // field return type
+    balance: number | null; // Float
+    desc: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Chat: { // field return type
     message: string | null; // String
     sender: string | null; // String
@@ -94,11 +107,13 @@ export interface NexusGenFieldTypes {
     url: string | null; // String
   }
   Profile: { // field return type
+    User: NexusGenRootTypes['User'] | null; // User
     currency: string | null; // String
-    income: string | null; // String
-    name: string | null; // String
+    id: string | null; // String
+    income: number | null; // Int
   }
   Query: { // field return type
+    getAllAccounts: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
     getChatResponse: NexusGenRootTypes['Chat'] | null; // Chat
     getNewsById: NexusGenRootTypes['News'] | null; // News
@@ -108,13 +123,22 @@ export interface NexusGenFieldTypes {
     message: string | null; // String
   }
   User: { // field return type
+    Account: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    Profile: NexusGenRootTypes['Profile'] | null; // Profile
     email: string | null; // String
-    profile: NexusGenRootTypes['Profile'] | null; // Profile
-    username: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Account: { // field return type name
+    balance: 'Float'
+    desc: 'String'
+    id: 'String'
+    name: 'String'
+    user: 'User'
+  }
   Chat: { // field return type name
     message: 'String'
     sender: 'String'
@@ -136,11 +160,13 @@ export interface NexusGenFieldTypeNames {
     url: 'String'
   }
   Profile: { // field return type name
+    User: 'User'
     currency: 'String'
-    income: 'String'
-    name: 'String'
+    id: 'String'
+    income: 'Int'
   }
   Query: { // field return type name
+    getAllAccounts: 'Account'
     getAllNews: 'News'
     getChatResponse: 'Chat'
     getNewsById: 'News'
@@ -150,9 +176,11 @@ export interface NexusGenFieldTypeNames {
     message: 'String'
   }
   User: { // field return type name
+    Account: 'Account'
+    Profile: 'Profile'
     email: 'String'
-    profile: 'Profile'
-    username: 'String'
+    id: 'String'
+    name: 'String'
   }
 }
 
@@ -165,6 +193,10 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getAllAccounts: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
     getAllNews: { // args
       itemsPerPage?: number | null; // Int
       page?: number | null; // Int

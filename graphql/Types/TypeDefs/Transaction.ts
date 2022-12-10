@@ -2,19 +2,24 @@ import { GraphQlContextType } from "@/types/GraphQL";
 import { objectType } from "nexus";
 import { User } from "./User";
 
-export const Profile = objectType({
-    name: "Profile",
+export const Transaction = objectType({
+    name: "Transaction",
     definition(t) {
         t.string("id");
-        t.string("currency");
-        t.int("income");
-        t.field("User", {
+        t.string("icon");
+        t.string("name");
+        t.string("desc");
+        t.float("amount");
+        t.string("timestamp");
+        t.list.field("user", {
             type: User,
             resolve: async (parent, args, ctx: GraphQlContextType, info) => {
                 return await ctx.prisma.user.findFirst({
                     where: {
-                        Profile: {
-                            id: parent.id,
+                        Transaction: {
+                            every: {
+                                id: parent.id,
+                            },
                         },
                     },
                 });

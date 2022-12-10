@@ -14,6 +14,8 @@ async function sendVerificationRequest(params: SendVerificationRequestParams) {
         text: text({ url, host }),
         html: html({ url, host, theme }),
     });
+    console.log(`Sent verification email to: ${identifier}`);
+
     const failed = result.rejected.concat(result.pending).filter(Boolean);
     if (failed.length) {
         throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
@@ -32,6 +34,7 @@ function html(params: { url: string; host: string; theme: Theme }) {
     const { url, host, theme } = params;
 
     const otp = getOtp(url);
+    console.log(`OTP is: ${otp}`);
 
     const escapedHost = host.replace(/\./g, "&#8203;.");
 

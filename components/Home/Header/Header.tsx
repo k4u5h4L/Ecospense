@@ -1,4 +1,9 @@
-import { MenuOutline, NotificationsOutline } from "react-ionicons";
+import Link from "@/helpers/wrappers/Link/Link";
+import {
+    MenuOutline,
+    NotificationsOutline,
+    PersonCircleOutline,
+} from "react-ionicons";
 
 const Header = () => {
     return (
@@ -23,18 +28,19 @@ const Header = () => {
                     />
                 </div>
                 <div className="right">
-                    <a href="app-notifications.html" className="headerButton">
+                    {/* <a href="app-notifications.html" className="headerButton">
                         <NotificationsOutline color={"white"} />
                         <span className="badge badge-danger">4</span>
-                    </a>
-                    <a href="app-settings.html" className="headerButton">
-                        <img
+                    </a> */}
+                    <Link href="/settings" className="headerButton">
+                        {/* <img
                             src="assets/img/sample/avatar/avatar1.jpg"
                             alt="image"
                             className="imaged w32"
-                        />
-                        <span className="badge badge-danger">6</span>
-                    </a>
+                        /> */}
+                        <PersonCircleOutline color={"white"} />
+                        {/* <span className="badge badge-danger">6</span> */}
+                    </Link>
                 </div>
             </div>
         </>

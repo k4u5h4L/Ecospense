@@ -57,9 +57,9 @@ model User {
   Session     Session[]
   BankAccount BankAccount[]
   Transaction Transaction[]
-  Logs        Logs[]
-  Bills       Bills[]
-  Goals       Goals[]
+  Log         Log[]
+  Bill        Bill[]
+  Goal        Goal[]
   Profile     Profile?
 }
 
@@ -88,7 +88,7 @@ model BankAccount {
   userId    String   @db.ObjectId
 }
 
-model Bills {
+model Bill {
   id     String  @id @default(auto()) @map("_id") @db.ObjectId
   icon   String
   name   String
@@ -102,7 +102,7 @@ model Bills {
   userId    String   @db.ObjectId
 }
 
-model Goals {
+model Goal {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   desc            String?
@@ -143,7 +143,7 @@ model Profile {
   userId    String   @unique @db.ObjectId
 }
 
-model Logs {
+model Log {
   id     String  @id @default(auto()) @map("_id") @db.ObjectId
   name   String?
   action String?
@@ -155,7 +155,7 @@ model Logs {
   userId    String   @db.ObjectId
 }
 
-model Keys {
+model Key {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String @unique
   value String

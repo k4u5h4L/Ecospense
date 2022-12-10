@@ -7,6 +7,9 @@ export const getPagination = (
     if (!page || !itemsPerPage) {
         return { skip: 0, take: 10 };
     } else {
-        return { skip: page * itemsPerPage, take: itemsPerPage };
+        return {
+            skip: (page - 1) * itemsPerPage,
+            take: itemsPerPage,
+        };
     }
 };

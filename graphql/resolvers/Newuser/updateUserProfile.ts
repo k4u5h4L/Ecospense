@@ -3,7 +3,7 @@ import { GraphQlContextType } from "@/types/GraphQL";
 
 export const updateUserProfileResolver: FieldResolver<
     "Mutation",
-    "ChatResponse"
+    "User"
 > = async (
     _root,
     args: { name: string; currency: string; income: number },
@@ -31,22 +31,9 @@ export const updateUserProfileResolver: FieldResolver<
                 },
             },
         },
-        include: {
-            Profile: true,
-        },
     });
 
-    const res = {
-        username: user.name,
-        email: user.email,
-        profile: {
-            name: user.name,
-            currency: user.Profile.currency,
-            income: user.Profile.income,
-        },
-    };
+    console.log(`Successfully updated details of user: ${user.email}`);
 
-    console.log(`Successfully updated details of user: ${res.email}`);
-
-    return res;
+    return user;
 };

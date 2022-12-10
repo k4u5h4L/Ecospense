@@ -1,9 +1,10 @@
 import { idArg, intArg, nonNull, queryType, stringArg } from "nexus";
+import { getAllAccountsResolver } from "../resolvers/Account/getAllAccountsResolver";
 import { getChatResponseResolver } from "../resolvers/Chat/getChatResponseResolver";
 import { healthCheckResolver } from "../resolvers/HealthCheckResolver";
 import { getAllNewsResolver } from "../resolvers/News/getAllNewsResolver";
 import { getNewsByIdResolver } from "../resolvers/News/getNewsByIdResolver";
-import { News, Test, Chat } from "./TypeDefs/index";
+import { News, Test, Chat, Account } from "./TypeDefs/index";
 
 export const Query = queryType({
     definition(t) {
@@ -41,6 +42,16 @@ export const Query = queryType({
                 sender: nonNull(stringArg()),
             },
             resolve: getChatResponseResolver,
+        });
+
+        t.list.field("getAllAccounts", {
+            type: Account,
+            description: "Get all the accounts of a particular user",
+            args: {
+                page: intArg(),
+                itemsPerPage: intArg(),
+            },
+            resolve: getAllAccountsResolver,
         });
     },
 });
