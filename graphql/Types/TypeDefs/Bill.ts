@@ -16,7 +16,7 @@ export const Bill = objectType({
                 return await ctx.prisma.user.findFirst({
                     where: {
                         Bill: {
-                            every: {
+                            some: {
                                 id: parent.id,
                             },
                         },

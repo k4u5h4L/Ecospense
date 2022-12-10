@@ -16,7 +16,7 @@ export const Goal = objectType({
                 return await ctx.prisma.user.findFirst({
                     where: {
                         Goal: {
-                            every: {
+                            some: {
                                 id: parent.id,
                             },
                         },

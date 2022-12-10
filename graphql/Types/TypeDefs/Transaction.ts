@@ -17,7 +17,7 @@ export const Transaction = objectType({
                 return await ctx.prisma.user.findFirst({
                     where: {
                         Transaction: {
-                            every: {
+                            some: {
                                 id: parent.id,
                             },
                         },

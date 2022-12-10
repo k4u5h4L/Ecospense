@@ -10,11 +10,36 @@ type Account {
   user: User
 }
 
+type Bill {
+  amount: Float
+  desc: String
+  icon: String
+  id: String
+  name: String
+  user: User
+}
+
 type Chat {
   message: String
   sender: String
   timestamp: String
   user: String
+}
+
+type Goal {
+  collectedAmount: Float
+  desc: String
+  id: String
+  name: String
+  totalAmount: Float
+  user: User
+}
+
+type Log {
+  action: String
+  id: String
+  name: String
+  user: User
 }
 
 type Mutation {
@@ -45,8 +70,20 @@ type Query {
   """Get all the accounts of a particular user"""
   getAllAccounts(itemsPerPage: Int, page: Int): [Account]
 
+  """Get all the bills of a particular user"""
+  getAllBills(itemsPerPage: Int, page: Int): [Bill]
+
+  """Get all the goals of a particular user"""
+  getAllGoals(itemsPerPage: Int, page: Int): [Goal]
+
+  """Get all the logs of a particular user"""
+  getAllLogs(itemsPerPage: Int, page: Int): [Log]
+
   """Gets all the news articles."""
   getAllNews(itemsPerPage: Int, page: Int): [News]
+
+  """Get all the transactions of a particular user"""
+  getAllTxns(itemsPerPage: Int, page: Int): [Transaction]
 
   """Chat with an AI!"""
   getChatResponse(message: String!, sender: String!): Chat
@@ -62,9 +99,23 @@ type Test {
   message: String
 }
 
+type Transaction {
+  amount: Float
+  desc: String
+  icon: String
+  id: String
+  name: String
+  timestamp: String
+  user: [User]
+}
+
 type User {
   Account: [Account]
+  Bill: [Bill]
+  Goal: [Goal]
+  Log: [Log]
   Profile: Profile
+  Transaction: [Transaction]
   email: String
   id: String
   name: String

@@ -34,11 +34,30 @@ export interface NexusGenObjects {
     id?: string | null; // String
     name?: string | null; // String
   }
+  Bill: { // root type
+    amount?: number | null; // Float
+    desc?: string | null; // String
+    icon?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+  }
   Chat: { // root type
     message?: string | null; // String
     sender?: string | null; // String
     timestamp?: string | null; // String
     user?: string | null; // String
+  }
+  Goal: { // root type
+    collectedAmount?: number | null; // Float
+    desc?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    totalAmount?: number | null; // Float
+  }
+  Log: { // root type
+    action?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
   }
   Mutation: {};
   News: { // root type
@@ -60,6 +79,14 @@ export interface NexusGenObjects {
   Query: {};
   Test: { // root type
     message?: string | null; // String
+  }
+  Transaction: { // root type
+    amount?: number | null; // Float
+    desc?: string | null; // String
+    icon?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    timestamp?: string | null; // String
   }
   User: { // root type
     email?: string | null; // String
@@ -86,11 +113,33 @@ export interface NexusGenFieldTypes {
     name: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
   }
+  Bill: { // field return type
+    amount: number | null; // Float
+    desc: string | null; // String
+    icon: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Chat: { // field return type
     message: string | null; // String
     sender: string | null; // String
     timestamp: string | null; // String
     user: string | null; // String
+  }
+  Goal: { // field return type
+    collectedAmount: number | null; // Float
+    desc: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    totalAmount: number | null; // Float
+    user: NexusGenRootTypes['User'] | null; // User
+  }
+  Log: { // field return type
+    action: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Mutation: { // field return type
     updateUserProfile: NexusGenRootTypes['User'] | null; // User
@@ -114,7 +163,11 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAllAccounts: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    getAllBills: Array<NexusGenRootTypes['Bill'] | null> | null; // [Bill]
+    getAllGoals: Array<NexusGenRootTypes['Goal'] | null> | null; // [Goal]
+    getAllLogs: Array<NexusGenRootTypes['Log'] | null> | null; // [Log]
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
+    getAllTxns: Array<NexusGenRootTypes['Transaction'] | null> | null; // [Transaction]
     getChatResponse: NexusGenRootTypes['Chat'] | null; // Chat
     getNewsById: NexusGenRootTypes['News'] | null; // News
     testing: NexusGenRootTypes['Test'] | null; // Test
@@ -122,9 +175,22 @@ export interface NexusGenFieldTypes {
   Test: { // field return type
     message: string | null; // String
   }
+  Transaction: { // field return type
+    amount: number | null; // Float
+    desc: string | null; // String
+    icon: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    timestamp: string | null; // String
+    user: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
   User: { // field return type
     Account: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    Bill: Array<NexusGenRootTypes['Bill'] | null> | null; // [Bill]
+    Goal: Array<NexusGenRootTypes['Goal'] | null> | null; // [Goal]
+    Log: Array<NexusGenRootTypes['Log'] | null> | null; // [Log]
     Profile: NexusGenRootTypes['Profile'] | null; // Profile
+    Transaction: Array<NexusGenRootTypes['Transaction'] | null> | null; // [Transaction]
     email: string | null; // String
     id: string | null; // String
     name: string | null; // String
@@ -139,11 +205,33 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     user: 'User'
   }
+  Bill: { // field return type name
+    amount: 'Float'
+    desc: 'String'
+    icon: 'String'
+    id: 'String'
+    name: 'String'
+    user: 'User'
+  }
   Chat: { // field return type name
     message: 'String'
     sender: 'String'
     timestamp: 'String'
     user: 'String'
+  }
+  Goal: { // field return type name
+    collectedAmount: 'Float'
+    desc: 'String'
+    id: 'String'
+    name: 'String'
+    totalAmount: 'Float'
+    user: 'User'
+  }
+  Log: { // field return type name
+    action: 'String'
+    id: 'String'
+    name: 'String'
+    user: 'User'
   }
   Mutation: { // field return type name
     updateUserProfile: 'User'
@@ -167,7 +255,11 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAllAccounts: 'Account'
+    getAllBills: 'Bill'
+    getAllGoals: 'Goal'
+    getAllLogs: 'Log'
     getAllNews: 'News'
+    getAllTxns: 'Transaction'
     getChatResponse: 'Chat'
     getNewsById: 'News'
     testing: 'Test'
@@ -175,9 +267,22 @@ export interface NexusGenFieldTypeNames {
   Test: { // field return type name
     message: 'String'
   }
+  Transaction: { // field return type name
+    amount: 'Float'
+    desc: 'String'
+    icon: 'String'
+    id: 'String'
+    name: 'String'
+    timestamp: 'String'
+    user: 'User'
+  }
   User: { // field return type name
     Account: 'Account'
+    Bill: 'Bill'
+    Goal: 'Goal'
+    Log: 'Log'
     Profile: 'Profile'
+    Transaction: 'Transaction'
     email: 'String'
     id: 'String'
     name: 'String'
@@ -197,7 +302,23 @@ export interface NexusGenArgTypes {
       itemsPerPage?: number | null; // Int
       page?: number | null; // Int
     }
+    getAllBills: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
+    getAllGoals: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
+    getAllLogs: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
     getAllNews: { // args
+      itemsPerPage?: number | null; // Int
+      page?: number | null; // Int
+    }
+    getAllTxns: { // args
       itemsPerPage?: number | null; // Int
       page?: number | null; // Int
     }

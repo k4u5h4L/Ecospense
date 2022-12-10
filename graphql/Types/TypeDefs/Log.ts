@@ -14,7 +14,7 @@ export const Log = objectType({
                 return await ctx.prisma.user.findFirst({
                     where: {
                         Log: {
-                            every: {
+                            some: {
                                 id: parent.id,
                             },
                         },
