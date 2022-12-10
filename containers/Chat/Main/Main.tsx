@@ -1,18 +1,31 @@
 import { ChatMessage } from "@/types/ChatMessage";
-import { getTimeFromIsoString } from "@/utils/getTimeFromIsoString";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowForwardOutline, CloseCircle } from "react-ionicons";
+import { gql, useLazyQuery } from "@apollo/client";
+
+const SEND_TEXT = gql`
+    query GetChatResponseQuery($message: String!, $sender: String!) {
+        getChatResponse(message: $message, sender: $sender) {
+            message
+            sender
+            timestamp
+            user
+        }
+    }
+`;
 
 const Main = () => {
-    const [messages, setMessages] = useState<ChatMessage[]>([
+    const allMessages: ChatMessage[] = [
         {
             message: "Hi there, how may I help you?",
             timestamp: new Date().toISOString(),
             sender: "Ecospense Helper", // if sent by user, value will be "Me"
             user: "",
         },
-    ]);
+    ];
+    // const [getText, { loading, error, data }] = useLazyQuery(SEND_TEXT);
+    const [messages, setMessages] = useState<ChatMessage[]>(allMessages);
     const textBoxRef = useRef<any>();
     const { data: session, status } = useSession();
 
@@ -24,19 +37,60 @@ const Main = () => {
         console.log("Sent message");
         e.preventDefault();
 
-        setMessages([
-            ...messages,
-            {
-                message: textBoxRef.current.value,
-                timestamp: new Date().toISOString(),
-                sender: "me",
-                user: session?.user?.email ?? "NA",
-            },
-        ]);
+        const m: string = textBoxRef.current.value;
+        const u: string = session?.user?.email ?? "NA";
+
+        allMessages.push({
+            message: m,
+            timestamp: new Date().toISOString(),
+            sender: "me",
+            user: u,
+        });
+
+        setMessages(allMessages);
 
         textBoxRef.current.value = "";
 
         // send to server and get response
+        // await getText({ variables: { message: m, sender: u } });
+        const data = await sendMessage(m, u);
+
+        const {
+            message: messageRes,
+            sender: senderRes,
+            timestamp: timestampRes,
+            user: userRes,
+        } = data;
+
+        allMessages.push({
+            message: messageRes,
+            timestamp: timestampRes,
+            sender: senderRes,
+            user: userRes,
+        });
+        setMessages(allMessages);
+        window.scrollTo(0, document.body.scrollHeight);
+        console.log(allMessages);
+    };
+
+    const sendMessage = async (
+        message: string,
+        sender: string
+    ): Promise<ChatMessage> => {
+        const res = await fetch(`/api/chat`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: message,
+                sender: sender,
+            }),
+        });
+
+        const data = await res.json();
+
+        return data;
     };
 
     return (
@@ -46,7 +100,7 @@ const Main = () => {
 
                 {messages.map((message, index) =>
                     message.sender.toLowerCase() != "me" ? (
-                        <div key={index} className="message-item">
+                        <div key={Date.now()} className="message-item">
                             <img
                                 src="/assets/img/favicon.png"
                                 alt="avatar"
@@ -64,7 +118,7 @@ const Main = () => {
                             </div>
                         </div>
                     ) : (
-                        <div key={index} className="message-item user">
+                        <div key={Date.now()} className="message-item user">
                             <div className="content">
                                 <div className="bubble">{message.message}</div>
                                 <div className="footer">

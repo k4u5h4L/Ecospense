@@ -6,6 +6,8 @@ import NextNprogress from "nextjs-progressbar";
 import "@splidejs/react-splide/css";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { ApolloProvider } from "@apollo/client";
+import { useApollo } from "@/graphql/apolloClient";
 
 const variantsPop: Variants = {
     hidden: { opacity: 1, x: "-100%", y: 0 },
@@ -21,6 +23,7 @@ const variantsPush: Variants = {
 
 export default function App({ Component, pageProps, router }: AppProps) {
     const [variants, setVariants] = useState<Variants>(variantsPush);
+    const client = useApollo();
 
     useEffect(() => {
         if (typeof document !== "undefined") {
@@ -70,7 +73,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
                     transition={{ type: "linear" }}
                     key={router.route}
                 >
-                    <Component {...pageProps} />
+                    <ApolloProvider client={client}>
+                        <Component {...pageProps} />
+                    </ApolloProvider>
                 </motion.main>
             </AnimatePresence>
         </SessionProvider>
