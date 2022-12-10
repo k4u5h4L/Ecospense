@@ -1,9 +1,25 @@
 import { Currency } from "@/constants/currencyEnum";
 import { NewuserConfig } from "@/types/NewuserConfig";
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { CloseCircle } from "react-ionicons";
 
 const defaultCurrency = "GBP";
+
+const UPDATE_USER = gql`
+    mutation Mutation($name: String!, $currency: String!, $income: Int!) {
+        updateUserProfile(name: $name, currency: $currency, income: $income) {
+            email
+            username
+            profile {
+                currency
+                name
+                income
+            }
+        }
+    }
+`;
 
 const Main = () => {
     const currencies = Object.keys(Currency);
@@ -13,6 +29,8 @@ const Main = () => {
         income: 0,
     });
     const [agreed, setAgreed] = useState(false);
+    const [updateUser, { data, loading, error }] = useMutation(UPDATE_USER);
+    const router = useRouter();
 
     const selectCurrency = (key: string): void => {
         console.log("selected currency: ", Currency[key]);
@@ -40,9 +58,24 @@ const Main = () => {
         setAgreed(e.target.checked);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(config);
+
+        await updateUser({
+            variables: {
+                name: config.name,
+                currency: config.currency,
+                income: config.income,
+            },
+        });
+
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(data);
+            router.replace(`/`);
+        }
     };
 
     return (
