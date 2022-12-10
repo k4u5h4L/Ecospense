@@ -34,6 +34,7 @@ export interface NexusGenObjects {
     timestamp?: string | null; // String
     user?: string | null; // String
   }
+  Mutation: {};
   News: { // root type
     author?: string | null; // String
     content?: string | null; // String
@@ -45,9 +46,19 @@ export interface NexusGenObjects {
     title?: string | null; // String
     url?: string | null; // String
   }
+  Profile: { // root type
+    currency?: string | null; // String
+    income?: string | null; // String
+    name?: string | null; // String
+  }
   Query: {};
   Test: { // root type
     message?: string | null; // String
+  }
+  User: { // root type
+    email?: string | null; // String
+    profile?: NexusGenRootTypes['Profile'] | null; // Profile
+    username?: string | null; // String
   }
 }
 
@@ -68,6 +79,9 @@ export interface NexusGenFieldTypes {
     timestamp: string | null; // String
     user: string | null; // String
   }
+  Mutation: { // field return type
+    updateUserProfile: NexusGenRootTypes['User'] | null; // User
+  }
   News: { // field return type
     author: string | null; // String
     content: string | null; // String
@@ -79,6 +93,11 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     url: string | null; // String
   }
+  Profile: { // field return type
+    currency: string | null; // String
+    income: string | null; // String
+    name: string | null; // String
+  }
   Query: { // field return type
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
     getChatResponse: NexusGenRootTypes['Chat'] | null; // Chat
@@ -88,6 +107,11 @@ export interface NexusGenFieldTypes {
   Test: { // field return type
     message: string | null; // String
   }
+  User: { // field return type
+    email: string | null; // String
+    profile: NexusGenRootTypes['Profile'] | null; // Profile
+    username: string | null; // String
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -96,6 +120,9 @@ export interface NexusGenFieldTypeNames {
     sender: 'String'
     timestamp: 'String'
     user: 'String'
+  }
+  Mutation: { // field return type name
+    updateUserProfile: 'User'
   }
   News: { // field return type name
     author: 'String'
@@ -108,6 +135,11 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     url: 'String'
   }
+  Profile: { // field return type name
+    currency: 'String'
+    income: 'String'
+    name: 'String'
+  }
   Query: { // field return type name
     getAllNews: 'News'
     getChatResponse: 'Chat'
@@ -117,9 +149,21 @@ export interface NexusGenFieldTypeNames {
   Test: { // field return type name
     message: 'String'
   }
+  User: { // field return type name
+    email: 'String'
+    profile: 'Profile'
+    username: 'String'
+  }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    updateUserProfile: { // args
+      currency: string; // String!
+      income: number; // Int!
+      name: string; // String!
+    }
+  }
   Query: {
     getAllNews: { // args
       itemsPerPage?: number | null; // Int

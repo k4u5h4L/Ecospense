@@ -1,5 +1,11 @@
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Link from "@/helpers/wrappers/Link/Link";
+import {
+    ArrowUpCircleOutline,
+    CloseOutline,
+    EllipsisHorizontal,
+    PencilOutline,
+} from "react-ionicons";
 
 const MyAccounts = () => {
     return (
@@ -37,36 +43,30 @@ const MyAccounts = () => {
                                             className="btn btn-link btn-icon"
                                             data-bs-toggle="dropdown"
                                         >
-                                            {/* <ion-icon
-                                                    name="ellipsis-horizontal"
-                                                ></ion-icon> */}
+                                            <EllipsisHorizontal
+                                                color={"white"}
+                                            />
                                         </button>
                                         <div className="dropdown-menu dropdown-menu-end">
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="pencil-outline"
-                                                    ></ion-icon> */}
+                                                <PencilOutline />
                                                 Edit
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="close-outline"
-                                                    ></ion-icon> */}
+                                                <CloseOutline />
                                                 Remove
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="arrow-up-circle-outline"
-                                                    ></ion-icon> */}
+                                                <ArrowUpCircleOutline />
                                                 Upgrade
                                             </a>
                                         </div>
@@ -110,36 +110,30 @@ const MyAccounts = () => {
                                             className="btn btn-link btn-icon"
                                             data-bs-toggle="dropdown"
                                         >
-                                            {/* <ion-icon
-                                                    name="ellipsis-horizontal"
-                                                ></ion-icon> */}
+                                            <EllipsisHorizontal
+                                                color={"white"}
+                                            />
                                         </button>
                                         <div className="dropdown-menu dropdown-menu-end">
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="pencil-outline"
-                                                    ></ion-icon> */}
+                                                <PencilOutline />
                                                 Edit
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="close-outline"
-                                                    ></ion-icon> */}
+                                                <CloseOutline />
                                                 Remove
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="arrow-up-circle-outline"
-                                                    ></ion-icon> */}
+                                                <ArrowUpCircleOutline />
                                                 Upgrade
                                             </a>
                                         </div>
@@ -183,36 +177,30 @@ const MyAccounts = () => {
                                             className="btn btn-link btn-icon"
                                             data-bs-toggle="dropdown"
                                         >
-                                            {/* <ion-icon
-                                                    name="ellipsis-horizontal"
-                                                ></ion-icon> */}
+                                            <EllipsisHorizontal
+                                                color={"white"}
+                                            />
                                         </button>
                                         <div className="dropdown-menu dropdown-menu-end">
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="pencil-outline"
-                                                    ></ion-icon> */}
+                                                <PencilOutline />
                                                 Edit
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="close-outline"
-                                                    ></ion-icon> */}
+                                                <CloseOutline />
                                                 Remove
                                             </a>
                                             <a
                                                 className="dropdown-item"
                                                 href="#"
                                             >
-                                                {/* <ion-icon
-                                                        name="arrow-up-circle-outline"
-                                                    ></ion-icon> */}
+                                                <ArrowUpCircleOutline />
                                                 Upgrade
                                             </a>
                                         </div>

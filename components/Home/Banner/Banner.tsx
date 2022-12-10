@@ -1,3 +1,4 @@
+import Link from "@/helpers/wrappers/Link/Link";
 import {
     AddOutline,
     ArrowDownOutline,
@@ -54,12 +55,12 @@ const Banner = () => {
                             </a>
                         </div>
                         <div className="item">
-                            <a href="app-cards.html">
+                            <Link href="/accounts">
                                 <div className="icon-wrapper bg-success">
                                     <CardOutline color={"white"} />
                                 </div>
-                                <strong>Cards</strong>
-                            </a>
+                                <strong>Accounts</strong>
+                            </Link>
                         </div>
                         <div className="item">
                             <a

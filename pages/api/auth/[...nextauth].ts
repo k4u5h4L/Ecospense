@@ -56,11 +56,10 @@ export default (req: NextApiRequest, res: NextApiResponse) =>
             },
         },
         pages: {
-            // signIn: "/auth/signin",
             signIn: "/auth/login",
             signOut: "/auth/signout",
             error: "/auth/error", // Error code passed in query string as ?error=
             verifyRequest: "/verify", // (used for check email message)
-            newUser: "/newuser", // If set, new users will be directed here on first sign in
+            newUser: "/auth/newuser", // If set, new users will be directed here on first sign in
         },
     });

@@ -9,6 +9,11 @@ type Chat {
   user: String
 }
 
+type Mutation {
+  """Update your profile."""
+  updateUserProfile(currency: String!, income: Int!, name: String!): User
+}
+
 type News {
   author: String
   content: String
@@ -19,6 +24,12 @@ type News {
   sourceName: String
   title: String
   url: String
+}
+
+type Profile {
+  currency: String
+  income: String
+  name: String
 }
 
 type Query {
@@ -37,4 +48,10 @@ type Query {
 
 type Test {
   message: String
+}
+
+type User {
+  email: String
+  profile: Profile
+  username: String
 }
