@@ -1,8 +1,11 @@
+import { ExpenseStatusType } from "@/types/ExpenseStatusType";
 import { formatMoney } from "@/utils/formatMoney";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { BankAccount } from "@prisma/client";
-import { useEffect, useState } from "react";
+import AppContext from "context/AppContext";
+import { useContext, useState } from "react";
 import ComponentLoaderPrimary from "../ComponentLoader/ComponentLoaderPrimary";
+import PrimaryNotification from "../Notifications/PrimaryNotification/PrimaryNotification";
 
 const GET_ACCOUNTS = gql`
     query GetAccounts($page: Int, $itemsPerPage: Int) {
@@ -17,6 +20,28 @@ const GET_ACCOUNTS = gql`
             id
             name
         }
+        getCurrentExpenseStatus {
+            id
+            balance
+            bills
+            expenses
+            income
+            savings
+        }
+    }
+`;
+
+const ADD_BALANCE = gql`
+    mutation Mutation($accountId: String!, $amount: Float!) {
+        addBalance(accountId: $accountId, amount: $amount) {
+            balance
+            id
+            name
+            desc
+            user {
+                email
+            }
+        }
     }
 `;
 
@@ -26,6 +51,7 @@ type InputType = {
 };
 
 const AddBalanceModal = () => {
+    // const {value, setValue} = useContext(AppContext);
     const { loading, error, data } = useQuery(GET_ACCOUNTS, {
         variables: {
             page: 1,
@@ -36,6 +62,35 @@ const AddBalanceModal = () => {
         accountId: "",
         amount: 0,
     });
+    const [addBalance, { data: mData, loading: mLoading, error: mError }] =
+        useMutation(ADD_BALANCE, {
+            update(cache, { data: { addBalance } }) {
+                cache.modify({
+                    fields: {
+                        getCurrentExpenseStatus(existingBalance) {
+                            let newBalance: ExpenseStatusType = structuredClone(
+                                data.getCurrentExpenseStatus
+                            );
+                            newBalance.balance += input.amount;
+                            const newBalanceRef = cache.writeFragment({
+                                data: newBalance,
+                                fragment: gql`
+                                    fragment NewBalance on ExpenseStatus {
+                                        id
+                                        balance
+                                        bills
+                                        expenses
+                                        income
+                                        savings
+                                    }
+                                `,
+                            });
+                            return { ...newBalance, newBalanceRef };
+                        },
+                    },
+                });
+            },
+        });
 
     const handleInputChange = (accountId: string): void => {
         setInput({
@@ -44,16 +99,26 @@ const AddBalanceModal = () => {
         });
     };
 
-    const handleSubmit = (e: any): void => {
+    const handleSubmit = async (e: any): Promise<void> => {
         e.preventDefault();
 
         let accountId: string;
 
         if (data && input.accountId == "" && data.getAllAccounts.length > 0) {
-            accountId = data.getAllAccounts[0].i;
+            accountId = data.getAllAccounts[0].id;
         }
 
-        console.log(input);
+        await addBalance({
+            variables: {
+                accountId: input.accountId ? input.accountId : accountId,
+                amount: input.amount,
+            },
+        });
+
+        console.log({
+            accountId: input.accountId ? input.accountId : accountId,
+            amount: input.amount,
+        });
     };
 
     return (
@@ -178,6 +243,14 @@ const AddBalanceModal = () => {
                     )}
                 </div>
             </div>
+
+            <PrimaryNotification
+                showNotif={mLoading}
+                title="Adding balance..."
+                text="Please wait."
+                notifStyle="secondary"
+                showHeader={false}
+            />
         </>
     );
 };

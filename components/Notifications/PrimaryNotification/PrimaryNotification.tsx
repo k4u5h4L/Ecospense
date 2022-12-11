@@ -5,6 +5,7 @@ type PropType = {
     showHeader: boolean;
     headerTitle?: string;
     headerText?: string;
+    notifStyle?: string;
     title: string;
     text: string;
 };
@@ -16,6 +17,7 @@ const PrimaryNotification = ({
     headerText,
     title,
     text,
+    notifStyle,
 }: PropType) => {
     return (
         <>
@@ -23,7 +25,11 @@ const PrimaryNotification = ({
                 id="notification-13"
                 className={`notification-box ${showNotif ? "show" : ""}`}
             >
-                <div className="notification-dialog ios-style bg-primary">
+                <div
+                    className={`notification-dialog ios-style bg-${
+                        notifStyle ? notifStyle : "primary"
+                    }`}
+                >
                     {showHeader ? (
                         <div className="notification-header">
                             <div className="in">

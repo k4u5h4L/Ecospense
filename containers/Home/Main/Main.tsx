@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 const GET_SUMMARY = gql`
     query FetchSummary {
         getCurrentExpenseStatus {
+            id
             balance
             bills
             expenses
