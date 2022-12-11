@@ -19,10 +19,7 @@ const Metadata = ({ data }) => {
                                 <ComponentLoaderSuccess />
                             ) : (
                                 <div className="value text-success">
-                                    {formatMoney(
-                                        data.balance,
-                                        cur.currencyName
-                                    )}
+                                    {formatMoney(data.income, cur.currencyName)}
                                 </div>
                             )}
                         </div>

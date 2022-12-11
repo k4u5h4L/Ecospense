@@ -27,6 +27,7 @@ const MyBills = () => {
             itemsPerPage: 4,
         },
     });
+
     return (
         <>
             <div className="section full mt-4">
