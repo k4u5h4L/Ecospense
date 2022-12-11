@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import Loader from "../Loader/Loader";
+import { PUBLIC_PATHS } from "@/constants/commonConstants";
 
 export default function RouteGuard({ children }) {
     const router = useRouter();
@@ -32,9 +32,8 @@ export default function RouteGuard({ children }) {
 
     function authCheck(url) {
         // redirect to login page if accessing a private page and not logged in
-        const publicPaths = ["/auth/login", "/splash"];
         const path = url.split("?")[0];
-        if (status != "authenticated" && !publicPaths.includes(path)) {
+        if (status != "authenticated" && !PUBLIC_PATHS.includes(path)) {
             setAuthorized(false);
             router.replace({
                 pathname: "/splash",

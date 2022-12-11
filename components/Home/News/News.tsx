@@ -9,6 +9,7 @@ const placeholderImage = "/assets/img/icon/default-image.jpg";
 const GET_NEWS = gql`
     query Query($page: Int, $itemsPerPage: Int) {
         getCurrency {
+            id
             currencyName
         }
         getAllNews(page: $page, itemsPerPage: $itemsPerPage) {
@@ -26,10 +27,6 @@ const News = () => {
             itemsPerPage: 4,
         },
     });
-
-    if (data) {
-        console.log(data);
-    }
 
     return (
         <>

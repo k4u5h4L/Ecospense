@@ -1,4 +1,5 @@
 export type ExpenseStatusType = {
+    id: string;
     balance: number;
     income: number;
     expenses: number;

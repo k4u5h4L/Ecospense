@@ -50,12 +50,14 @@ export interface NexusGenObjects {
   Currency: { // root type
     currencyName?: string | null; // String
     currencySymbol?: string | null; // String
+    id?: string | null; // String
   }
   ExpenseStatus: { // root type
     balance?: number | null; // Float
     bills?: number | null; // Float
     currency?: string | null; // String
     expenses?: number | null; // Float
+    id?: string | null; // String
     income?: number | null; // Float
     savings?: number | null; // Float
   }
@@ -142,12 +144,14 @@ export interface NexusGenFieldTypes {
   Currency: { // field return type
     currencyName: string | null; // String
     currencySymbol: string | null; // String
+    id: string | null; // String
   }
   ExpenseStatus: { // field return type
     balance: number | null; // Float
     bills: number | null; // Float
     currency: string | null; // String
     expenses: number | null; // Float
+    id: string | null; // String
     income: number | null; // Float
     savings: number | null; // Float
   }
@@ -248,12 +252,14 @@ export interface NexusGenFieldTypeNames {
   Currency: { // field return type name
     currencyName: 'String'
     currencySymbol: 'String'
+    id: 'String'
   }
   ExpenseStatus: { // field return type name
     balance: 'Float'
     bills: 'Float'
     currency: 'String'
     expenses: 'Float'
+    id: 'String'
     income: 'Float'
     savings: 'Float'
   }

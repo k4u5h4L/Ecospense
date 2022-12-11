@@ -24,6 +24,7 @@ import ComponentLoaderLight from "../ComponentLoader/ComponentLoaderLight";
 const GET_BALANCE = gql`
     query FetchBalance {
         getCurrency {
+            id
             currencyName
         }
         getCurrentExpenseStatus {

@@ -14,6 +14,7 @@ import { formatMoney } from "@/utils/formatMoney";
 const GET_ACCOUNTS = gql`
     query GetAccounts($page: Int, $itemsPerPage: Int) {
         getCurrency {
+            id
             currencyName
         }
         getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {

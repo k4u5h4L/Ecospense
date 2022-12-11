@@ -26,6 +26,7 @@ export const getCurrentExpenseStatusResolver: FieldResolver<
     });
 
     const res: ExpenseStatusType = {
+        id: email,
         balance: expenseStatusUtil.getBalance(data.BankAccount),
         income: expenseStatusUtil.getIncome(data.Profile),
         expenses: expenseStatusUtil.getExpenses(data.Transaction),

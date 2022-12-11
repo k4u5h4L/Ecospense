@@ -16,6 +16,7 @@ const GET_TXNS = gql`
         }
 
         getCurrency {
+            id
             currencyName
         }
     }

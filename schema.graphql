@@ -29,6 +29,7 @@ type Chat {
 type Currency {
   currencyName: String
   currencySymbol: String
+  id: String
 }
 
 type ExpenseStatus {
@@ -36,6 +37,7 @@ type ExpenseStatus {
   bills: Float
   currency: String
   expenses: Float
+  id: String
   income: Float
   savings: Float
 }

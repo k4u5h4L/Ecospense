@@ -28,5 +28,9 @@ export const getCurrencyResolver: FieldResolver<"Query", "Testing"> = async (
         console.error(e);
     }
 
-    return { currencyName: data.Profile.currency, currencySymbol: curSymbol };
+    return {
+        id: email,
+        currencyName: data.Profile.currency,
+        currencySymbol: curSymbol,
+    };
 };

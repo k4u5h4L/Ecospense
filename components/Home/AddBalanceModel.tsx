@@ -1,10 +1,15 @@
+import { formatMoney } from "@/utils/formatMoney";
 import { gql, useQuery } from "@apollo/client";
+import { BankAccount } from "@prisma/client";
+import { useState } from "react";
 import ComponentLoaderPrimary from "../ComponentLoader/ComponentLoaderPrimary";
 
 const GET_ACCOUNTS = gql`
     query GetAccounts($page: Int, $itemsPerPage: Int) {
         getCurrency {
+            id
             currencyName
+            currencySymbol
         }
         getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {
             balance
@@ -15,6 +20,11 @@ const GET_ACCOUNTS = gql`
     }
 `;
 
+type InputType = {
+    accountId: string;
+    amount: number;
+};
+
 const AddBalanceModal = () => {
     const { loading, error, data } = useQuery(GET_ACCOUNTS, {
         variables: {
@@ -22,6 +32,22 @@ const AddBalanceModal = () => {
             itemsPerPage: 999,
         },
     });
+    const [input, setInput] = useState<InputType>({
+        accountId: "",
+        amount: 0,
+    });
+
+    const handleInputChange = (accountId: string): void => {
+        setInput({
+            ...input,
+            accountId,
+        });
+    };
+
+    const handleSubmit = (e: any): void => {
+        e.preventDefault();
+        console.log(input);
+    };
 
     return (
         <>
@@ -42,7 +68,7 @@ const AddBalanceModal = () => {
                                 </div>
                                 <div className="modal-body">
                                     <div className="action-sheet-content">
-                                        <form>
+                                        <form onSubmit={handleSubmit}>
                                             <div className="form-group basic">
                                                 <div className="input-wrapper">
                                                     <label
@@ -55,16 +81,46 @@ const AddBalanceModal = () => {
                                                         className="form-control custom-select"
                                                         id="account1"
                                                     >
-                                                        <option value="0">
-                                                            Savings (*** 5019)
+                                                        <option
+                                                            defaultChecked={
+                                                                true
+                                                            }
+                                                            onClick={() =>
+                                                                handleInputChange(
+                                                                    ""
+                                                                )
+                                                            }
+                                                        >
+                                                            Select account
                                                         </option>
-                                                        <option value="1">
-                                                            Investment (***
-                                                            6212)
-                                                        </option>
-                                                        <option value="2">
-                                                            Mortgage (*** 5021)
-                                                        </option>
+                                                        {data.getAllAccounts.map(
+                                                            (
+                                                                account: BankAccount
+                                                            ) => (
+                                                                <option
+                                                                    key={
+                                                                        account.id
+                                                                    }
+                                                                    onClick={() =>
+                                                                        handleInputChange(
+                                                                            account.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        account.name
+                                                                    }{" "}
+                                                                    (
+                                                                    {formatMoney(
+                                                                        account.balance,
+                                                                        data
+                                                                            .getCurrency
+                                                                            .currencyName
+                                                                    )}
+                                                                    )
+                                                                </option>
+                                                            )
+                                                        )}
                                                     </select>
                                                 </div>
                                             </div>
@@ -78,17 +134,26 @@ const AddBalanceModal = () => {
                                                         className="input-group-text"
                                                         id="basic-addona1"
                                                     >
-                                                        $
+                                                        {
+                                                            data.getCurrency
+                                                                .currencySymbol
+                                                        }
                                                     </span>
                                                     <input
-                                                        type="text"
+                                                        type="number"
+                                                        // step="0.01"
                                                         className="form-control"
-                                                        placeholder="Enter an amount"
-                                                        value="100"
-                                                        onChange={() =>
-                                                            console.log(
-                                                                "changed"
-                                                            )
+                                                        pattern="[0-9]*"
+                                                        inputMode="numeric"
+                                                        placeholder={`100`}
+                                                        onChange={(e) =>
+                                                            setInput({
+                                                                ...input,
+                                                                amount: Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                            })
                                                         }
                                                     />
                                                 </div>
@@ -96,9 +161,10 @@ const AddBalanceModal = () => {
 
                                             <div className="form-group basic">
                                                 <button
-                                                    type="button"
+                                                    type="submit"
                                                     className="btn btn-primary btn-block btn-lg"
                                                     data-bs-dismiss="modal"
+                                                    onSubmit={handleSubmit}
                                                 >
                                                     Deposit
                                                 </button>

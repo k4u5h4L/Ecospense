@@ -7,6 +7,7 @@ import { Goal } from "@prisma/client";
 const GET_GOALS = gql`
     query GetGoals($page: Int, $itemsPerPage: Int) {
         getCurrency {
+            id
             currencyName
         }
         getAllGoals(page: $page, itemsPerPage: $itemsPerPage) {

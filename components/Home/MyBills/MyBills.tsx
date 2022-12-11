@@ -8,6 +8,7 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 const GET_BILLS = gql`
     query GetBills($page: Int, $itemsPerPage: Int) {
         getCurrency {
+            id
             currencyName
         }
         getAllBills(page: $page, itemsPerPage: $itemsPerPage) {
