@@ -2,12 +2,15 @@ import { idArg, intArg, nonNull, queryType, stringArg } from "nexus";
 import { getAllAccountsResolver } from "../resolvers/Account/getAllAccountsResolver";
 import { getAllBillsResolver } from "../resolvers/Bill/getAllBillsResolver";
 import { getChatResponseResolver } from "../resolvers/Chat/getChatResponseResolver";
+import { getCurrencyResolver } from "../resolvers/Currency/getCurrencyResolver";
+import { getCurrentExpenseStatusResolver } from "../resolvers/ExpenseStatus/getCurrentExpenseStatusResolver";
 import { getAllGoalsResolver } from "../resolvers/Goal/getAllGoalsResolver";
 import { healthCheckResolver } from "../resolvers/HealthCheckResolver";
 import { getAllLogsResolver } from "../resolvers/Log/getAllLogsResolver";
 import { getAllNewsResolver } from "../resolvers/News/getAllNewsResolver";
 import { getNewsByIdResolver } from "../resolvers/News/getNewsByIdResolver";
 import { getAllTxnsResolver } from "../resolvers/Transaction/getAllTxnsResolver";
+import { Currency } from "./TypeDefs/Currency";
 import {
     News,
     Test,
@@ -17,6 +20,7 @@ import {
     Goal,
     Log,
     Transaction,
+    ExpenseStatus,
 } from "./TypeDefs/index";
 
 export const Query = queryType({
@@ -26,6 +30,13 @@ export const Query = queryType({
             description: "Health Check GraphQL resolver.",
             args: {},
             resolve: healthCheckResolver,
+        });
+
+        t.field("getCurrency", {
+            type: Currency,
+            description: "Get the selected currency of the user.",
+            args: {},
+            resolve: getCurrencyResolver,
         });
 
         t.list.field("getAllNews", {
@@ -105,6 +116,14 @@ export const Query = queryType({
                 itemsPerPage: intArg(),
             },
             resolve: getAllTxnsResolver,
+        });
+
+        t.field("getCurrentExpenseStatus", {
+            type: ExpenseStatus,
+            description:
+                "Get current status of al the expenses like balance, savings, etc.",
+            args: {},
+            resolve: getCurrentExpenseStatusResolver,
         });
     },
 });

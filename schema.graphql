@@ -26,6 +26,20 @@ type Chat {
   user: String
 }
 
+type Currency {
+  currencyName: String
+  currencySymbol: String
+}
+
+type ExpenseStatus {
+  balance: Float
+  bills: Float
+  currency: String
+  expenses: Float
+  income: Float
+  savings: Float
+}
+
 type Goal {
   collectedAmount: Float
   desc: String
@@ -87,6 +101,12 @@ type Query {
 
   """Chat with an AI!"""
   getChatResponse(message: String!, sender: String!): Chat
+
+  """Get the selected currency of the user."""
+  getCurrency: Currency
+
+  """Get current status of al the expenses like balance, savings, etc."""
+  getCurrentExpenseStatus: ExpenseStatus
 
   """Get the news by ID"""
   getNewsById(id: ID!): News

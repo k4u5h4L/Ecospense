@@ -8,3 +8,4 @@ export * from "./Bill";
 export * from "./Goal";
 export * from "./Log";
 export * from "./Transaction";
+export * from "./ExpenseStatus";

@@ -47,6 +47,18 @@ export interface NexusGenObjects {
     timestamp?: string | null; // String
     user?: string | null; // String
   }
+  Currency: { // root type
+    currencyName?: string | null; // String
+    currencySymbol?: string | null; // String
+  }
+  ExpenseStatus: { // root type
+    balance?: number | null; // Float
+    bills?: number | null; // Float
+    currency?: string | null; // String
+    expenses?: number | null; // Float
+    income?: number | null; // Float
+    savings?: number | null; // Float
+  }
   Goal: { // root type
     collectedAmount?: number | null; // Float
     desc?: string | null; // String
@@ -127,6 +139,18 @@ export interface NexusGenFieldTypes {
     timestamp: string | null; // String
     user: string | null; // String
   }
+  Currency: { // field return type
+    currencyName: string | null; // String
+    currencySymbol: string | null; // String
+  }
+  ExpenseStatus: { // field return type
+    balance: number | null; // Float
+    bills: number | null; // Float
+    currency: string | null; // String
+    expenses: number | null; // Float
+    income: number | null; // Float
+    savings: number | null; // Float
+  }
   Goal: { // field return type
     collectedAmount: number | null; // Float
     desc: string | null; // String
@@ -169,6 +193,8 @@ export interface NexusGenFieldTypes {
     getAllNews: Array<NexusGenRootTypes['News'] | null> | null; // [News]
     getAllTxns: Array<NexusGenRootTypes['Transaction'] | null> | null; // [Transaction]
     getChatResponse: NexusGenRootTypes['Chat'] | null; // Chat
+    getCurrency: NexusGenRootTypes['Currency'] | null; // Currency
+    getCurrentExpenseStatus: NexusGenRootTypes['ExpenseStatus'] | null; // ExpenseStatus
     getNewsById: NexusGenRootTypes['News'] | null; // News
     testing: NexusGenRootTypes['Test'] | null; // Test
   }
@@ -219,6 +245,18 @@ export interface NexusGenFieldTypeNames {
     timestamp: 'String'
     user: 'String'
   }
+  Currency: { // field return type name
+    currencyName: 'String'
+    currencySymbol: 'String'
+  }
+  ExpenseStatus: { // field return type name
+    balance: 'Float'
+    bills: 'Float'
+    currency: 'String'
+    expenses: 'Float'
+    income: 'Float'
+    savings: 'Float'
+  }
   Goal: { // field return type name
     collectedAmount: 'Float'
     desc: 'String'
@@ -261,6 +299,8 @@ export interface NexusGenFieldTypeNames {
     getAllNews: 'News'
     getAllTxns: 'Transaction'
     getChatResponse: 'Chat'
+    getCurrency: 'Currency'
+    getCurrentExpenseStatus: 'ExpenseStatus'
     getNewsById: 'News'
     testing: 'Test'
   }
