@@ -126,7 +126,7 @@ type Transaction {
   id: String
   name: String
   timestamp: String
-  user: [User]
+  user: User
 }
 
 type User {

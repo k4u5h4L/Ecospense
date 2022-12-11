@@ -208,7 +208,7 @@ export interface NexusGenFieldTypes {
     id: string | null; // String
     name: string | null; // String
     timestamp: string | null; // String
-    user: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     Account: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]

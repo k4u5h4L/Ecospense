@@ -11,7 +11,7 @@ export const Transaction = objectType({
         t.string("desc");
         t.float("amount");
         t.string("timestamp");
-        t.list.field("user", {
+        t.field("user", {
             type: User,
             resolve: async (parent, args, ctx: GraphQlContextType, info) => {
                 return await ctx.prisma.user.findFirst({

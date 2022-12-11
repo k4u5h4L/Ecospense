@@ -75,6 +75,7 @@ export const User = objectType({
         });
         t.list.field("Transaction", {
             type: Transaction,
+            // @ts-ignore
             resolve: async (parent, args, ctx: GraphQlContextType, info) => {
                 return await ctx.prisma.transaction.findMany({
                     where: {
