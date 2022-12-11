@@ -25,7 +25,7 @@ const Main = () => {
     const currencies = Object.keys(Currency);
     const [config, setConfig] = useState<NewuserConfig>({
         name: "",
-        currency: Currency[defaultCurrency],
+        currency: defaultCurrency,
         income: 0,
     });
     const [agreed, setAgreed] = useState(false);

@@ -27,6 +27,9 @@ export const getAllAccountsResolver: FieldResolver<"Query", "Account"> = async (
                 email: getUserEmail(ctx),
             },
         },
+        orderBy: {
+            balance: "desc",
+        },
         skip: skip,
         take: take,
     });

@@ -27,6 +27,9 @@ export const getAllTxnsResolver: FieldResolver<"Query", "Transaction"> = async (
                 email: getUserEmail(ctx),
             },
         },
+        orderBy: {
+            timestamp: "desc",
+        },
         skip: skip,
         take: take,
     });

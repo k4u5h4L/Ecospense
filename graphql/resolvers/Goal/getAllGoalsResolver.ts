@@ -27,6 +27,9 @@ export const getAllGoalsResolver: FieldResolver<"Query", "Goal"> = async (
                 email: getUserEmail(ctx),
             },
         },
+        orderBy: {
+            id: "asc",
+        },
         skip: skip,
         take: take,
     });

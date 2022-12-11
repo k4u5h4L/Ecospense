@@ -27,6 +27,9 @@ export const getAllBillsResolver: FieldResolver<"Query", "Bill"> = async (
                 email: getUserEmail(ctx),
             },
         },
+        orderBy: {
+            id: "asc",
+        },
         skip: skip,
         take: take,
     });

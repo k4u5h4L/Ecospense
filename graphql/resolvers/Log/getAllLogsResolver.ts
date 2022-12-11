@@ -27,6 +27,9 @@ export const getAllLogsResolver: FieldResolver<"Query", "Log"> = async (
                 email: getUserEmail(ctx),
             },
         },
+        orderBy: {
+            id: "asc",
+        },
         skip: skip,
         take: take,
     });

@@ -22,7 +22,12 @@ const GET_TXNS = gql`
 `;
 
 const Transactions = () => {
-    const { loading, error, data } = useQuery(GET_TXNS);
+    const { loading, error, data } = useQuery(GET_TXNS, {
+        variables: {
+            page: 1,
+            itemsPerPage: 4,
+        },
+    });
 
     return (
         <>
