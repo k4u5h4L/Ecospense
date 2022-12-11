@@ -28,7 +28,7 @@ export const getAllLogsResolver: FieldResolver<"Query", "Log"> = async (
             },
         },
         orderBy: {
-            id: "asc",
+            createdAt: "asc",
         },
         skip: skip,
         take: take,

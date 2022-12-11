@@ -28,7 +28,7 @@ export const getAllGoalsResolver: FieldResolver<"Query", "Goal"> = async (
             },
         },
         orderBy: {
-            id: "asc",
+            createdAt: "asc",
         },
         skip: skip,
         take: take,

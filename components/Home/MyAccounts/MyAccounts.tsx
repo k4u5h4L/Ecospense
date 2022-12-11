@@ -6,8 +6,35 @@ import {
     EllipsisHorizontal,
     PencilOutline,
 } from "react-ionicons";
+import { gql, useQuery } from "@apollo/client";
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import { BankAccount } from "@prisma/client";
+import { formatMoney } from "@/utils/formatMoney";
+
+const GET_ACCOUNTS = gql`
+    query GetAccounts($page: Int, $itemsPerPage: Int) {
+        getCurrency {
+            currencyName
+        }
+        getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {
+            balance
+            desc
+            id
+            name
+        }
+    }
+`;
+
+const cartBg = ["primary", "dark", "secondary"];
 
 const MyAccounts = () => {
+    const { loading, error, data } = useQuery(GET_ACCOUNTS, {
+        variables: {
+            page: 1,
+            itemsPerPage: 4,
+        },
+    });
+
     return (
         <>
             <div className="section full mt-4">
@@ -34,206 +61,99 @@ const MyAccounts = () => {
                     }}
                 >
                     <SplideTrack className="splide__track">
-                        <SplideSlide className="splide__slide">
-                            <div className="card-block bg-primary">
-                                <div className="card-main">
-                                    <div className="card-button dropdown">
-                                        <button
-                                            type="button"
-                                            className="btn btn-link btn-icon"
-                                            data-bs-toggle="dropdown"
+                        {loading ? (
+                            <ComponentLoaderPrimary />
+                        ) : (
+                            <>
+                                {data.getAllAccounts.map(
+                                    (account: BankAccount, index: number) => (
+                                        <SplideSlide
+                                            key={account.id}
+                                            className="splide__slide"
                                         >
-                                            <EllipsisHorizontal
-                                                color={"white"}
-                                            />
-                                        </button>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
+                                            <div
+                                                className={`card-block bg-${
+                                                    cartBg[
+                                                        index % cartBg.length
+                                                    ]
+                                                }`}
                                             >
-                                                <PencilOutline />
-                                                Edit
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
+                                                <div className="card-main">
+                                                    {/* <div className="card-button dropdown">
+                                            <button
+                                                type="button"
+                                                className="btn btn-link btn-icon"
+                                                data-bs-toggle="dropdown"
                                             >
-                                                <CloseOutline />
-                                                Remove
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <ArrowUpCircleOutline />
-                                                Upgrade
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="balance">
-                                        <span className="label">BALANCE</span>
-                                        <h1 className="title">$ 1,256,90</h1>
-                                    </div>
-                                    <div className="in">
-                                        <div className="card-number">
-                                            <span className="label">
-                                                Card Number
-                                            </span>
-                                            •••• 9905
-                                        </div>
-                                        <div className="bottom">
-                                            <div className="card-expiry">
-                                                <span className="label">
-                                                    Expiry
-                                                </span>
-                                                12 / 25
+                                                <EllipsisHorizontal
+                                                    color={"white"}
+                                                />
+                                            </button>
+                                            <div className="dropdown-menu dropdown-menu-end">
+                                                <a
+                                                    className="dropdown-item"
+                                                    href="#"
+                                                >
+                                                    <PencilOutline />
+                                                    Edit
+                                                </a>
+                                                <a
+                                                    className="dropdown-item"
+                                                    href="#"
+                                                >
+                                                    <CloseOutline />
+                                                    Remove
+                                                </a>
+                                                <a
+                                                    className="dropdown-item"
+                                                    href="#"
+                                                >
+                                                    <ArrowUpCircleOutline />
+                                                    Upgrade
+                                                </a>
                                             </div>
-                                            <div className="card-ccv">
-                                                <span className="label">
-                                                    CCV
-                                                </span>
-                                                553
+                                        </div> */}
+                                                    <div className="balance">
+                                                        <span className="label">
+                                                            BALANCE
+                                                        </span>
+                                                        <h1 className="title">
+                                                            {formatMoney(
+                                                                account.balance,
+                                                                data.getCurrency
+                                                                    .currencyName
+                                                            )}
+                                                        </h1>
+                                                    </div>
+                                                    <div className="in">
+                                                        <div className="card-number">
+                                                            <span className="label">
+                                                                Account name
+                                                            </span>
+                                                            {account.name}
+                                                        </div>
+                                                        <div className="bottom">
+                                                            <div className="card-expiry">
+                                                                <span className="label">
+                                                                    Description
+                                                                </span>
+                                                                {account.desc}
+                                                            </div>
+                                                            {/* <div className="card-ccv">
+                                                    <span className="label">
+                                                        CCV
+                                                    </span>
+                                                    553
+                                                </div> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SplideSlide>
-
-                        <SplideSlide className="splide__slide">
-                            <div className="card-block bg-dark">
-                                <div className="card-main">
-                                    <div className="card-button dropdown">
-                                        <button
-                                            type="button"
-                                            className="btn btn-link btn-icon"
-                                            data-bs-toggle="dropdown"
-                                        >
-                                            <EllipsisHorizontal
-                                                color={"white"}
-                                            />
-                                        </button>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <PencilOutline />
-                                                Edit
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <CloseOutline />
-                                                Remove
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <ArrowUpCircleOutline />
-                                                Upgrade
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="balance">
-                                        <span className="label">BALANCE</span>
-                                        <h1 className="title">$ 1,256,90</h1>
-                                    </div>
-                                    <div className="in">
-                                        <div className="card-number">
-                                            <span className="label">
-                                                Card Number
-                                            </span>
-                                            •••• 9905
-                                        </div>
-                                        <div className="bottom">
-                                            <div className="card-expiry">
-                                                <span className="label">
-                                                    Expiry
-                                                </span>
-                                                12 / 25
-                                            </div>
-                                            <div className="card-ccv">
-                                                <span className="label">
-                                                    CCV
-                                                </span>
-                                                553
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SplideSlide>
-
-                        <SplideSlide className="splide__slide">
-                            <div className="card-block bg-secondary">
-                                <div className="card-main">
-                                    <div className="card-button dropdown">
-                                        <button
-                                            type="button"
-                                            className="btn btn-link btn-icon"
-                                            data-bs-toggle="dropdown"
-                                        >
-                                            <EllipsisHorizontal
-                                                color={"white"}
-                                            />
-                                        </button>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <PencilOutline />
-                                                Edit
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <CloseOutline />
-                                                Remove
-                                            </a>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                <ArrowUpCircleOutline />
-                                                Upgrade
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="balance">
-                                        <span className="label">BALANCE</span>
-                                        <h1 className="title">$ 1,256,90</h1>
-                                    </div>
-                                    <div className="in">
-                                        <div className="card-number">
-                                            <span className="label">
-                                                Card Number
-                                            </span>
-                                            •••• 9905
-                                        </div>
-                                        <div className="bottom">
-                                            <div className="card-expiry">
-                                                <span className="label">
-                                                    Expiry
-                                                </span>
-                                                12 / 25
-                                            </div>
-                                            <div className="card-ccv">
-                                                <span className="label">
-                                                    CCV
-                                                </span>
-                                                553
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SplideSlide>
+                                        </SplideSlide>
+                                    )
+                                )}
+                            </>
+                        )}
                     </SplideTrack>
                 </Splide>
             </div>

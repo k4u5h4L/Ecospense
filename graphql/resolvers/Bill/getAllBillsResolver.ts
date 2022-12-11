@@ -28,7 +28,7 @@ export const getAllBillsResolver: FieldResolver<"Query", "Bill"> = async (
             },
         },
         orderBy: {
-            id: "asc",
+            createdAt: "asc",
         },
         skip: skip,
         take: take,
