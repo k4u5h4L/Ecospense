@@ -27,10 +27,10 @@
             "@/middlewares/*": ["middlewares/*"],
             "@/services/*": ["services/*"],
             "@/styles/*": ["styles/*"],
-            "@/node_modules/*": ["node_modules/*"]
+            "@/graphql/*": ["graphql/*"]
         },
         "incremental": true
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "graphql"]
 }

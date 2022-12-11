@@ -25,6 +25,9 @@ model Account {
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([provider, providerAccountId])
 }
 
@@ -34,6 +37,9 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
@@ -43,8 +49,18 @@ model User {
   emailVerified DateTime?
   image         String?
   phone         String?
-  Account       Account[]
-  Session       Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Account     Account[]
+  Session     Session[]
+  BankAccount BankAccount[]
+  Transaction Transaction[]
+  Log         Log[]
+  Bill        Bill[]
+  Goal        Goal[]
+  Profile     Profile?
 }
 
 model VerificationToken {
@@ -53,5 +69,113 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([identifier, token])
+}
+
+model BankAccount {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  balance Float
+  name    String
+  desc    String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+}
+
+model Bill {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  icon   String
+  name   String
+  desc   String?
+  amount Float
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+}
+
+model Goal {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  desc            String?
+  totalAmount     Float
+  collectedAmount Float
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+}
+
+model Transaction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  icon      String
+  name      String
+  desc      String?
+  amount    Float
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+}
+
+model Profile {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  currency String @default("$")
+  income   Int?
+
+  user User? @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @unique @db.ObjectId
+}
+
+model Log {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String?
+  action String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+}
+
+model Key {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model News {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  sourceId    String?   @default("NA")
+  sourceName  String?   @default("Unknown")
+  author      String?   @default("Unknown")
+  title       String?   @default("NA")
+  description String?   @default("Unknown")
+  url         String?   @default("NA")
+  imageUrl    String?   @default("NA")
+  publishedAt DateTime?
+  content     String?   @default("NA")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

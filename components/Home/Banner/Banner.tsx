@@ -1,3 +1,8 @@
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import { GET_CURRENCY } from "@/constants/gqlQueries";
+import Link from "@/helpers/wrappers/Link/Link";
+import { formatMoney } from "@/utils/formatMoney";
+import { useQuery } from "@apollo/client";
 import {
     AddOutline,
     ArrowDownOutline,
@@ -6,7 +11,9 @@ import {
     SwapVertical,
 } from "react-ionicons";
 
-const Banner = () => {
+const Banner = ({ balance }) => {
+    const { loading, error, data } = useQuery(GET_CURRENCY);
+
     return (
         <>
             <div className="section wallet-card-section pt-1">
@@ -14,7 +21,16 @@ const Banner = () => {
                     <div className="balance">
                         <div className="left">
                             <span className="title">Total Balance</span>
-                            <h1 className="total">$ 2,562.50</h1>
+                            {loading ? (
+                                <ComponentLoaderPrimary />
+                            ) : (
+                                <h1 className="total">
+                                    {formatMoney(
+                                        balance,
+                                        data.getCurrency.currencyName
+                                    )}
+                                </h1>
+                            )}
                         </div>
                         <div className="right">
                             <a
@@ -54,12 +70,12 @@ const Banner = () => {
                             </a>
                         </div>
                         <div className="item">
-                            <a href="app-cards.html">
+                            <Link href="/accounts">
                                 <div className="icon-wrapper bg-success">
                                     <CardOutline color={"white"} />
                                 </div>
-                                <strong>Cards</strong>
-                            </a>
+                                <strong>Accounts</strong>
+                            </Link>
                         </div>
                         <div className="item">
                             <a

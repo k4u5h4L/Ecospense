@@ -52,7 +52,6 @@ const SendModal = () => {
                                                         className="form-control form-control-lg pe-0"
                                                         id="sendAmount"
                                                         placeholder="0"
-                                                        value="380"
                                                         maxLength={14}
                                                     />
                                                 </div>
@@ -60,7 +59,7 @@ const SendModal = () => {
                                                     <select className="form-select form-select-lg currency">
                                                         <option
                                                             value="BTC"
-                                                            selected
+                                                            defaultChecked
                                                         >
                                                             BTC
                                                         </option>

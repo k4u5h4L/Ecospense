@@ -1,5 +1,7 @@
 import Link from "@/helpers/wrappers/Link/Link";
-import { signOut } from "next-auth/react";
+import { formatMoney } from "@/utils/formatMoney";
+import { gql, useQuery } from "@apollo/client";
+import { signOut, useSession } from "next-auth/react";
 import {
     CloseOutline,
     AddOutline,
@@ -12,9 +14,29 @@ import {
     SettingsOutline,
     ChatbubbleOutline,
     LogOutOutline,
+    ChatbubbleEllipsesOutline,
+    NewspaperOutline,
+    ClipboardOutline,
+    PersonCircleOutline,
 } from "react-ionicons";
+import ComponentLoaderLight from "../ComponentLoader/ComponentLoaderLight";
+
+const GET_BALANCE = gql`
+    query FetchBalance {
+        getCurrency {
+            id
+            currencyName
+        }
+        getCurrentExpenseStatus {
+            balance
+        }
+    }
+`;
 
 const Sidebar = () => {
+    const { data: session, status } = useSession();
+    const { loading, error, data } = useQuery(GET_BALANCE);
+
     return (
         <>
             <div
@@ -28,16 +50,23 @@ const Sidebar = () => {
                         <div className="modal-body p-0">
                             <div className="profileBox pt-2 pb-2">
                                 <div className="image-wrapper">
-                                    <img
+                                    {/* <img
                                         src="assets/img/sample/avatar/avatar1.jpg"
                                         alt="image"
                                         className="imaged w36"
-                                    />
+                                    /> */}
+                                    <PersonCircleOutline />
                                 </div>
                                 <div className="in">
-                                    <strong>Sebastian Doe</strong>
+                                    <strong>
+                                        {status == "authenticated"
+                                            ? session.user.name
+                                            : "NA"}
+                                    </strong>
                                     <div className="text-muted">
-                                        user@mail.com
+                                        {status == "authenticated"
+                                            ? session.user.email
+                                            : "NA"}
                                     </div>
                                 </div>
                                 <a
@@ -49,10 +78,25 @@ const Sidebar = () => {
                                 </a>
                             </div>
                             <div className="sidebar-balance">
-                                <div className="listview-title">Balance</div>
-                                <div className="in">
-                                    <h1 className="amount">$ 2,562.50</h1>
-                                </div>
+                                {loading ? (
+                                    <ComponentLoaderLight />
+                                ) : (
+                                    <>
+                                        <div className="listview-title">
+                                            Balance
+                                        </div>
+                                        <div className="in">
+                                            <h1 className="amount">
+                                                {formatMoney(
+                                                    data.getCurrentExpenseStatus
+                                                        .balance,
+                                                    data.getCurrency
+                                                        .currencyName
+                                                )}
+                                            </h1>
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
                             {/* <div className="action-group">
@@ -113,64 +157,54 @@ const Sidebar = () => {
                                 <li>
                                     <a href="app-pages.html" className="item">
                                         <div className="icon-box bg-primary">
-                                            <DocumentTextOutline
+                                            <ChatbubbleEllipsesOutline
                                                 color={"white"}
                                             />
                                         </div>
-                                        <div className="in">Pages</div>
+                                        <div className="in">Chat</div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        href="app-components.html"
-                                        className="item"
-                                    >
+                                    <Link href="/news/search" className="item">
                                         <div className="icon-box bg-primary">
-                                            <AppsOutline color={"white"} />
+                                            <NewspaperOutline color={"white"} />
                                         </div>
-                                        <div className="in">Components</div>
-                                    </a>
+                                        <div className="in">Search News</div>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="app-cards.html" className="item">
+                                    <Link href="/accounts" className="item">
                                         <div className="icon-box bg-primary">
                                             <CardOutline color={"white"} />
                                         </div>
-                                        <div className="in">My Cards</div>
-                                    </a>
+                                        <div className="in">My Accounts</div>
+                                    </Link>
                                 </li>
                             </ul>
 
                             <div className="listview-title mt-1">Others</div>
                             <ul className="listview flush transparent no-line image-listview">
                                 <li>
-                                    <a
-                                        href="app-settings.html"
-                                        className="item"
-                                    >
+                                    <Link href="/settings" className="item">
                                         <div className="icon-box bg-primary">
                                             <SettingsOutline color={"white"} />
                                         </div>
                                         <div className="in">Settings</div>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
-                                        href="component-messages.html"
-                                        className="item"
-                                    >
+                                    <Link href="/logs" className="item">
                                         <div className="icon-box bg-primary">
-                                            <ChatbubbleOutline
-                                                color={"white"}
-                                            />
+                                            <ClipboardOutline color={"white"} />
                                         </div>
-                                        <div className="in">Support</div>
-                                    </a>
+                                        <div className="in">My Activity</div>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a
                                         onClick={() => signOut()}
                                         className="item"
+                                        style={{ cursor: "pointer" }}
                                     >
                                         <div className="icon-box bg-primary">
                                             <LogOutOutline color={"white"} />

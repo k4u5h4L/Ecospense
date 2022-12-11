@@ -1,27 +1,51 @@
-import AddBalanceModal from "@/components/Home/AddBalanceModel";
 import Banner from "@/components/Home/Banner/Banner";
 import Copyrights from "@/components/Home/Copyrights/Copyrights";
-import ExchangeModal from "@/components/Home/ExchangeModal";
 import Metadata from "@/components/Home/Metadata/Metadata";
 import MyAccounts from "@/components/Home/MyAccounts/MyAccounts";
 import MyBills from "@/components/Home/MyBills/MyBills";
 import News from "@/components/Home/News/News";
 import SavingGoals from "@/components/Home/SavingGoals/SavingGoals";
-import SendMoneyModal from "@/components/Home/SendMoneyModal";
 import ShareFunds from "@/components/Home/ShareFunds/ShareFunds";
 import Transactions from "@/components/Home/Transactions/Transactions";
-import WithdrawModal from "@/components/Home/WithdrawModal";
+import Loader from "@/components/Loader/Loader";
+import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+
+const GET_SUMMARY = gql`
+    query FetchSummary {
+        getCurrentExpenseStatus {
+            id
+            balance
+            bills
+            expenses
+            income
+            savings
+        }
+    }
+`;
 
 const Main = () => {
+    const { loading, error, data } = useQuery(GET_SUMMARY);
+    const router = useRouter();
+
+    if (loading) return <Loader />;
+
+    if (error) {
+        router.push(
+            `/error?error=${encodeURIComponent(
+                "Error fetching data. Please try again later :("
+            )}")}`
+        );
+    }
+
     return (
         <>
             <div id="appCapsule">
-                <Banner />
-                <AddBalanceModal />
-                <Metadata />
+                <Banner balance={data.getCurrentExpenseStatus.balance} />
+                <Metadata data={data.getCurrentExpenseStatus} />
                 <Transactions />
                 <MyAccounts />
-                <ShareFunds />
+                {/* <ShareFunds /> */}
                 <MyBills />
                 <SavingGoals />
                 <News />

@@ -1,6 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import Loader from "@/components/Loader/Loader";
-import Interactivity from "@/containers/Interactivity/Interactivity";
 import Navbar from "@/components/Navbar/Navbar";
 
 export default class _Document extends Document {
@@ -14,7 +13,6 @@ export default class _Document extends Document {
                 <body>
                     <Loader />
                     <Main />
-                    <Interactivity />
                     {/* <Navbar curRoute={this.props.__NEXT_DATA__.page} /> */}
                     <NextScript />
 

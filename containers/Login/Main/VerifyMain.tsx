@@ -1,10 +1,12 @@
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
 import { TWO_MINS_IN_MS } from "@/constants/commonConstants";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 
 const VerifyMain = ({ otp, setOtp, handleSubmit }) => {
     const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(false);
 
     return (
         <>
@@ -14,7 +16,13 @@ const VerifyMain = ({ otp, setOtp, handleSubmit }) => {
                     <h4>Enter the 4 digit OTP email verification code</h4>
                 </div>
                 <div className="section mb-5 p-2">
-                    <form onSubmit={handleSubmit}>
+                    <form
+                        onSubmit={() => {
+                            setLoading(true);
+                            handleSubmit();
+                            setLoading(false);
+                        }}
+                    >
                         <div className="form-group basic">
                             <input
                                 type="text"
@@ -22,6 +30,7 @@ const VerifyMain = ({ otp, setOtp, handleSubmit }) => {
                                 id="smscode"
                                 placeholder="••••"
                                 pattern="[0-9]*"
+                                autoFocus
                                 inputMode="numeric"
                                 maxLength={4}
                                 onChange={(e) => {
@@ -53,7 +62,11 @@ const VerifyMain = ({ otp, setOtp, handleSubmit }) => {
                             <button
                                 type="submit"
                                 className="btn btn-primary btn-block btn-lg"
-                                onSubmit={handleSubmit}
+                                onSubmit={() => {
+                                    setLoading(true);
+                                    handleSubmit();
+                                    setLoading(false);
+                                }}
                             >
                                 Verify
                             </button>
@@ -61,6 +74,13 @@ const VerifyMain = ({ otp, setOtp, handleSubmit }) => {
                     </form>
                 </div>
             </div>
+
+            <PrimaryNotification
+                title="Loading..."
+                text="Please wait"
+                showNotif={loading}
+                showHeader={false}
+            />
         </>
     );
 };

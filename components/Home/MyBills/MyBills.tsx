@@ -1,7 +1,34 @@
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
 import Link from "@/helpers/wrappers/Link/Link";
+import { formatMoney } from "@/utils/formatMoney";
+import { gql, useQuery } from "@apollo/client";
+import { Bill } from "@prisma/client";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 
+const GET_BILLS = gql`
+    query GetBills($page: Int, $itemsPerPage: Int) {
+        getCurrency {
+            id
+            currencyName
+        }
+        getAllBills(page: $page, itemsPerPage: $itemsPerPage) {
+            amount
+            desc
+            icon
+            id
+            name
+        }
+    }
+`;
+
 const MyBills = () => {
+    const { loading, error, data } = useQuery(GET_BILLS, {
+        variables: {
+            page: 1,
+            itemsPerPage: 4,
+        },
+    });
+
     return (
         <>
             <div className="section full mt-4">
@@ -28,85 +55,47 @@ const MyBills = () => {
                     }}
                 >
                     <SplideTrack className="splide__track">
-                        <SplideSlide className="splide__slide">
-                            <div className="bill-box">
-                                <div className="img-wrapper">
-                                    <img
-                                        src="assets/img/sample/brand/1.jpg"
-                                        alt="img"
-                                        className="image-block imaged w48"
-                                    />
-                                </div>
-                                <div className="price">$ 14</div>
-                                <p>Prime Monthly Subscription</p>
-                                <a
-                                    href="#"
-                                    className="btn btn-primary btn-block btn-sm"
-                                >
-                                    PAY NOW
-                                </a>
-                            </div>
-                        </SplideSlide>
-
-                        <SplideSlide className="splide__slide">
-                            <div className="bill-box">
-                                <div className="img-wrapper">
-                                    <img
-                                        src="assets/img/sample/brand/2.jpg"
-                                        alt="img"
-                                        className="image-block imaged w48"
-                                    />
-                                </div>
-                                <div className="price">$ 9</div>
-                                <p>Music Monthly Subscription</p>
-                                <a
-                                    href="#"
-                                    className="btn btn-primary btn-block btn-sm"
-                                >
-                                    PAY NOW
-                                </a>
-                            </div>
-                        </SplideSlide>
-
-                        <SplideSlide className="splide__slide">
-                            <div className="bill-box">
-                                <div className="img-wrapper">
-                                    <div className="iconbox bg-danger">
-                                        {/* <ion-icon
-                                                name="medkit-outline"
-                                            ></ion-icon> */}
-                                    </div>
-                                </div>
-                                <div className="price">$ 299</div>
-                                <p>Monthly Health Insurance</p>
-                                <a
-                                    href="#"
-                                    className="btn btn-primary btn-block btn-sm"
-                                >
-                                    PAY NOW
-                                </a>
-                            </div>
-                        </SplideSlide>
-
-                        <SplideSlide className="splide__slide">
-                            <div className="bill-box">
-                                <div className="img-wrapper">
-                                    <div className="iconbox">
-                                        {/* <ion-icon
-                                                name="card-outline"
-                                            ></ion-icon> */}
-                                    </div>
-                                </div>
-                                <div className="price">$ 962</div>
-                                <p>Credit Card Statement</p>
-                                <a
-                                    href="#"
-                                    className="btn btn-primary btn-block btn-sm"
-                                >
-                                    PAY NOW
-                                </a>
-                            </div>
-                        </SplideSlide>
+                        {loading ? (
+                            <ComponentLoaderPrimary />
+                        ) : (
+                            <>
+                                {data.getAllBills.map((bill: Bill) => (
+                                    <SplideSlide
+                                        key={bill.id}
+                                        className="splide__slide"
+                                    >
+                                        <div className="bill-box">
+                                            <div className="img-wrapper">
+                                                <img
+                                                    src={bill.icon}
+                                                    alt="img"
+                                                    className="image-block imaged w48"
+                                                />
+                                            </div>
+                                            <div className="price">
+                                                {formatMoney(
+                                                    bill.amount,
+                                                    data.getCurrency
+                                                        .currencyName
+                                                )}
+                                            </div>
+                                            <p>{bill.name}</p>
+                                            <a
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() =>
+                                                    alert(
+                                                        "Paid the bill, and send notification"
+                                                    )
+                                                }
+                                                className="btn btn-primary btn-block btn-sm"
+                                            >
+                                                PAY NOW
+                                            </a>
+                                        </div>
+                                    </SplideSlide>
+                                ))}
+                            </>
+                        )}
                     </SplideTrack>
                 </Splide>
             </div>

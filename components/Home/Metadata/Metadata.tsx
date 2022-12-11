@@ -1,4 +1,13 @@
-const Metadata = () => {
+import ComponentLoaderDanger from "@/components/ComponentLoader/ComponentLoaderDanger";
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import ComponentLoaderSuccess from "@/components/ComponentLoader/ComponentLoaderSuccess";
+import { GET_CURRENCY } from "@/constants/gqlQueries";
+import { formatMoney } from "@/utils/formatMoney";
+import { useQuery } from "@apollo/client";
+
+const Metadata = ({ data }) => {
+    const { loading, error, data: cur } = useQuery(GET_CURRENCY);
+
     return (
         <>
             <div className="section">
@@ -6,13 +15,28 @@ const Metadata = () => {
                     <div className="col-6">
                         <div className="stat-box">
                             <div className="title">Income</div>
-                            <div className="value text-success">$ 552.95</div>
+                            {loading ? (
+                                <ComponentLoaderSuccess />
+                            ) : (
+                                <div className="value text-success">
+                                    {formatMoney(data.income, cur.currencyName)}
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="col-6">
                         <div className="stat-box">
                             <div className="title">Expenses</div>
-                            <div className="value text-danger">$ 86.45</div>
+                            {loading ? (
+                                <ComponentLoaderDanger />
+                            ) : (
+                                <div className="value text-danger">
+                                    {formatMoney(
+                                        data.expenses,
+                                        cur.currencyName
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -20,13 +44,28 @@ const Metadata = () => {
                     <div className="col-6">
                         <div className="stat-box">
                             <div className="title">Total Bills</div>
-                            <div className="value">$ 53.25</div>
+                            {loading ? (
+                                <ComponentLoaderPrimary />
+                            ) : (
+                                <div className="value">
+                                    {formatMoney(data.bills, cur.currencyName)}
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="col-6">
                         <div className="stat-box">
                             <div className="title">Savings</div>
-                            <div className="value">$ 120.99</div>
+                            {loading ? (
+                                <ComponentLoaderPrimary />
+                            ) : (
+                                <div className="value">
+                                    {formatMoney(
+                                        data.savings,
+                                        cur.currencyName
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
