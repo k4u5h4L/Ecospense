@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/graphql/apolloClient";
+import Interactivity from "@/containers/Interactivity/Interactivity";
 
 const variantsPop: Variants = {
     hidden: { opacity: 1, x: "-100%", y: 0 },
@@ -35,49 +36,50 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
-            <Head>
-                <meta charSet="utf-8" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta
-                    name="description"
-                    content="An expense tracking application"
-                />
-                <meta name="keywords" content="expense, finance, budget" />
-                <meta name="theme-color" content="#0d6efd" />
-                <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta
-                    name="viewport"
-                    content="initial-scale=1, viewport-fit=cover, user-scalable=no"
-                />
-                <title>Ecospense</title>
-                <link rel="manifest" href="/site.webmanifest" />
-            </Head>
+            <ApolloProvider client={client}>
+                <Head>
+                    <meta charSet="utf-8" />
+                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                    <meta
+                        name="description"
+                        content="An expense tracking application"
+                    />
+                    <meta name="keywords" content="expense, finance, budget" />
+                    <meta name="theme-color" content="#0d6efd" />
+                    <meta name="apple-mobile-web-app-capable" content="yes" />
+                    <meta
+                        name="viewport"
+                        content="initial-scale=1, viewport-fit=cover, user-scalable=no"
+                    />
+                    <title>Ecospense</title>
+                    <link rel="manifest" href="/site.webmanifest" />
+                </Head>
 
-            <NextNprogress
-                color="#0d6efd"
-                startPosition={0.3}
-                stopDelayMs={200}
-                height={3}
-                options={{ showSpinner: false }}
-            />
-            <AnimatePresence
-                exitBeforeEnter={false}
-                initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}
-            >
-                <motion.main
-                    initial="hidden"
-                    animate="enter"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ type: "linear" }}
-                    key={router.route}
+                <NextNprogress
+                    color="#0d6efd"
+                    startPosition={0.3}
+                    stopDelayMs={200}
+                    height={3}
+                    options={{ showSpinner: false }}
+                />
+                <AnimatePresence
+                    exitBeforeEnter={false}
+                    initial={false}
+                    onExitComplete={() => window.scrollTo(0, 0)}
                 >
-                    <ApolloProvider client={client}>
+                    <motion.main
+                        initial="hidden"
+                        animate="enter"
+                        exit="exit"
+                        variants={variants}
+                        transition={{ type: "linear" }}
+                        key={router.route}
+                    >
                         <Component {...pageProps} />
-                    </ApolloProvider>
-                </motion.main>
-            </AnimatePresence>
+                    </motion.main>
+                </AnimatePresence>
+                <Interactivity />
+            </ApolloProvider>
         </SessionProvider>
     );
 }

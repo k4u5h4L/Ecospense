@@ -982,7 +982,7 @@ blockquote.blockquote .blockquote-footer {
 #loader .loading-icon {
     width: 42px;
     height: auto;
-    animation: loadingAnimation 0.5s ease-in-out infinite;
+    animation: loadingAnimation 0.7s ease-in-out infinite;
 }
 #loader.hidden {
     display: none;
@@ -991,8 +991,11 @@ blockquote.blockquote .blockquote-footer {
     0% {
         transform: rotate(0deg);
     }
-    100% {
+    50% {
         transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
 body.animationGoBack {

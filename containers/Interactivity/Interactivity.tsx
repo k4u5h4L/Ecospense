@@ -12,8 +12,8 @@ const Interactivity = () => {
     return (
         <>
             <Sidebar />
-            <WithdrawModal />
             <AddBalanceModal />
+            <WithdrawModal />
             <SendMoneyModal />
             <ExchangeModal />
             <VisDepositModal />
