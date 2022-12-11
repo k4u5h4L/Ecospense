@@ -9,3 +9,5 @@ export * from "./Goal";
 export * from "./Log";
 export * from "./Transaction";
 export * from "./ExpenseStatus";
+export * from "./Currency";
+export * from "./ExpenseStatus";

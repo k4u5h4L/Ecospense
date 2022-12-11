@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { makeSchema } from "nexus";
 import path from "path";
-import * as types from "./types";
+import * as types from "./types/index";
 
 export const schema = makeSchema({
     types,
