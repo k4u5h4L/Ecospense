@@ -1,6 +1,7 @@
-import { intArg, mutationType, nonNull, stringArg } from "nexus";
+import { floatArg, intArg, mutationType, nonNull, stringArg } from "nexus";
+import { addBalanceResolver } from "../resolvers/Account/addBalanceResolver";
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
-import { User } from "./TypeDefs";
+import { Account, User } from "./TypeDefs";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -13,6 +14,16 @@ export const Mutation = mutationType({
                 income: nonNull(intArg()),
             },
             resolve: updateUserProfileResolver,
+        });
+
+        t.field("addBalance", {
+            type: Account,
+            description: "Add balance to your account",
+            args: {
+                accountId: nonNull(stringArg()),
+                amount: nonNull(floatArg()),
+            },
+            resolve: addBalanceResolver,
         });
     },
 });

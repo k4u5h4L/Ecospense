@@ -1,7 +1,7 @@
 import { formatMoney } from "@/utils/formatMoney";
 import { gql, useQuery } from "@apollo/client";
 import { BankAccount } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ComponentLoaderPrimary from "../ComponentLoader/ComponentLoaderPrimary";
 
 const GET_ACCOUNTS = gql`
@@ -40,12 +40,19 @@ const AddBalanceModal = () => {
     const handleInputChange = (accountId: string): void => {
         setInput({
             ...input,
-            accountId,
+            accountId: accountId,
         });
     };
 
     const handleSubmit = (e: any): void => {
         e.preventDefault();
+
+        let accountId: string;
+
+        if (data && input.accountId == "" && data.getAllAccounts.length > 0) {
+            accountId = data.getAllAccounts[0].i;
+        }
+
         console.log(input);
     };
 
@@ -80,26 +87,20 @@ const AddBalanceModal = () => {
                                                     <select
                                                         className="form-control custom-select"
                                                         id="account1"
+                                                        required
                                                     >
-                                                        <option
-                                                            defaultChecked={
-                                                                true
-                                                            }
-                                                            onClick={() =>
-                                                                handleInputChange(
-                                                                    ""
-                                                                )
-                                                            }
-                                                        >
-                                                            Select account
-                                                        </option>
                                                         {data.getAllAccounts.map(
                                                             (
-                                                                account: BankAccount
+                                                                account: BankAccount,
+                                                                index: number
                                                             ) => (
                                                                 <option
                                                                     key={
                                                                         account.id
+                                                                    }
+                                                                    defaultChecked={
+                                                                        index ==
+                                                                        0
                                                                     }
                                                                     onClick={() =>
                                                                         handleInputChange(

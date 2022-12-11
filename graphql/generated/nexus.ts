@@ -170,6 +170,7 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
   }
   Mutation: { // field return type
+    addBalance: NexusGenRootTypes['Account'] | null; // Account
     updateUserProfile: NexusGenRootTypes['User'] | null; // User
   }
   News: { // field return type
@@ -278,6 +279,7 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Mutation: { // field return type name
+    addBalance: 'Account'
     updateUserProfile: 'User'
   }
   News: { // field return type name
@@ -337,6 +339,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addBalance: { // args
+      accountId: string; // String!
+      amount: number; // Float!
+    }
     updateUserProfile: { // args
       currency: string; // String!
       income: number; // Int!
