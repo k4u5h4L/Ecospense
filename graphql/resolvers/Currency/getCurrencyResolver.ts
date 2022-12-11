@@ -20,15 +20,13 @@ export const getCurrencyResolver: FieldResolver<"Query", "Testing"> = async (
         },
     });
 
-    let curName: string = "USD";
+    let curSymbol: string = "$";
 
     try {
-        curName = Object.keys(Currencies).find(
-            (key) => Currencies[key] === data.Profile.currency
-        );
+        curSymbol = Currencies[data.Profile.currency];
     } catch (e) {
         console.error(e);
     }
 
-    return { currencyName: curName, currencySymbol: data.Profile.currency };
+    return { currencyName: data.Profile.currency, currencySymbol: curSymbol };
 };

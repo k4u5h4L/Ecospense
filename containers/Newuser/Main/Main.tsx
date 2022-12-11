@@ -33,9 +33,10 @@ const Main = () => {
     const router = useRouter();
 
     const selectCurrency = (key: string): void => {
-        console.log("selected currency: ", Currency[key]);
+        console.log("selected currency: ", key);
         setConfig((prev) => {
-            prev.currency = Currency[key];
+            // prev.currency = Currency[key];
+            prev.currency = key;
             return prev;
         });
     };
