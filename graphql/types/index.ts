@@ -1,3 +1,3 @@
 export * from "./Query";
 export * from "./Mutation";
-export * from "./TypeDefs";
+export * from "./TypeDefs/index";
