@@ -1,4 +1,28 @@
+import { gql, useQuery } from "@apollo/client";
+import ComponentLoaderPrimary from "../ComponentLoader/ComponentLoaderPrimary";
+
+const GET_ACCOUNTS = gql`
+    query GetAccounts($page: Int, $itemsPerPage: Int) {
+        getCurrency {
+            currencyName
+        }
+        getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {
+            balance
+            desc
+            id
+            name
+        }
+    }
+`;
+
 const AddBalanceModal = () => {
+    const { loading, error, data } = useQuery(GET_ACCOUNTS, {
+        variables: {
+            page: 1,
+            itemsPerPage: 999,
+        },
+    });
+
     return (
         <>
             <div
@@ -8,74 +32,83 @@ const AddBalanceModal = () => {
                 role="dialog"
             >
                 <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Add Balance</h5>
-                        </div>
-                        <div className="modal-body">
-                            <div className="action-sheet-content">
-                                <form>
-                                    <div className="form-group basic">
-                                        <div className="input-wrapper">
-                                            <label
-                                                className="label"
-                                                htmlFor="account1"
-                                            >
-                                                From
-                                            </label>
-                                            <select
-                                                className="form-control custom-select"
-                                                id="account1"
-                                            >
-                                                <option value="0">
-                                                    Savings (*** 5019)
-                                                </option>
-                                                <option value="1">
-                                                    Investment (*** 6212)
-                                                </option>
-                                                <option value="2">
-                                                    Mortgage (*** 5021)
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
+                    {loading ? (
+                        <ComponentLoaderPrimary />
+                    ) : (
+                        <>
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Add Balance</h5>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="action-sheet-content">
+                                        <form>
+                                            <div className="form-group basic">
+                                                <div className="input-wrapper">
+                                                    <label
+                                                        className="label"
+                                                        htmlFor="account1"
+                                                    >
+                                                        To
+                                                    </label>
+                                                    <select
+                                                        className="form-control custom-select"
+                                                        id="account1"
+                                                    >
+                                                        <option value="0">
+                                                            Savings (*** 5019)
+                                                        </option>
+                                                        <option value="1">
+                                                            Investment (***
+                                                            6212)
+                                                        </option>
+                                                        <option value="2">
+                                                            Mortgage (*** 5021)
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className="form-group basic">
-                                        <label className="label">
-                                            Enter Amount
-                                        </label>
-                                        <div className="input-group mb-2">
-                                            <span
-                                                className="input-group-text"
-                                                id="basic-addona1"
-                                            >
-                                                $
-                                            </span>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter an amount"
-                                                value="100"
-                                                onChange={() =>
-                                                    console.log("changed")
-                                                }
-                                            />
-                                        </div>
-                                    </div>
+                                            <div className="form-group basic">
+                                                <label className="label">
+                                                    Enter Amount
+                                                </label>
+                                                <div className="input-group mb-2">
+                                                    <span
+                                                        className="input-group-text"
+                                                        id="basic-addona1"
+                                                    >
+                                                        $
+                                                    </span>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder="Enter an amount"
+                                                        value="100"
+                                                        onChange={() =>
+                                                            console.log(
+                                                                "changed"
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="form-group basic">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary btn-block btn-lg"
-                                            data-bs-dismiss="modal"
-                                        >
-                                            Deposit
-                                        </button>
+                                            <div className="form-group basic">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary btn-block btn-lg"
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    Deposit
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </>

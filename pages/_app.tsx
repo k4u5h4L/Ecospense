@@ -9,6 +9,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/graphql/apolloClient";
 import Interactivity from "@/containers/Interactivity/Interactivity";
+import RouteGuard from "@/components/RouteGuard/RouteGuard";
 
 const variantsPop: Variants = {
     hidden: { opacity: 1, x: "-100%", y: 0 },
@@ -75,7 +76,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
                         transition={{ type: "linear" }}
                         key={router.route}
                     >
-                        <Component {...pageProps} />
+                        <RouteGuard>
+                            <Component {...pageProps} />
+                        </RouteGuard>
                     </motion.main>
                 </AnimatePresence>
                 <Interactivity />

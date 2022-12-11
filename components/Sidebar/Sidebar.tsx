@@ -57,9 +57,15 @@ const Sidebar = () => {
                                     <PersonCircleOutline />
                                 </div>
                                 <div className="in">
-                                    <strong>{session.user.name}</strong>
+                                    <strong>
+                                        {status == "authenticated"
+                                            ? session.user.name
+                                            : "NA"}
+                                    </strong>
                                     <div className="text-muted">
-                                        {session.user.email}
+                                        {status == "authenticated"
+                                            ? session.user.email
+                                            : "NA"}
                                     </div>
                                 </div>
                                 <a
