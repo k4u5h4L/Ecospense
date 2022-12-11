@@ -30,7 +30,8 @@
         "seed:prisma": "prisma db seed"
     },
     "engines": {
-        "node": "^16"
+        "node": "^16",
+        "yarn": "^1.22.19"
     },
     "prisma": {
         "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
