@@ -21,7 +21,7 @@ import {
     Log,
     Transaction,
     ExpenseStatus,
-} from "./TypeDefs/index";
+} from "@/graphql/types/TypeDefs/index";
 
 export const Query = queryType({
     definition(t) {
