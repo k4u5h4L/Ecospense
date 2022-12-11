@@ -2,8 +2,7 @@ import { ExpenseStatusType } from "@/types/ExpenseStatusType";
 import { formatMoney } from "@/utils/formatMoney";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { BankAccount } from "@prisma/client";
-import AppContext from "context/AppContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ComponentLoaderPrimary from "../ComponentLoader/ComponentLoaderPrimary";
 import PrimaryNotification from "../Notifications/PrimaryNotification/PrimaryNotification";
 
@@ -51,7 +50,6 @@ type InputType = {
 };
 
 const AddBalanceModal = () => {
-    // const {value, setValue} = useContext(AppContext);
     const { loading, error, data } = useQuery(GET_ACCOUNTS, {
         variables: {
             page: 1,

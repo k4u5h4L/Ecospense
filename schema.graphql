@@ -64,6 +64,9 @@ type Mutation {
 
   """Update your profile."""
   updateUserProfile(currency: String!, income: Int!, name: String!): User
+
+  """Withdraw balance from your account"""
+  withdrawBalance(accountId: String!, amount: Float!): Account
 }
 
 type News {
