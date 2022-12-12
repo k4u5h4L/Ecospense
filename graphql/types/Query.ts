@@ -10,7 +10,7 @@ import { getAllLogsResolver } from "../resolvers/Log/getAllLogsResolver";
 import { getAllNewsResolver } from "../resolvers/News/getAllNewsResolver";
 import { getNewsByIdResolver } from "../resolvers/News/getNewsByIdResolver";
 import { getAllTxnsResolver } from "../resolvers/Transaction/getAllTxnsResolver";
-import { Currency } from "./objectTypes/Currency";
+import { Currency } from "./object-types-new/Currency";
 import {
     News,
     Test,
@@ -21,7 +21,7 @@ import {
     Log,
     Transaction,
     ExpenseStatus,
-} from "@/graphql/types/objectTypes/index";
+} from "@/graphql/types/object-types-new/index";
 
 export const Query = queryType({
     definition(t) {

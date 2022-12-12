@@ -2,7 +2,7 @@ import { floatArg, intArg, mutationType, nonNull, stringArg } from "nexus";
 import { addBalanceResolver } from "../resolvers/Account/addBalanceResolver";
 import { withdrawBalanceResolver } from "../resolvers/Account/withdrawBalanceResolver";
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
-import { Account, User } from "@/graphql/types/objectTypes/index";
+import { Account, User } from "@/graphql/types/object-types-new/index";
 
 export const Mutation = mutationType({
     definition(t) {
