@@ -21,17 +21,14 @@ const server = new ApolloServer({
 });
 
 export default startServerAndCreateNextHandler(server, {
-    context: async (
-        req: NextApiRequest,
-        res: NextApiResponse<GraphQlContextType>
-    ) => {
+    context: async (req: NextApiRequest, res: NextApiResponse<any>) => {
         // get user's session
         const session = await getSession({ req });
 
         if (!session && process.env.NODE_ENV != "development") {
-            throw AuthenticationError;
+            res.status(401).json({ error: "Unauthorized" });
+        } else {
+            return { session, prisma };
         }
-
-        return { session, prisma };
     },
 });
