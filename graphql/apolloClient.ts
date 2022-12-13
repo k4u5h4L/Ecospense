@@ -10,7 +10,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 function createApolloClient() {
     return new ApolloClient({
         link: new HttpLink({
-            uri: "https://ecospense-git-dev-k4u5h4l.vercel.app/api/graphql",
+            uri: "/api/graphql",
         }),
         cache: new InMemoryCache(),
     });
