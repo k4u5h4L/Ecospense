@@ -31,13 +31,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
     });
     const client = useApollo();
 
-    useEffect(() => {
-        if (typeof document !== "undefined") {
-            const theme = localStorage.getItem("theme");
+    // useEffect(() => {
+    //     if (typeof document !== "undefined") {
+    //         const theme = localStorage.getItem("theme");
 
-            document.body.className = theme == "dark" ? "dark-mode" : "";
-        }
-    }, []);
+    //         document.body.className = theme == "dark" ? "dark-mode" : "";
+    //     }
+    // }, []);
 
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
