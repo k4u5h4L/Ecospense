@@ -10,7 +10,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 function createApolloClient() {
     return new ApolloClient({
         link: new HttpLink({
-            uri: "/api/graphql",
+            uri: `https://${process.env.VERCEL_URL}/api/graphql`,
         }),
         cache: new InMemoryCache(),
     });
