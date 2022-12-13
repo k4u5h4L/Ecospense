@@ -39,7 +39,7 @@ const Blogs = ({}) => {
 };
 
 export async function getStaticProps() {
-    refreshNews().then(() => console.log("Refreshing task over"));
+    // refreshNews().then(() => console.log("Refreshing task over"));
     console.log("Static props task complete");
 
     return {
