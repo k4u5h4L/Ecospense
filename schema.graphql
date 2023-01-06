@@ -62,6 +62,9 @@ type Mutation {
   """Add balance to your account"""
   addBalance(accountId: String!, amount: Float!): Account
 
+  """Transfer money from one account to another."""
+  transferBalance(amount: Float!, fromAccountId: String!, toAccountId: String!): [Account]
+
   """Update your profile."""
   updateUserProfile(currency: String!, income: Int!, name: String!): User
 

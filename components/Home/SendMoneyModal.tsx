@@ -1,3 +1,29 @@
+import { gql } from "@apollo/client";
+
+const GET_ACCOUNTS = gql`
+    query GetAccounts($page: Int, $itemsPerPage: Int) {
+        getCurrency {
+            id
+            currencyName
+            currencySymbol
+        }
+        getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {
+            balance
+            desc
+            id
+            name
+        }
+        getCurrentExpenseStatus {
+            id
+            balance
+            bills
+            expenses
+            income
+            savings
+        }
+    }
+`;
+
 const SendMoneyModal = () => {
     return (
         <>
@@ -10,7 +36,9 @@ const SendMoneyModal = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Send Money</h5>
+                            <h5 className="modal-title">
+                                Transfer Money Between Accounts
+                            </h5>
                         </div>
                         <div className="modal-body">
                             <div className="action-sheet-content">

@@ -66,7 +66,7 @@ const Banner = ({ balance }) => {
                                 <div className="icon-wrapper">
                                     <ArrowForwardOutline color={"white"} />
                                 </div>
-                                <strong>Send</strong>
+                                <strong>Transfer</strong>
                             </a>
                         </div>
                         <div className="item">
