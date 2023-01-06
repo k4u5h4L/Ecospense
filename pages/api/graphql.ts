@@ -21,10 +21,7 @@ const server = new ApolloServer({
 });
 
 export default startServerAndCreateNextHandler(server, {
-    context: async (
-        req: NextApiRequest,
-        res: NextApiResponse<GraphQlContextType>
-    ) => {
+    context: async (req: NextApiRequest, res: NextApiResponse) => {
         // get user's session
         const session = await getSession({ req });
 

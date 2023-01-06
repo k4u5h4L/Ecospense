@@ -31,13 +31,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
     });
     const client = useApollo();
 
-    useEffect(() => {
-        if (typeof document !== "undefined") {
-            const theme = localStorage.getItem("theme");
+    // useEffect(() => {
+    //     if (typeof document !== "undefined") {
+    //         const theme = localStorage.getItem("theme");
 
-            document.body.className = theme == "dark" ? "dark-mode" : "";
-        }
-    }, []);
+    //         document.body.className = theme == "dark" ? "dark-mode" : "";
+    //     }
+    // }, []);
 
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
@@ -74,25 +74,25 @@ export default function App({ Component, pageProps, router }: AppProps) {
                         height={3}
                         options={{ showSpinner: false }}
                     />
-                    <AnimatePresence
-                        exitBeforeEnter={false}
-                        initial={false}
-                        onExitComplete={() => window.scrollTo(0, 0)}
-                    >
-                        <motion.main
-                            initial="hidden"
-                            animate="enter"
-                            exit="exit"
-                            variants={variants}
-                            transition={{ type: "linear" }}
-                            key={router.route}
+                    <RouteGuard>
+                        <AnimatePresence
+                            exitBeforeEnter={false}
+                            initial={false}
+                            onExitComplete={() => window.scrollTo(0, 0)}
                         >
-                            <RouteGuard>
+                            <motion.main
+                                initial="hidden"
+                                animate="enter"
+                                exit="exit"
+                                variants={variants}
+                                transition={{ type: "linear" }}
+                                key={router.route}
+                            >
                                 <Component {...pageProps} />
-                            </RouteGuard>
-                        </motion.main>
-                    </AnimatePresence>
-                    <Interactivity />
+                            </motion.main>
+                        </AnimatePresence>
+                        <Interactivity />
+                    </RouteGuard>
                 </AppContext.Provider>
             </ApolloProvider>
         </SessionProvider>
