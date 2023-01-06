@@ -7,8 +7,13 @@ import VisSendModal from "@/components/Visualise/Home/SendModal";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import AddBalanceModal from "@/components/Home/AddBalanceModel";
 import TandCModal from "@/components/TandC/TandCModal";
+import { useSession } from "next-auth/react";
 
 const Interactivity = () => {
+    const { data: session, status } = useSession();
+
+    if (status !== "authenticated") return null;
+
     return (
         <>
             <Sidebar />
