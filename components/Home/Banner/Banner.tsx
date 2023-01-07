@@ -78,7 +78,7 @@ const Banner = ({ balance }) => {
                             </Link>
                         </div>
                         <div className="item">
-                            <a
+                            {/* <a
                                 href="#"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exchangeActionSheet"
@@ -87,7 +87,13 @@ const Banner = ({ balance }) => {
                                     <SwapVertical color={"white"} />
                                 </div>
                                 <strong>Exchange</strong>
-                            </a>
+                            </a> */}
+                            <Link href="/convert">
+                                <div className="icon-wrapper bg-warning">
+                                    <SwapVertical color={"white"} />
+                                </div>
+                                <strong>Exchange</strong>
+                            </Link>
                         </div>
                     </div>
                 </div>

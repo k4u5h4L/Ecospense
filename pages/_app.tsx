@@ -75,7 +75,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
                         options={{ showSpinner: false }}
                     />
                     <RouteGuard>
-                        {/* <AnimatePresence
+                        <AnimatePresence
                             exitBeforeEnter={false}
                             initial={false}
                             onExitComplete={() => window.scrollTo(0, 0)}
@@ -87,11 +87,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
                                 variants={variants}
                                 transition={{ type: "linear" }}
                                 key={router.route}
-                            > */}
-                        <Component {...pageProps} />
-                        {/* </motion.main>
-                        </AnimatePresence> */}
-                        {/* <Interactivity /> */}
+                            >
+                                <Component {...pageProps} />
+                            </motion.main>
+                        </AnimatePresence>
+                        <Interactivity />
                     </RouteGuard>
                 </AppContext.Provider>
             </ApolloProvider>

@@ -122,7 +122,8 @@ const MyAccounts = () => {
                                                             {formatMoney(
                                                                 account.balance,
                                                                 data.getCurrency
-                                                                    .currencyName
+                                                                    .currencyName,
+                                                                "standard"
                                                             )}
                                                         </h1>
                                                     </div>

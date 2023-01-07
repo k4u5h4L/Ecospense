@@ -9,3 +9,13 @@ export const GET_CURRENCY = gql`
         }
     }
 `;
+
+export const GET_ALL_ACCOUNTS = gql`
+    query GetAllAccounts($page: Int, $itemsPerPage: Int) {
+        getAllAccounts(page: $page, itemsPerPage: $itemsPerPage) {
+            id
+            name
+            balance
+        }
+    }
+`;

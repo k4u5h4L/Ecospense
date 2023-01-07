@@ -1,8 +1,5 @@
 import Header from "@/components/Home/Header/Header";
 import Navbar from "@/components/Navbar/Navbar";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import Interactivity from "@/containers/Interactivity/Interactivity";
-// import Main from "@/containers/Home/Main/Main";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("@/containers/Home/Main/Main"), {
@@ -15,7 +12,6 @@ export default function Home() {
             <Header />
             <Main />
             <Navbar />
-            <Interactivity />
         </>
     );
 }

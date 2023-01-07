@@ -1,5 +1,7 @@
 export const PUBLIC_PATHS = ["/auth/login", "/splash", "/about"];
 
+export const UNUSABLE_PATHS_FOR_NEW_USER = ["/auth/newuser"];
+
 export const PRIMARY_COLOUR = "#256l144";
 
 export const TRENDING_UP_GREEN_COLOUR = "#1DCC70";

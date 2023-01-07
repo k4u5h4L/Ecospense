@@ -8,11 +8,18 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import AddBalanceModal from "@/components/Home/AddBalanceModel";
 import TandCModal from "@/components/TandC/TandCModal";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { UNUSABLE_PATHS_FOR_NEW_USER } from "@/constants/commonConstants";
 
 const Interactivity = () => {
     const { data: session, status } = useSession();
+    const router = useRouter();
 
-    if (status !== "authenticated") return null;
+    if (
+        status !== "authenticated" ||
+        UNUSABLE_PATHS_FOR_NEW_USER.includes(router.asPath.split("?")[0])
+    )
+        return null;
 
     return (
         <>
