@@ -16,6 +16,7 @@ export const GET_ALL_ACCOUNTS = gql`
             id
             name
             balance
+            desc
         }
     }
 `;

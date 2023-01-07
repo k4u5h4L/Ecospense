@@ -10,7 +10,7 @@ const AddAccountModal = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Add a Card</h5>
+                            <h5 className="modal-title">Add an Account</h5>
                         </div>
                         <div className="modal-body">
                             <div className="action-sheet-content">

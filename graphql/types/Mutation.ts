@@ -4,6 +4,7 @@ import { withdrawBalanceResolver } from "../resolvers/Account/withdrawBalanceRes
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
 import { Account, User } from "@/graphql/types/objectTypes/index";
 import { transferBalanceResolver } from "../resolvers/Account/transferBalanceResolver";
+import { removeAccountResolver } from "../resolvers/Account/removeAccountResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -47,6 +48,15 @@ export const Mutation = mutationType({
                 amount: nonNull(floatArg()),
             },
             resolve: transferBalanceResolver,
+        });
+
+        t.field("removeAccount", {
+            type: Account,
+            description: "Remove the bank account from your user profile.",
+            args: {
+                accountId: nonNull(stringArg()),
+            },
+            resolve: removeAccountResolver,
         });
     },
 });

@@ -10,6 +10,7 @@ import TandCModal from "@/components/TandC/TandCModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { UNUSABLE_PATHS_FOR_NEW_USER } from "@/constants/commonConstants";
+import AddAccountModal from "@/components/Accounts/AddAccountModal/AddAccountModal";
 
 const Interactivity = () => {
     const { data: session, status } = useSession();
@@ -32,6 +33,7 @@ const Interactivity = () => {
             <VisWithdrawModal />
             <VisSendModal />
             <TandCModal />
+            <AddAccountModal />
         </>
     );
 };
