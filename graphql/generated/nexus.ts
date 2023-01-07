@@ -170,6 +170,7 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
   }
   Mutation: { // field return type
+    addAccount: NexusGenRootTypes['Account'] | null; // Account
     addBalance: NexusGenRootTypes['Account'] | null; // Account
     removeAccount: NexusGenRootTypes['Account'] | null; // Account
     transferBalance: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
@@ -282,6 +283,7 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Mutation: { // field return type name
+    addAccount: 'Account'
     addBalance: 'Account'
     removeAccount: 'Account'
     transferBalance: 'Account'
@@ -345,6 +347,11 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addAccount: { // args
+      balance: number; // Float!
+      desc: string; // String!
+      name: string; // String!
+    }
     addBalance: { // args
       accountId: string; // String!
       amount: number; // Float!

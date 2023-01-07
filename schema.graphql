@@ -59,6 +59,9 @@ type Log {
 }
 
 type Mutation {
+  """Add a bank account to your user profile."""
+  addAccount(balance: Float!, desc: String!, name: String!): Account
+
   """Add balance to your account"""
   addBalance(accountId: String!, amount: Float!): Account
 

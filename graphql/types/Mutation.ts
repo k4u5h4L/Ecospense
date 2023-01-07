@@ -5,6 +5,7 @@ import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfil
 import { Account, User } from "@/graphql/types/objectTypes/index";
 import { transferBalanceResolver } from "../resolvers/Account/transferBalanceResolver";
 import { removeAccountResolver } from "../resolvers/Account/removeAccountResolver";
+import { addAccountResolver } from "../resolvers/Account/addAccountResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -48,6 +49,17 @@ export const Mutation = mutationType({
                 amount: nonNull(floatArg()),
             },
             resolve: transferBalanceResolver,
+        });
+
+        t.field("addAccount", {
+            type: Account,
+            description: "Add a bank account to your user profile.",
+            args: {
+                name: nonNull(stringArg()),
+                desc: nonNull(stringArg()),
+                balance: nonNull(floatArg()),
+            },
+            resolve: addAccountResolver,
         });
 
         t.field("removeAccount", {

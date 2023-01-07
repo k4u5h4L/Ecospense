@@ -24,7 +24,7 @@ const REMOVE_ACCOUNT = gql`
     }
 `;
 
-const EllipsisMenu = ({ accountId, accounts }: PropType) => {
+const EllipsisMenu = ({ accountId }: PropType) => {
     const [removeAccount, { data: mData, loading: mLoading, error: mError }] =
         useMutation(REMOVE_ACCOUNT, {
             update(
@@ -34,28 +34,14 @@ const EllipsisMenu = ({ accountId, accounts }: PropType) => {
                 }: { data: { removeAccount: BankAccount[] } }
             ) {
                 cache.modify({
-                    id: cache.identify(accounts),
                     fields: {
-                        getAllAccounts(existingAccounts) {
-                            const newArr: BankAccount[] = accounts.filter(
-                                (acc: BankAccount) => acc.id !== accountId
+                        getAllAccounts(existingAccounts = []) {
+                            existingAccounts = existingAccounts.filter(
+                                (acc: any) =>
+                                    acc.__ref !== `Account:${accountId}`
                             );
 
-                            console.log("newArr: ", newArr);
-                            console.log("removeAccount: ", removeAccount);
-
-                            const newBalanceRef = cache.writeFragment({
-                                data: newArr,
-                                fragment: gql`
-                                    fragment UpdatedAccounts on Account {
-                                        id
-                                        balance
-                                        name
-                                        desc
-                                    }
-                                `,
-                            });
-                            return [...newArr, newBalanceRef];
+                            return existingAccounts;
                         },
                     },
                 });
@@ -112,7 +98,7 @@ const EllipsisMenu = ({ accountId, accounts }: PropType) => {
 
             <PrimaryNotification
                 showNotif={mLoading}
-                title="Transferring balance..."
+                title="Removing account..."
                 text="Please wait."
                 notifStyle="secondary"
                 showHeader={false}
