@@ -31,7 +31,7 @@ const EllipsisMenu = ({ accountId }: PropType) => {
                 cache,
                 {
                     data: { removeAccount },
-                }: { data: { removeAccount: BankAccount[] } }
+                }: { data: { removeAccount: BankAccount } }
             ) {
                 cache.modify({
                     fields: {
