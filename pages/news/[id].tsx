@@ -8,8 +8,8 @@ import { ShareSocialOutline } from "react-ionicons";
 const BlogDetail = ({ id }) => {
     return (
         <>
-            <InnerHeader title="ID" cta={Cta} />
-            <Main />
+            <InnerHeader title="News detail" cta={Cta} />
+            <Main id={id} />
             <ShareBlogModal />
             <Navbar />
         </>
