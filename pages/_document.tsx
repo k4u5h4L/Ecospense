@@ -18,7 +18,7 @@ export default class _Document extends Document {
 
                     <script src="/assets/js/lib/bootstrap.bundle.min.js"></script>
                     {/* <script src="/assets/js/base.js"></script> */}
-                    <script src="/assets/js/script.js"></script>
+                    {/* <script src="/assets/js/script.js"></script> */}
                 </body>
             </Html>
         );

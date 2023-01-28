@@ -47,7 +47,7 @@ const Main = () => {
         variables: {
             getNewsByIdId: id,
             page: 1,
-            itemsPerPage: 4,
+            itemsPerPage: 5,
         },
     });
 
@@ -146,28 +146,33 @@ const Main = () => {
                         <div className="section mt-3">
                             <h2>Other Posts</h2>
                             <div className="row mt-3">
-                                {data.getAllNews.map((news) => (
-                                    <div key={news.id} className="col-6 mb-2">
-                                        <Link
-                                            href={`/news/${encodeURIComponent(
-                                                news.id
-                                            )}`}
+                                {data.getAllNews.map((news) =>
+                                    news.id == data.getNewsById.id ? null : (
+                                        <div
+                                            key={news.id}
+                                            className="col-6 mb-2"
                                         >
-                                            <div className="blog-card">
-                                                <img
-                                                    src={news.imageUrl}
-                                                    alt="image"
-                                                    className="imaged w-100"
-                                                />
-                                                <div className="text">
-                                                    <h4 className="title">
-                                                        {news.title}
-                                                    </h4>
+                                            <Link
+                                                href={`/news/${encodeURIComponent(
+                                                    news.id
+                                                )}`}
+                                            >
+                                                <div className="blog-card">
+                                                    <img
+                                                        src={news.imageUrl}
+                                                        alt="image"
+                                                        className="imaged w-100"
+                                                    />
+                                                    <div className="text">
+                                                        <h4 className="title">
+                                                            {news.title}
+                                                        </h4>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                ))}
+                                            </Link>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </>

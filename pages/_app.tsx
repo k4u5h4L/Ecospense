@@ -11,6 +11,10 @@ import { useApollo } from "@/graphql/apolloClient";
 import Interactivity from "@/containers/Interactivity/Interactivity";
 import RouteGuard from "@/components/RouteGuard/RouteGuard";
 import AppContext from "context/AppContext";
+import PwaIcons from "@/components/MetaTags/PwaIcons";
+import NativeAppFeel from "@/components/MetaTags/NativeAppFeel";
+
+import "@/styles/pwa-styles.css";
 
 const variantsPop: Variants = {
     hidden: { opacity: 1, x: "-100%", y: 0 },
@@ -31,38 +35,21 @@ export default function App({ Component, pageProps, router }: AppProps) {
     });
     const client = useApollo();
 
-    // useEffect(() => {
-    //     if (typeof document !== "undefined") {
-    //         const theme = localStorage.getItem("theme");
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const loader = document.getElementById("loader");
 
-    //         document.body.className = theme == "dark" ? "dark-mode" : "";
-    //     }
-    // }, []);
+            if (loader) loader.style.display = "none";
+        }
+    }, []);
 
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
             <ApolloProvider client={client}>
                 <AppContext.Provider value={{ value, setValue }}>
                     <Head>
-                        <meta charSet="utf-8" />
-                        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                        <meta
-                            name="description"
-                            content="An expense tracking application"
-                        />
-                        <meta
-                            name="keywords"
-                            content="expense, finance, budget"
-                        />
-                        <meta name="theme-color" content="#0d6efd" />
-                        <meta
-                            name="apple-mobile-web-app-capable"
-                            content="yes"
-                        />
-                        <meta
-                            name="viewport"
-                            content="initial-scale=1, viewport-fit=cover, user-scalable=no"
-                        />
+                        <NativeAppFeel />
+                        <PwaIcons />
                         <title>Ecospense</title>
                         <link rel="manifest" href="/site.webmanifest" />
                     </Head>
@@ -88,7 +75,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
                                 transition={{ type: "linear" }}
                                 key={router.route}
                             >
-                                <Component {...pageProps} />
+                                <div
+                                    style={{
+                                        WebkitTapHighlightColor: "transparent",
+                                    }}
+                                >
+                                    <Component {...pageProps} />
+                                </div>
                             </motion.main>
                         </AnimatePresence>
                         <Interactivity />
