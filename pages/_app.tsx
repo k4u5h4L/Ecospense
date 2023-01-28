@@ -13,7 +13,7 @@ import AppContext from "context/AppContext";
 import PwaIcons from "@/components/MetaTags/PwaIcons";
 import NativeAppFeel from "@/components/MetaTags/NativeAppFeel";
 
-import "@/styles/pwa-styles.css";
+// import "@/styles/pwa-styles.css";
 import PageAnimation from "@/containers/PageAnimation/PageAnimation";
 
 export default function App({ Component, pageProps, router }: AppProps) {

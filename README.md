@@ -32,92 +32,68 @@
 
 You can head over to [ecospense.kaush.me](https://ecospense.kaush.me) and start using the site! You'll need to create an account before you can do anything though.
 
+If you want to self host, please head on to <a href="#development-setup">Development Setup</a> to see how to set up on your local machine.
+
 ## Key Features
-- very good
--   LivePreview - Make changes, See changes
-    -   Instantly see what your Markdown documents look like in HTML as you create them.
--   Sync Scrolling
-    -   While you type, LivePreview will automatically scroll to the current location you're editing.
--   GitHub Flavored Markdown
--   Syntax highlighting
--   [KaTeX](https://khan.github.io/KaTeX/) Support
--   Dark/Light mode
--   Toolbar for basic Markdown formatting
--   Supports multiple cursors
--   Save the Markdown preview as PDF
--   Emoji support in preview :tada:
--   App will keep alive in tray for quick usage
--   Full screen mode
-    -   Write distraction free.
--   Cross platform
-    -   Windows, macOS and Linux ready.
 
-## How To Use
+[x] Real time management of funds.
+[x] Support for multiple accounts.
+[x] You can now add goals and track how much you have saved for it.
+[] Analytics/future forecasting your spending habits.
+[x] External news articles right in the app!
+[x] Passwordless logins! Just enter your email and use the OTP!
+[x] Cross platform usability, both on Android and iOS using PWA technology. (UI is currently not really optimised for desktop users).
+[x] Support for 25+ most traded currencies.
+[] Chat with an AI helper regarding spending and other financial advice (probably will use an external AI modal like ChatGPT here).
+[x] Quick convertion of currencies with real time exchange rates.
+[] Logging of history of transitions and activities with scope to reverse transactions.
+[] Support for tracking monthly bills and instant payment responses.
+[x] Easily self hostable with just a vercel account, MongoDB access, news API keys and SMTP keys.
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To find more features or want to see the future roadmap, head on to the [issues section](https://github.com/k4u5h4L/Ecospense/issues).
+
+## Tools Used
+
+-   Next.js as a full stack React framework.
+-   Typescript as the type safe layer over Javascript.
+-   Next-auth for authentication and passwordless logins.
+-   GraphQL as the API language.
+-   Apollo client and Apollo server graphql implementations on the client and server respectively.
+-   Nexus as the GraphQL schema management.
+-   MongoDB as the primary database.
+-   Prisma as the database ODM.
+-   Apexcharts to visualise graphs and charts.
+-   Framer motion to handle page animations.
+-   Gmail SMTP to send emails.
+-   Brain.js (tentatively) as the ML lib to forecast spending habits.
+-   Dicebear to generate fun profile pictures.
+
+## Development Setup
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
+$ git clone https://github.com/k4u5h4L/Ecospense.git ecospense
 
-# Go into the repository
-$ cd electron-markdownify
+# Navigate into the repository
+$ cd ecospense
 
 # Install dependencies
-$ npm install
+$ yarn install
 
-# Run the app
-$ npm start
+# Add required API keys and other secrets in a `.env` file. You can check the `.env.sample` file to view the different API keys which are required.
+
+# Run the development server
+$ yarn dev
+
+# To create a production build and start, run
+$ yarn run build && yarn start
 ```
 
+A server would have start on [localhost:3000](http://localhost:3000/).
+
 > **Note**
-> If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+> If you're using `npm`, see corresponding commands for `npm` as opposed to `yarn`.
 
-## Download
+## Misc
 
-You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest installable version of Markdownify for Windows, macOS and Linux.
-
-## Emailware
-
-Markdownify is an [emailware](https://en.wiktionary.org/wiki/emailware). Meaning, if you liked using this app or it has helped you in any way, I'd like you send me an email at <bullredeyes@gmail.com> about anything you'd want to say about this software. I'd really appreciate it!
-
-## Credits
-
-This software uses the following open source packages:
-
--   [Electron](http://electron.atom.io/)
--   [Node.js](https://nodejs.org/)
--   [Marked - a markdown parser](https://github.com/chjj/marked)
--   [showdown](http://showdownjs.github.io/showdown/)
--   [CodeMirror](http://codemirror.net/)
--   Emojis are taken from [here](https://github.com/arvida/emoji-cheat-sheet.com)
--   [highlight.js](https://highlightjs.org/)
-
-## Related
-
-[markdownify-web](https://github.com/amitmerchant1990/markdownify-web) - Web version of Markdownify
-
-## Support
-
-<a href="https://www.buymeacoffee.com/5Zn8Xh3l9" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-<p>Or</p>
-
-<a href="https://www.patreon.com/amitmerchant">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
-
-## You may also like...
-
--   [Pomolectron](https://github.com/amitmerchant1990/pomolectron) - A pomodoro app
--   [Correo](https://github.com/amitmerchant1990/correo) - A menubar/taskbar Gmail App for Windows and macOS
-
-## License
-
-MIT
-
----
-
-> [amitmerchant.com](https://www.amitmerchant.com) &nbsp;&middot;&nbsp;
-> GitHub [@amitmerchant1990](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
-> Twitter [@amit_merchant](https://twitter.com/amit_merchant)
+Ecospense is a free software, and is developed by me as a side project. I had created this site to track my finances using an app i myself created, and I decided to share if someone else also finds it useful. I am not responsible for any issues which may arise when the site is hosted. I will not sell any user data if you intend to use the current version at [ecospense.kaush.me](https://ecospense.kaush.me). However, it is advised not to enter any confidential information on the site, as there is a reason I am not connecting it to any banking solution as this is purely a personal tracker with no correspondence to correctness of your account details.
