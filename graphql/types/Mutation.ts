@@ -16,6 +16,7 @@ export const Mutation = mutationType({
                 name: nonNull(stringArg()),
                 currency: nonNull(stringArg()),
                 income: nonNull(intArg()),
+                pic: nonNull(stringArg()),
             },
             resolve: updateUserProfileResolver,
         });

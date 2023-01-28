@@ -72,7 +72,7 @@ type Mutation {
   transferBalance(amount: Float!, fromAccountId: String!, toAccountId: String!): [Account]
 
   """Update your profile."""
-  updateUserProfile(currency: String!, income: Int!, name: String!): User
+  updateUserProfile(currency: String!, income: Int!, name: String!, pic: String!): User
 
   """Withdraw balance from your account"""
   withdrawBalance(accountId: String!, amount: Float!): Account
@@ -95,6 +95,7 @@ type Profile {
   currency: String
   id: String
   income: Int
+  pic: String
 }
 
 type Query {

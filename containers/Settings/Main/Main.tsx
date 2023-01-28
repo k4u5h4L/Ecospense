@@ -36,9 +36,9 @@ const Main = () => {
                             alt="avatar"
                             className="imaged w100 rounded"
                         />
-                        <span className="button">
+                        {/* <span className="button">
                             <CameraOutline color={"white"} />
-                        </span>
+                        </span> */}
                     </a>
                 </div>
             </div>

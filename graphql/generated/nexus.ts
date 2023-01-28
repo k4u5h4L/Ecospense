@@ -89,6 +89,7 @@ export interface NexusGenObjects {
     currency?: string | null; // String
     id?: string | null; // String
     income?: number | null; // Int
+    pic?: string | null; // String
   }
   Query: {};
   Test: { // root type
@@ -193,6 +194,7 @@ export interface NexusGenFieldTypes {
     currency: string | null; // String
     id: string | null; // String
     income: number | null; // Int
+    pic: string | null; // String
   }
   Query: { // field return type
     getAllAccounts: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
@@ -306,6 +308,7 @@ export interface NexusGenFieldTypeNames {
     currency: 'String'
     id: 'String'
     income: 'Int'
+    pic: 'String'
   }
   Query: { // field return type name
     getAllAccounts: 'Account'
@@ -368,6 +371,7 @@ export interface NexusGenArgTypes {
       currency: string; // String!
       income: number; // Int!
       name: string; // String!
+      pic: string; // String!
     }
     withdrawBalance: { // args
       accountId: string; // String!

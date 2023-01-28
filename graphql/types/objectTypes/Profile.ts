@@ -8,6 +8,7 @@ export const Profile = objectType({
         t.string("id");
         t.string("currency");
         t.int("income");
+        t.string("pic");
         t.field("User", {
             type: User,
             resolve: async (parent, args, ctx: GraphQlContextType, info) => {

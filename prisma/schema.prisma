@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -34,7 +34,7 @@ model Account {
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -132,9 +132,10 @@ model Transaction {
 }
 
 model Profile {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  currency String @default("$")
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  currency String  @default("$")
   income   Int?
+  pic      String?
 
   user User? @relation(fields: [userId], references: [id])
 
