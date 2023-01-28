@@ -22,7 +22,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         balance: 0,
     });
     const client = useApollo();
-    const preserveScroll = usePreserveScroll();
+    usePreserveScroll();
 
     useEffect(() => {
         if (typeof window !== "undefined") {

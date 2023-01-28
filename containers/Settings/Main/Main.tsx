@@ -75,6 +75,7 @@ const Main = () => {
 
     const handlePicChange = () => {
         const newAvatar = getNewAvatar();
+        console.log("New avatar url: ", newAvatar);
         setAvatar(newAvatar);
     };
 
