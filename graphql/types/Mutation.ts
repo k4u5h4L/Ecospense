@@ -2,10 +2,11 @@ import { floatArg, intArg, mutationType, nonNull, stringArg } from "nexus";
 import { addBalanceResolver } from "../resolvers/Account/addBalanceResolver";
 import { withdrawBalanceResolver } from "../resolvers/Account/withdrawBalanceResolver";
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
-import { Account, User } from "@/graphql/types/objectTypes/index";
+import { Account, Profile, User } from "@/graphql/types/objectTypes/index";
 import { transferBalanceResolver } from "../resolvers/Account/transferBalanceResolver";
 import { removeAccountResolver } from "../resolvers/Account/removeAccountResolver";
 import { addAccountResolver } from "../resolvers/Account/addAccountResolver";
+import { updateProfilePicResolver } from "../resolvers/Profile/updateProfilePicResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -19,6 +20,15 @@ export const Mutation = mutationType({
                 pic: nonNull(stringArg()),
             },
             resolve: updateUserProfileResolver,
+        });
+
+        t.field("updateProfilePic", {
+            type: Profile,
+            description: "Update your profile pic.",
+            args: {
+                pic: nonNull(stringArg()),
+            },
+            resolve: updateProfilePicResolver,
         });
 
         t.field("addBalance", {

@@ -1,4 +1,6 @@
+import { GET_PROFILE } from "@/constants/gqlQueries";
 import Link from "@/helpers/wrappers/Link/Link";
+import { gql, useQuery } from "@apollo/client";
 import {
     MenuOutline,
     NotificationsOutline,
@@ -6,6 +8,8 @@ import {
 } from "react-ionicons";
 
 const Header = () => {
+    const { loading, error, data } = useQuery(GET_PROFILE);
+
     return (
         <>
             <div className="appHeader bg-primary text-light">
@@ -33,12 +37,15 @@ const Header = () => {
                         <span className="badge badge-danger">4</span>
                     </a> */}
                     <Link href="/settings" className="headerButton">
-                        {/* <img
-                            src="assets/img/sample/avatar/avatar1.jpg"
-                            alt="image"
-                            className="imaged w32"
-                        /> */}
-                        <PersonCircleOutline color={"white"} />
+                        {loading ? (
+                            <PersonCircleOutline color={"white"} />
+                        ) : (
+                            <img
+                                src={data.getProfile.pic}
+                                alt="image"
+                                className="imaged w32"
+                            />
+                        )}
                         {/* <span className="badge badge-danger">6</span> */}
                     </Link>
                 </div>

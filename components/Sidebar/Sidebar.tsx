@@ -30,6 +30,10 @@ const GET_BALANCE = gql`
         getCurrentExpenseStatus {
             balance
         }
+        getProfile {
+            id
+            pic
+        }
     }
 `;
 
@@ -50,12 +54,15 @@ const Sidebar = () => {
                         <div className="modal-body p-0">
                             <div className="profileBox pt-2 pb-2">
                                 <div className="image-wrapper">
-                                    {/* <img
-                                        src="assets/img/sample/avatar/avatar1.jpg"
-                                        alt="image"
-                                        className="imaged w36"
-                                    /> */}
-                                    <PersonCircleOutline />
+                                    {loading ? (
+                                        <PersonCircleOutline />
+                                    ) : (
+                                        <img
+                                            src={data.getProfile.pic}
+                                            alt="image"
+                                            className="imaged w36"
+                                        />
+                                    )}
                                 </div>
                                 <div className="in">
                                     <strong>

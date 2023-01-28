@@ -20,3 +20,12 @@ export const GET_ALL_ACCOUNTS = gql`
         }
     }
 `;
+
+export const GET_PROFILE = gql`
+    query GetProfile {
+        getProfile {
+            id
+            pic
+        }
+    }
+`;

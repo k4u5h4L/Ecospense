@@ -1,7 +1,6 @@
-import { DICEBEAR_API_URL } from "@/constants/commonConstants";
 import { Currency } from "@/constants/currencyEnum";
 import { NewuserConfig } from "@/types/NewuserConfig";
-import { getRandomString } from "@/utils/getRandomString";
+import { getNewAvatar } from "@/utils/getNewAvatar";
 import { gql, useMutation } from "@apollo/client";
 // import { avataaars } from "@dicebear/collection";
 // import { createAvatar } from "@dicebear/core";
@@ -35,10 +34,6 @@ const UPDATE_USER = gql`
         }
     }
 `;
-
-const getNewAvatar = (): string => {
-    return `${DICEBEAR_API_URL}?seed=${encodeURIComponent(getRandomString())}`;
-};
 
 const Main = () => {
     const currencies = Object.keys(Currency);

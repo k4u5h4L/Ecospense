@@ -175,6 +175,7 @@ export interface NexusGenFieldTypes {
     addBalance: NexusGenRootTypes['Account'] | null; // Account
     removeAccount: NexusGenRootTypes['Account'] | null; // Account
     transferBalance: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    updateProfilePic: NexusGenRootTypes['Profile'] | null; // Profile
     updateUserProfile: NexusGenRootTypes['User'] | null; // User
     withdrawBalance: NexusGenRootTypes['Account'] | null; // Account
   }
@@ -207,6 +208,7 @@ export interface NexusGenFieldTypes {
     getCurrency: NexusGenRootTypes['Currency'] | null; // Currency
     getCurrentExpenseStatus: NexusGenRootTypes['ExpenseStatus'] | null; // ExpenseStatus
     getNewsById: NexusGenRootTypes['News'] | null; // News
+    getProfile: NexusGenRootTypes['Profile'] | null; // Profile
     testing: NexusGenRootTypes['Test'] | null; // Test
   }
   Test: { // field return type
@@ -289,6 +291,7 @@ export interface NexusGenFieldTypeNames {
     addBalance: 'Account'
     removeAccount: 'Account'
     transferBalance: 'Account'
+    updateProfilePic: 'Profile'
     updateUserProfile: 'User'
     withdrawBalance: 'Account'
   }
@@ -321,6 +324,7 @@ export interface NexusGenFieldTypeNames {
     getCurrency: 'Currency'
     getCurrentExpenseStatus: 'ExpenseStatus'
     getNewsById: 'News'
+    getProfile: 'Profile'
     testing: 'Test'
   }
   Test: { // field return type name
@@ -366,6 +370,9 @@ export interface NexusGenArgTypes {
       amount: number; // Float!
       fromAccountId: string; // String!
       toAccountId: string; // String!
+    }
+    updateProfilePic: { // args
+      pic: string; // String!
     }
     updateUserProfile: { // args
       currency: string; // String!

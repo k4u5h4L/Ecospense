@@ -71,6 +71,9 @@ type Mutation {
   """Transfer money from one account to another."""
   transferBalance(amount: Float!, fromAccountId: String!, toAccountId: String!): [Account]
 
+  """Update your profile pic."""
+  updateProfilePic(pic: String!): Profile
+
   """Update your profile."""
   updateUserProfile(currency: String!, income: Int!, name: String!, pic: String!): User
 
@@ -128,6 +131,9 @@ type Query {
 
   """Get the news by ID"""
   getNewsById(id: ID!): News
+
+  """Get the profile of the user containing pic, currency, etc."""
+  getProfile: Profile
 
   """Health Check GraphQL resolver."""
   testing: Test
