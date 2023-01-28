@@ -52,7 +52,7 @@ const Main = () => {
                     onRefresh={handleRefresh}
                     canFetchMore={true}
                     onFetchMore={handleFetchMore}
-                    pullingContent={null}
+                    pullingContent=""
                     refreshingContent={<PaginationLoader />}
                     resistance={1}
                 >

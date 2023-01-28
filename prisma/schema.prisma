@@ -89,12 +89,13 @@ model BankAccount {
 }
 
 model Bill {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  icon   String
-  name   String
-  desc   String?
-  amount Float
-  status String  @default("waiting")
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  icon    String
+  name    String
+  desc    String?
+  amount  Float
+  status  String     @default("waiting")
+  history DateTime[] @default([])
 
   user User @relation(fields: [userId], references: [id])
 

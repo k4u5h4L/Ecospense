@@ -37,19 +37,18 @@ const Billcard = ({
                     <p>{desc}</p>
                     {status == "waiting" ? (
                         <a
-                            href="#"
+                            style={{ cursor: "pointer" }}
                             className="btn btn-primary btn-block btn-sm"
                         >
                             Pay Now
                         </a>
                     ) : (
                         <>
-                            <strong>Amount Paid:</strong>
                             <a
-                                href="#"
+                                style={{ cursor: "pointer" }}
                                 className="btn btn-success btn-block btn-sm"
                             >
-                                $230.00
+                                Already paid
                             </a>
                         </>
                     )}
