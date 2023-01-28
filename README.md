@@ -36,19 +36,19 @@ If you want to self host, please head on to <a href="#development-setup">Develop
 
 ## Key Features
 
-[x] Real time management of funds.
-[x] Support for multiple accounts.
-[x] You can now add goals and track how much you have saved for it.
-[] Analytics/future forecasting your spending habits.
-[x] External news articles right in the app!
-[x] Passwordless logins! Just enter your email and use the OTP!
-[x] Cross platform usability, both on Android and iOS using PWA technology. (UI is currently not really optimised for desktop users).
-[x] Support for 25+ most traded currencies.
-[] Chat with an AI helper regarding spending and other financial advice (probably will use an external AI modal like ChatGPT here).
-[x] Quick convertion of currencies with real time exchange rates.
-[] Logging of history of transitions and activities with scope to reverse transactions.
-[] Support for tracking monthly bills and instant payment responses.
-[x] Easily self hostable with just a vercel account, MongoDB access, news API keys and SMTP keys.
+-   [x] Real time management of funds.
+-   [x] Support for multiple accounts.
+-   [x] You can now add goals and track how much you have saved for it.
+-   [ ] Analytics/future forecasting your spending habits.
+-   [x] External news articles right in the app!
+-   [x] Passwordless logins! Just enter your email and use the OTP!
+-   [x] Cross platform usability, both on Android and iOS using PWA technology. (UI is currently not really optimised for desktop users).
+-   [x] Support for 25+ most traded currencies.
+-   [ ] Chat with an AI helper regarding spending and other financial advice (probably will use an external AI modal like ChatGPT here).
+-   [x] Quick convertion of currencies with real time exchange rates.
+-   [ ] Logging of history of transitions and activities with scope to reverse transactions.
+-   [ ] Support for tracking monthly bills and instant payment responses.
+-   [x] Easily self hostable with just a vercel account, MongoDB access, news API keys and SMTP keys.
 
 To find more features or want to see the future roadmap, head on to the [issues section](https://github.com/k4u5h4L/Ecospense/issues).
 
