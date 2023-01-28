@@ -5,7 +5,6 @@ import NextNprogress from "nextjs-progressbar";
 
 import "@splidejs/react-splide/css";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/graphql/apolloClient";
 import Interactivity from "@/containers/Interactivity/Interactivity";
@@ -15,21 +14,9 @@ import PwaIcons from "@/components/MetaTags/PwaIcons";
 import NativeAppFeel from "@/components/MetaTags/NativeAppFeel";
 
 import "@/styles/pwa-styles.css";
-
-const variantsPop: Variants = {
-    hidden: { opacity: 1, x: "-100%", y: 0 },
-    enter: { opacity: 1, x: 0, y: 0 },
-    exit: { opacity: 1, x: "100%", y: 0 },
-};
-
-const variantsPush: Variants = {
-    hidden: { opacity: 1, x: "100%", y: 0 },
-    enter: { opacity: 1, x: 0, y: 0 },
-    exit: { opacity: 1, x: "-100%", y: 0 },
-};
+import PageAnimation from "@/containers/PageAnimation/PageAnimation";
 
 export default function App({ Component, pageProps, router }: AppProps) {
-    const [variants, setVariants] = useState<Variants>(variantsPush);
     const [value, setValue] = useState<any>({
         balance: 0,
     });
@@ -62,28 +49,15 @@ export default function App({ Component, pageProps, router }: AppProps) {
                         options={{ showSpinner: false }}
                     />
                     <RouteGuard>
-                        <AnimatePresence
-                            exitBeforeEnter={false}
-                            initial={false}
-                            onExitComplete={() => window.scrollTo(0, 0)}
-                        >
-                            <motion.main
-                                initial="hidden"
-                                animate="enter"
-                                exit="exit"
-                                variants={variants}
-                                transition={{ type: "linear" }}
-                                key={router.route}
+                        <PageAnimation router={router}>
+                            <div
+                                style={{
+                                    WebkitTapHighlightColor: "transparent",
+                                }}
                             >
-                                <div
-                                    style={{
-                                        WebkitTapHighlightColor: "transparent",
-                                    }}
-                                >
-                                    <Component {...pageProps} />
-                                </div>
-                            </motion.main>
-                        </AnimatePresence>
+                                <Component {...pageProps} />
+                            </div>
+                        </PageAnimation>
                         <Interactivity />
                     </RouteGuard>
                 </AppContext.Provider>
