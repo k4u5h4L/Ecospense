@@ -33,7 +33,8 @@
 You can head over to [ecospense.kaush.me](https://ecospense.kaush.me) and start using the site! You'll need to create an account before you can do anything though.
 
 ## Key Features
-- very good
+
+-   very good.
 -   LivePreview - Make changes, See changes
     -   Instantly see what your Markdown documents look like in HTML as you create them.
 -   Sync Scrolling
