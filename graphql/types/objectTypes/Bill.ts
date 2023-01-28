@@ -9,6 +9,7 @@ export const Bill = objectType({
         t.string("icon");
         t.string("name");
         t.string("desc");
+        t.string("status");
         t.float("amount");
         t.field("user", {
             type: User,

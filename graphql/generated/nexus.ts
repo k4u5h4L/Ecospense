@@ -40,6 +40,7 @@ export interface NexusGenObjects {
     icon?: string | null; // String
     id?: string | null; // String
     name?: string | null; // String
+    status?: string | null; // String
   }
   Chat: { // root type
     message?: string | null; // String
@@ -134,6 +135,7 @@ export interface NexusGenFieldTypes {
     icon: string | null; // String
     id: string | null; // String
     name: string | null; // String
+    status: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
   }
   Chat: { // field return type
@@ -250,6 +252,7 @@ export interface NexusGenFieldTypeNames {
     icon: 'String'
     id: 'String'
     name: 'String'
+    status: 'String'
     user: 'User'
   }
   Chat: { // field return type name

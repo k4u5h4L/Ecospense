@@ -94,6 +94,7 @@ model Bill {
   name   String
   desc   String?
   amount Float
+  status String  @default("waiting")
 
   user User @relation(fields: [userId], references: [id])
 

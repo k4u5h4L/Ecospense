@@ -16,6 +16,7 @@ type Bill {
   icon: String
   id: String
   name: String
+  status: String
   user: User
 }
 
