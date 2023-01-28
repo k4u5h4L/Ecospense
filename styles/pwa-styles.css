@@ -1,5 +1,6 @@
 @media screen and (display-mode: standalone) {
     header {
         height: 88px !important;
+        background-color: #6236ff;
     }
 }
