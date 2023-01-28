@@ -3,6 +3,9 @@ import { addBalanceResolver } from "../resolvers/Account/addBalanceResolver";
 import { withdrawBalanceResolver } from "../resolvers/Account/withdrawBalanceResolver";
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
 import { Account, User } from "@/graphql/types/objectTypes/index";
+import { transferBalanceResolver } from "../resolvers/Account/transferBalanceResolver";
+import { removeAccountResolver } from "../resolvers/Account/removeAccountResolver";
+import { addAccountResolver } from "../resolvers/Account/addAccountResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -35,6 +38,37 @@ export const Mutation = mutationType({
                 amount: nonNull(floatArg()),
             },
             resolve: withdrawBalanceResolver,
+        });
+
+        t.list.field("transferBalance", {
+            type: Account,
+            description: "Transfer money from one account to another.",
+            args: {
+                fromAccountId: nonNull(stringArg()),
+                toAccountId: nonNull(stringArg()),
+                amount: nonNull(floatArg()),
+            },
+            resolve: transferBalanceResolver,
+        });
+
+        t.field("addAccount", {
+            type: Account,
+            description: "Add a bank account to your user profile.",
+            args: {
+                name: nonNull(stringArg()),
+                desc: nonNull(stringArg()),
+                balance: nonNull(floatArg()),
+            },
+            resolve: addAccountResolver,
+        });
+
+        t.field("removeAccount", {
+            type: Account,
+            description: "Remove the bank account from your user profile.",
+            args: {
+                accountId: nonNull(stringArg()),
+            },
+            resolve: removeAccountResolver,
         });
     },
 });

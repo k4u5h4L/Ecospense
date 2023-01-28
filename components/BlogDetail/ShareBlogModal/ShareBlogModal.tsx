@@ -1,11 +1,29 @@
 import {
+    CheckmarkDoneOutline,
+    ClipboardOutline,
     LogoFacebook,
     LogoInstagram,
     LogoLinkedin,
     LogoTwitter,
 } from "react-ionicons";
+import Toast from "@/components/Toast/Toast";
+import { useState } from "react";
 
 const ShareBlogModal = () => {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyLink = () => {
+        if (typeof window !== "undefined") {
+            setCopied(true);
+
+            navigator.clipboard.writeText(window.location.href);
+
+            setTimeout(() => {
+                setCopied(false);
+            }, 2000);
+        }
+    };
+
     return (
         <>
             <div
@@ -23,17 +41,17 @@ const ShareBlogModal = () => {
                             <ul className="action-button-list">
                                 <li>
                                     <a
-                                        href="#"
                                         className="btn btn-list"
                                         data-bs-dismiss="modal"
+                                        style={{ cursor: "pointer" }}
+                                        onClick={handleCopyLink}
                                     >
                                         <span>
-                                            <LogoFacebook />
-                                            Facebook
+                                            <ClipboardOutline /> Copy Link
                                         </span>
                                     </a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a
                                         href="#"
                                         className="btn btn-list"
@@ -68,12 +86,19 @@ const ShareBlogModal = () => {
                                             Linkedin
                                         </span>
                                     </a>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <Toast
+                icon={() => <CheckmarkDoneOutline color={"white"} />}
+                text="Copied link to clipboard"
+                showOK={false}
+                show={copied}
+            />
         </>
     );
 };

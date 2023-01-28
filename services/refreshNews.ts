@@ -10,7 +10,10 @@ export const refreshNews = async () => {
     if (process.env.NODE_ENV != "development") {
         try {
             for (let i = 1; i <= totalPages; i++) {
-                const res = await fetch(NEWS_API_URL + `&page=${i}`);
+                const newsEndpoint = NEWS_API_URL + `&page=${i}`;
+                console.log("News endpoint: ", newsEndpoint);
+
+                const res = await fetch(newsEndpoint);
                 const data: NewsApiResponse = await res.json();
 
                 data.articles.forEach((news: News) => {

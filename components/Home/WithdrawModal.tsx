@@ -1,3 +1,4 @@
+import ModalContainer from "@/containers/ModalContainer/ModalContainer";
 import { ExpenseStatusType } from "@/types/ExpenseStatusType";
 import { formatMoney } from "@/utils/formatMoney";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -140,58 +141,59 @@ const WithdrawModal = () => {
                                 </div>
                                 <div className="modal-body">
                                     <div className="action-sheet-content">
-                                        <form onSubmit={handleSubmit}>
-                                            <div className="form-group basic">
-                                                <div className="input-wrapper">
-                                                    <label
-                                                        className="label"
-                                                        htmlFor="account2d"
-                                                    >
-                                                        From
-                                                    </label>
-                                                    <select
-                                                        className="form-control custom-select"
-                                                        id="account2d"
-                                                        required
-                                                    >
-                                                        {data.getAllAccounts.map(
-                                                            (
-                                                                account: BankAccount,
-                                                                index: number
-                                                            ) => (
-                                                                <option
-                                                                    key={
-                                                                        account.id
-                                                                    }
-                                                                    defaultChecked={
-                                                                        index ==
-                                                                        0
-                                                                    }
-                                                                    onClick={() =>
-                                                                        handleInputChange(
+                                        <ModalContainer>
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="form-group basic">
+                                                    <div className="input-wrapper">
+                                                        <label
+                                                            className="label"
+                                                            htmlFor="account2d"
+                                                        >
+                                                            From
+                                                        </label>
+                                                        <select
+                                                            className="form-control custom-select"
+                                                            id="account2d"
+                                                            required
+                                                        >
+                                                            {data.getAllAccounts.map(
+                                                                (
+                                                                    account: BankAccount,
+                                                                    index: number
+                                                                ) => (
+                                                                    <option
+                                                                        key={
                                                                             account.id
+                                                                        }
+                                                                        defaultChecked={
+                                                                            index ==
+                                                                            0
+                                                                        }
+                                                                        onClick={() =>
+                                                                            handleInputChange(
+                                                                                account.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            account.name
+                                                                        }{" "}
+                                                                        (
+                                                                        {formatMoney(
+                                                                            account.balance,
+                                                                            data
+                                                                                .getCurrency
+                                                                                .currencyName
+                                                                        )}
                                                                         )
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        account.name
-                                                                    }{" "}
-                                                                    (
-                                                                    {formatMoney(
-                                                                        account.balance,
-                                                                        data
-                                                                            .getCurrency
-                                                                            .currencyName
-                                                                    )}
-                                                                    )
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* <div className="form-group basic">
+                                                {/* <div className="form-group basic">
                                                 <div className="input-wrapper">
                                                     <label
                                                         className="label"
@@ -216,51 +218,52 @@ const WithdrawModal = () => {
                                                 </div>
                                             </div> */}
 
-                                            <div className="form-group basic">
-                                                <label className="label">
-                                                    Enter Amount
-                                                </label>
-                                                <div className="input-group mb-2">
-                                                    <span
-                                                        className="input-group-text"
-                                                        id="basic-addonb1"
-                                                    >
-                                                        {
-                                                            data.getCurrency
-                                                                .currencySymbol
-                                                        }
-                                                    </span>
-                                                    <input
-                                                        type="number"
-                                                        // step="0.01"
-                                                        className="form-control"
-                                                        pattern="[0-9]*"
-                                                        inputMode="numeric"
-                                                        placeholder={`100`}
-                                                        onChange={(e) =>
-                                                            setInput({
-                                                                ...input,
-                                                                amount: Number(
-                                                                    e.target
-                                                                        .value
-                                                                ),
-                                                            })
-                                                        }
-                                                    />
+                                                <div className="form-group basic">
+                                                    <label className="label">
+                                                        Enter Amount
+                                                    </label>
+                                                    <div className="input-group mb-2">
+                                                        <span
+                                                            className="input-group-text"
+                                                            id="basic-addonb1"
+                                                        >
+                                                            {
+                                                                data.getCurrency
+                                                                    .currencySymbol
+                                                            }
+                                                        </span>
+                                                        <input
+                                                            type="number"
+                                                            // step="0.01"
+                                                            className="form-control"
+                                                            pattern="[0-9]*"
+                                                            inputMode="numeric"
+                                                            placeholder={`100`}
+                                                            onChange={(e) =>
+                                                                setInput({
+                                                                    ...input,
+                                                                    amount: Number(
+                                                                        e.target
+                                                                            .value
+                                                                    ),
+                                                                })
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="form-group basic">
-                                                <button
-                                                    type="submit"
-                                                    className="btn btn-primary btn-block btn-lg"
-                                                    data-bs-dismiss="modal"
-                                                    onSubmit={handleSubmit}
-                                                >
-                                                    Withdraw
-                                                </button>
-                                            </div>
-                                        </form>
+                                                <div className="form-group basic">
+                                                    <button
+                                                        type="submit"
+                                                        className="btn btn-primary btn-block btn-lg"
+                                                        data-bs-dismiss="modal"
+                                                        onSubmit={handleSubmit}
+                                                    >
+                                                        Withdraw
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </ModalContainer>
                                     </div>
                                 </div>
                             </div>

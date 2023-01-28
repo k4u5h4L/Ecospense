@@ -1,4 +1,82 @@
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
+import { GET_ALL_ACCOUNTS } from "@/constants/gqlQueries";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { BankAccount } from "@prisma/client";
+import { useState } from "react";
+
+type InputType = {
+    name: string;
+    desc: string;
+    balance: number;
+};
+
+const ADD_ACCOUNT = gql`
+    mutation AddAccount($name: String!, $desc: String!, $balance: Float!) {
+        addAccount(name: $name, desc: $desc, balance: $balance) {
+            balance
+            desc
+            id
+            name
+        }
+    }
+`;
+
 const AddAccountModal = () => {
+    const [input, setInput] = useState<InputType>({
+        name: "",
+        desc: "",
+        balance: 0,
+    });
+
+    const { loading, error, data } = useQuery(GET_ALL_ACCOUNTS, {
+        variables: {
+            page: 1,
+            itemsPerPage: 999,
+        },
+    });
+
+    const [addAccount, { data: mData, loading: mLoading, error: mError }] =
+        useMutation(ADD_ACCOUNT, {
+            update(
+                cache,
+                { data: { addAccount } }: { data: { addAccount: BankAccount } }
+            ) {
+                cache.modify({
+                    fields: {
+                        getAllAccounts(existingAccounts = [], { readField }) {
+                            const newAccountsRef = cache.writeFragment({
+                                data: addAccount,
+                                fragment: gql`
+                                    fragment AddUpdatedAccounts on Account {
+                                        id
+                                        balance
+                                        name
+                                        desc
+                                    }
+                                `,
+                            });
+
+                            return [...existingAccounts, newAccountsRef];
+                        },
+                    },
+                });
+            },
+        });
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        await addAccount({
+            variables: {
+                name: input.name,
+                desc: input.desc,
+                balance: input.balance,
+            },
+        });
+
+        console.log("Account Added!");
+    };
+
     return (
         <>
             <div
@@ -10,29 +88,85 @@ const AddAccountModal = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Add a Card</h5>
+                            <h5 className="modal-title">Add an Account</h5>
                         </div>
                         <div className="modal-body">
                             <div className="action-sheet-content">
-                                <form>
+                                <form onSubmit={handleSubmit}>
                                     <div className="form-group basic">
                                         <div className="input-wrapper">
                                             <label
                                                 className="label"
                                                 htmlFor="cardnumber1"
                                             >
-                                                Card Number
+                                                Account Name
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 id="cardnumber1"
                                                 className="form-control"
-                                                placeholder="Enter Card Number"
+                                                placeholder="Eg. Savings, Salary"
+                                                onChange={(e) => {
+                                                    setInput({
+                                                        ...input,
+                                                        name: e.target.value,
+                                                    });
+                                                }}
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="row">
+                                    <div className="form-group basic">
+                                        <div className="input-wrapper">
+                                            <label
+                                                className="label"
+                                                htmlFor="cardnumber1"
+                                            >
+                                                Account Description
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="cardnumber1"
+                                                className="form-control"
+                                                placeholder="Eg. My savings"
+                                                onChange={(e) => {
+                                                    setInput({
+                                                        ...input,
+                                                        desc: e.target.value,
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group basic">
+                                        <div className="input-wrapper">
+                                            <label
+                                                className="label"
+                                                htmlFor="cardnumber1"
+                                            >
+                                                Starting balance
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                className="form-control"
+                                                pattern="[0-9]*"
+                                                inputMode="numeric"
+                                                placeholder={`100`}
+                                                onChange={(e) => {
+                                                    setInput({
+                                                        ...input,
+                                                        balance: parseFloat(
+                                                            e.target.value
+                                                        ),
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* <div className="row">
                                         <div className="col-6">
                                             <div className="form-group basic">
                                                 <div className="input-wrapper">
@@ -142,13 +276,14 @@ const AddAccountModal = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className="form-group basic mt-2">
                                         <button
-                                            type="button"
+                                            type="submit"
                                             className="btn btn-primary btn-block btn-lg"
                                             data-bs-dismiss="modal"
+                                            onSubmit={handleSubmit}
                                         >
                                             Add
                                         </button>
@@ -159,6 +294,14 @@ const AddAccountModal = () => {
                     </div>
                 </div>
             </div>
+
+            <PrimaryNotification
+                showNotif={mLoading}
+                title="Adding account..."
+                text="Please wait."
+                notifStyle="secondary"
+                showHeader={false}
+            />
         </>
     );
 };

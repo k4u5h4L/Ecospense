@@ -1,6 +1,8 @@
 import Link from "@/helpers/wrappers/Link/Link";
+import { useSession } from "next-auth/react";
 
 const Splash = () => {
+    const { status } = useSession();
     return (
         <>
             <div className="appHeader no-border">
@@ -38,12 +40,21 @@ const Splash = () => {
                             </Link>
                         </div>
                         <div className="col-6">
-                            <Link
-                                href="/auth/login"
-                                className="btn btn-lg btn-primary btn-block"
-                            >
-                                Sign in
-                            </Link>
+                            {status == "authenticated" ? (
+                                <Link
+                                    href="/"
+                                    className="btn btn-lg btn-primary btn-block"
+                                >
+                                    Home
+                                </Link>
+                            ) : (
+                                <Link
+                                    href="/auth/login"
+                                    className="btn btn-lg btn-primary btn-block"
+                                >
+                                    Sign in
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>

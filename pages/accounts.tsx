@@ -1,4 +1,3 @@
-import AddAccountModal from "@/components/Accounts/AddAccountModal/AddAccountModal";
 import Main from "@/containers/Accounts/Main/Main";
 import InnerHeader from "@/components/InnerHeader/InnerHeader";
 import Navbar from "@/components/Navbar/Navbar";
@@ -8,7 +7,6 @@ const Accounts = () => {
     return (
         <>
             <InnerHeader title="My Accounts" cta={Cta} />
-            <AddAccountModal />
             <Main />
             <Navbar />
         </>

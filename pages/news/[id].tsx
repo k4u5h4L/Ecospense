@@ -5,10 +5,10 @@ import { PRIMARY_COLOUR } from "@/constants/commonConstants";
 import Main from "@/containers/BlogDetail/Main/Main";
 import { ShareSocialOutline } from "react-ionicons";
 
-const BlogDetail = ({ id }) => {
+const BlogDetail = () => {
     return (
         <>
-            <InnerHeader title="ID" cta={Cta} />
+            <InnerHeader title="News detail" cta={Cta} />
             <Main />
             <ShareBlogModal />
             <Navbar />

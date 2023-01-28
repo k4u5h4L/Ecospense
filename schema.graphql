@@ -59,8 +59,17 @@ type Log {
 }
 
 type Mutation {
+  """Add a bank account to your user profile."""
+  addAccount(balance: Float!, desc: String!, name: String!): Account
+
   """Add balance to your account"""
   addBalance(accountId: String!, amount: Float!): Account
+
+  """Remove the bank account from your user profile."""
+  removeAccount(accountId: String!): Account
+
+  """Transfer money from one account to another."""
+  transferBalance(amount: Float!, fromAccountId: String!, toAccountId: String!): [Account]
 
   """Update your profile."""
   updateUserProfile(currency: String!, income: Int!, name: String!): User

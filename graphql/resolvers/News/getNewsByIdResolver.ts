@@ -1,4 +1,5 @@
 import { GraphQlContextType } from "@/types/GraphQL";
+import { GraphQLError } from "graphql";
 import { FieldResolver } from "nexus";
 
 type ArgType = {
@@ -12,9 +13,24 @@ export const getNewsByIdResolver: FieldResolver<"Query", "News"> = async (
 ) => {
     console.log(`Resolving single article by ID: ${args.id}`);
 
-    return await ctx.prisma.news.findFirst({
-        where: {
-            id: args.id,
-        },
-    });
+    try {
+        const news = await ctx.prisma.news.findFirst({
+            where: {
+                id: args.id,
+            },
+        });
+
+        if (!news) {
+            throw new Error("News not found");
+        }
+
+        return news;
+    } catch (error) {
+        console.error(error);
+        throw new GraphQLError("No news articles with this ID exist.", {
+            extensions: {
+                code: "NOT_FOUND",
+            },
+        });
+    }
 };

@@ -58,9 +58,9 @@ const Navbar = ({ curRoute }: PropType) => {
         <>
             <div
                 className="appBottomMenu"
-                style={{
-                    position: "sticky",
-                }}
+                // style={{
+                //     position: "sticky",
+                // }}
             >
                 {routes.map((route, index) => (
                     <Link

@@ -19,7 +19,10 @@ const Metadata = ({ data }) => {
                                 <ComponentLoaderSuccess />
                             ) : (
                                 <div className="value text-success">
-                                    {formatMoney(data.income, cur.currencyName)}
+                                    {formatMoney(
+                                        data.income,
+                                        cur.getCurrency.currencyName
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -33,7 +36,7 @@ const Metadata = ({ data }) => {
                                 <div className="value text-danger">
                                     {formatMoney(
                                         data.expenses,
-                                        cur.currencyName
+                                        cur.getCurrency.currencyName
                                     )}
                                 </div>
                             )}
@@ -48,7 +51,10 @@ const Metadata = ({ data }) => {
                                 <ComponentLoaderPrimary />
                             ) : (
                                 <div className="value">
-                                    {formatMoney(data.bills, cur.currencyName)}
+                                    {formatMoney(
+                                        data.bills,
+                                        cur.getCurrency.currencyName
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -62,7 +68,7 @@ const Metadata = ({ data }) => {
                                 <div className="value">
                                     {formatMoney(
                                         data.savings,
-                                        cur.currencyName
+                                        cur.getCurrency.currencyName
                                     )}
                                 </div>
                             )}
