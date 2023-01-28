@@ -9,11 +9,15 @@ import AddBalanceModal from "@/components/Home/AddBalanceModel";
 import TandCModal from "@/components/TandC/TandCModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useIsOnline } from "react-use-is-online";
 import { UNUSABLE_PATHS_FOR_NEW_USER } from "@/constants/commonConstants";
 import AddAccountModal from "@/components/Accounts/AddAccountModal/AddAccountModal";
+import Toast from "@/components/Toast/Toast";
+import { CloudOfflineOutline } from "react-ionicons";
 
 const Interactivity = () => {
     const { data: session, status } = useSession();
+    const { isOffline } = useIsOnline();
     const router = useRouter();
 
     if (
@@ -34,6 +38,13 @@ const Interactivity = () => {
             <VisSendModal />
             <TandCModal />
             <AddAccountModal />
+            <Toast
+                icon={CloudOfflineOutline}
+                text="You seem to have lost your internet connection. Some features may be unavailable."
+                showOK={false}
+                show={isOffline}
+                id={2}
+            />
         </>
     );
 };

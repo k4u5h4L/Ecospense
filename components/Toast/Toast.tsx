@@ -4,13 +4,14 @@ type PropType = {
     showOK: boolean;
     showOkCta?: () => void | Promise<void>;
     show: boolean;
+    id?: number;
 };
 
-const Toast = ({ icon, text, showOK, show, showOkCta }: PropType) => {
+const Toast = ({ icon, text, showOK, show, showOkCta, id }: PropType) => {
     return (
         <>
             <div
-                id="toast-example-1"
+                id={`toast-example-${id ? id : 1}`}
                 className={`toast-box toast-bottom bg-primary ${
                     show ? "show" : ""
                 }`}
