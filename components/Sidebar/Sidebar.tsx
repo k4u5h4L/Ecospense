@@ -54,7 +54,7 @@ const Sidebar = () => {
                         <div className="modal-body p-0">
                             <div className="profileBox pt-2 pb-2">
                                 <div className="image-wrapper">
-                                    {loading ? (
+                                    {loading || !data ? (
                                         <PersonCircleOutline />
                                     ) : (
                                         <img
