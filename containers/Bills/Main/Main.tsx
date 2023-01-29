@@ -1,6 +1,7 @@
 import Billcard from "@/components/Bills/Billcard/Billcard";
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
 import PaginationLoader from "@/components/PaginationLoader/PaginationLoader";
+import { BillStatusEnum } from "@/constants/billStatusEnum";
 import { gql, useQuery } from "@apollo/client";
 import { Bill } from "@prisma/client";
 import PullToRefresh from "react-simple-pull-to-refresh";
@@ -45,12 +46,16 @@ const Main = () => {
         });
     };
 
+    const showFetchMore = (): boolean => {
+        return !loading && data.getAllBills.length > 4;
+    };
+
     return (
         <>
             <div id="appCapsule" className="extra-header-active full-height">
                 <PullToRefresh
                     onRefresh={handleRefresh}
-                    canFetchMore={true}
+                    canFetchMore={showFetchMore()}
                     onFetchMore={handleFetchMore}
                     pullingContent=""
                     refreshingContent={<PaginationLoader />}
@@ -70,12 +75,15 @@ const Main = () => {
                                         {data.getAllBills
                                             .filter(
                                                 (bill: Bill) =>
-                                                    bill.status == "waiting"
+                                                    bill.status ==
+                                                    BillStatusEnum.waiting
                                             )
                                             .map((bill: Bill) => (
                                                 <Billcard
                                                     key={bill.id}
-                                                    status="waiting"
+                                                    status={
+                                                        BillStatusEnum.waiting
+                                                    }
                                                     name={bill.name}
                                                     amount={bill.amount}
                                                     desc={bill.desc}
@@ -105,12 +113,51 @@ const Main = () => {
                                         {data.getAllBills
                                             .filter(
                                                 (bill: Bill) =>
-                                                    bill.status == "paid"
+                                                    bill.status ==
+                                                    BillStatusEnum.paid
                                             )
                                             .map((bill: Bill) => (
                                                 <Billcard
                                                     key={bill.id}
-                                                    status="paid"
+                                                    status={BillStatusEnum.paid}
+                                                    name={bill.name}
+                                                    amount={bill.amount}
+                                                    desc={bill.desc}
+                                                    icon={bill.icon}
+                                                    id={bill.id}
+                                                    currency={
+                                                        data.getCurrency
+                                                            .currencyName
+                                                    }
+                                                />
+                                            ))}
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        <div
+                            className="tab-pane fade"
+                            id="overdue"
+                            role="tabpanel"
+                        >
+                            <div className="row">
+                                {loading ? (
+                                    <ComponentLoaderPrimary />
+                                ) : (
+                                    <>
+                                        {data.getAllBills
+                                            .filter(
+                                                (bill: Bill) =>
+                                                    bill.status ==
+                                                    BillStatusEnum.overdue
+                                            )
+                                            .map((bill: Bill) => (
+                                                <Billcard
+                                                    key={bill.id}
+                                                    status={
+                                                        BillStatusEnum.overdue
+                                                    }
                                                     name={bill.name}
                                                     amount={bill.amount}
                                                     desc={bill.desc}

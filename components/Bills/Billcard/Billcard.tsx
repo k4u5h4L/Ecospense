@@ -1,7 +1,8 @@
+import { BillStatusEnum } from "@/constants/billStatusEnum";
 import { formatMoney } from "@/utils/formatMoney";
 
 type PropType = {
-    status: "paid" | "waiting";
+    status: string;
     amount: number;
     desc: string;
     icon: string;
@@ -35,22 +36,27 @@ const Billcard = ({
                     </div>
                     <strong>{name}</strong>
                     <p>{desc}</p>
-                    {status == "waiting" ? (
+                    {status == BillStatusEnum.waiting ? (
                         <a
                             style={{ cursor: "pointer" }}
                             className="btn btn-primary btn-block btn-sm"
                         >
                             Pay Now
                         </a>
+                    ) : status == BillStatusEnum.paid ? (
+                        <a
+                            style={{ cursor: "pointer" }}
+                            className="btn btn-success btn-block btn-sm"
+                        >
+                            Already paid
+                        </a>
                     ) : (
-                        <>
-                            <a
-                                style={{ cursor: "pointer" }}
-                                className="btn btn-success btn-block btn-sm"
-                            >
-                                Already paid
-                            </a>
-                        </>
+                        <a
+                            style={{ cursor: "pointer" }}
+                            className="btn btn-danger btn-block btn-sm"
+                        >
+                            Overdue
+                        </a>
                     )}
                 </div>
             </div>
