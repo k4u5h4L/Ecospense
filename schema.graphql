@@ -13,6 +13,7 @@ type Account {
 type Bill {
   amount: Float
   desc: String
+  history: [String]
   icon: String
   id: String
   name: String
@@ -65,6 +66,12 @@ type Mutation {
 
   """Add balance to your account"""
   addBalance(accountId: String!, amount: Float!): Account
+
+  """Add a monthly bill to your user."""
+  addBill(amount: Float!, desc: String!, icon: String!, name: String!, status: String!): Bill
+
+  """Pay a monthly bill for the current month"""
+  payBill(accountId: String!, id: String!): Bill
 
   """Remove the bank account from your user profile."""
   removeAccount(accountId: String!): Account

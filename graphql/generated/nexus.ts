@@ -37,6 +37,7 @@ export interface NexusGenObjects {
   Bill: { // root type
     amount?: number | null; // Float
     desc?: string | null; // String
+    history?: Array<string | null> | null; // [String]
     icon?: string | null; // String
     id?: string | null; // String
     name?: string | null; // String
@@ -132,6 +133,7 @@ export interface NexusGenFieldTypes {
   Bill: { // field return type
     amount: number | null; // Float
     desc: string | null; // String
+    history: Array<string | null> | null; // [String]
     icon: string | null; // String
     id: string | null; // String
     name: string | null; // String
@@ -175,6 +177,8 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addAccount: NexusGenRootTypes['Account'] | null; // Account
     addBalance: NexusGenRootTypes['Account'] | null; // Account
+    addBill: NexusGenRootTypes['Bill'] | null; // Bill
+    payBill: NexusGenRootTypes['Bill'] | null; // Bill
     removeAccount: NexusGenRootTypes['Account'] | null; // Account
     transferBalance: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
     updateProfilePic: NexusGenRootTypes['Profile'] | null; // Profile
@@ -249,6 +253,7 @@ export interface NexusGenFieldTypeNames {
   Bill: { // field return type name
     amount: 'Float'
     desc: 'String'
+    history: 'String'
     icon: 'String'
     id: 'String'
     name: 'String'
@@ -292,6 +297,8 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addAccount: 'Account'
     addBalance: 'Account'
+    addBill: 'Bill'
+    payBill: 'Bill'
     removeAccount: 'Account'
     transferBalance: 'Account'
     updateProfilePic: 'Profile'
@@ -365,6 +372,17 @@ export interface NexusGenArgTypes {
     addBalance: { // args
       accountId: string; // String!
       amount: number; // Float!
+    }
+    addBill: { // args
+      amount: number; // Float!
+      desc: string; // String!
+      icon: string; // String!
+      name: string; // String!
+      status: string; // String!
+    }
+    payBill: { // args
+      accountId: string; // String!
+      id: string; // String!
     }
     removeAccount: { // args
       accountId: string; // String!

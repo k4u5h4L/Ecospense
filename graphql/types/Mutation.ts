@@ -2,11 +2,18 @@ import { floatArg, intArg, mutationType, nonNull, stringArg } from "nexus";
 import { addBalanceResolver } from "../resolvers/Account/addBalanceResolver";
 import { withdrawBalanceResolver } from "../resolvers/Account/withdrawBalanceResolver";
 import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfile";
-import { Account, Profile, User } from "@/graphql/types/objectTypes/index";
+import {
+    Account,
+    Bill,
+    Profile,
+    User,
+} from "@/graphql/types/objectTypes/index";
 import { transferBalanceResolver } from "../resolvers/Account/transferBalanceResolver";
 import { removeAccountResolver } from "../resolvers/Account/removeAccountResolver";
 import { addAccountResolver } from "../resolvers/Account/addAccountResolver";
 import { updateProfilePicResolver } from "../resolvers/Profile/updateProfilePicResolver";
+import { addBillResolver } from "../resolvers/Bill/addBillResolver";
+import { payBillResolver } from "../resolvers/Bill/payBillResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -80,6 +87,29 @@ export const Mutation = mutationType({
                 accountId: nonNull(stringArg()),
             },
             resolve: removeAccountResolver,
+        });
+
+        t.field("addBill", {
+            type: Bill,
+            description: "Add a monthly bill to your user.",
+            args: {
+                status: nonNull(stringArg()),
+                amount: nonNull(floatArg()),
+                desc: nonNull(stringArg()),
+                icon: nonNull(stringArg()),
+                name: nonNull(stringArg()),
+            },
+            resolve: addBillResolver,
+        });
+
+        t.field("payBill", {
+            type: Bill,
+            description: "Pay a monthly bill for the current month",
+            args: {
+                id: nonNull(stringArg()),
+                accountId: nonNull(stringArg()),
+            },
+            resolve: payBillResolver,
         });
     },
 });

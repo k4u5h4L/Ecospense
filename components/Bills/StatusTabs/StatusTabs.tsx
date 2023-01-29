@@ -24,7 +24,7 @@ const StatusTabs = () => {
                         </a>
                     </li>
 
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a
                             className="nav-link"
                             data-bs-toggle="tab"
@@ -33,7 +33,7 @@ const StatusTabs = () => {
                         >
                             Overdue
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </>

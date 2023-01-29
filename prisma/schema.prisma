@@ -94,7 +94,7 @@ model Bill {
   name    String
   desc    String?
   amount  Float
-  status  BillStatus @default(WAITING)
+  status  BillStatus @default(ACTIVE)
   history DateTime[] @default([])
 
   user User @relation(fields: [userId], references: [id])
@@ -184,7 +184,6 @@ model News {
 }
 
 enum BillStatus {
-  WAITING
-  PAID
-  OVERDUE
+  ACTIVE
+  INACTIVE
 }

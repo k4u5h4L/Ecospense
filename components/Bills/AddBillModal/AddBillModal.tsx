@@ -1,3 +1,31 @@
+import { gql } from "@apollo/client";
+
+const ADD_BILL = gql`
+    mutation AddBill(
+        $status: String!
+        $amount: Float!
+        $desc: String!
+        $icon: String!
+        $name: String!
+    ) {
+        addBill(
+            status: $status
+            amount: $amount
+            desc: $desc
+            icon: $icon
+            name: $name
+        ) {
+            amount
+            desc
+            icon
+            id
+            name
+            status
+            history
+        }
+    }
+`;
+
 const AddBillModal = () => {
     return (
         <>
