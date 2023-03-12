@@ -1,4 +1,7 @@
-import { DICEBEAR_API_URL } from "@/constants/commonConstants";
+import {
+    DICEBEAR_API_URL,
+    DICEBEAR_ICON_API_URL,
+} from "@/constants/commonConstants";
 
 /**
  * Generates 11 char random string everytime.
@@ -10,4 +13,8 @@ export const getRandomString = (): string => {
 
 export const getNewAvatar = (): string => {
     return `${DICEBEAR_API_URL}?seed=${encodeURIComponent(getRandomString())}`;
+};
+
+export const getIcon = (seed: string): string => {
+    return `${DICEBEAR_ICON_API_URL}?seed=${encodeURIComponent(seed)}`;
 };
