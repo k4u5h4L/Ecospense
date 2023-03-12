@@ -1,6 +1,7 @@
 import SelectAccountAction from "@/components/ActionSheet/SelectAccountAction";
 import Billcard from "@/components/Bills/Billcard/Billcard";
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import DangerNotification from "@/components/Notifications/DangerNotification/DangerNotification";
 import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
 import PaginationLoader from "@/components/PaginationLoader/PaginationLoader";
 import { BillStatusEnum } from "@/constants/billStatusEnum";
@@ -67,9 +68,7 @@ const Main = () => {
         },
     });
 
-    if (data) {
-        console.log(data.getAllBills);
-    }
+    const [payError, setPayError] = useState({ state: false, error: "" });
 
     const [payBill, { data: mData, loading: mLoading, error: mError }] =
         useMutation(PAY_BILL);
@@ -100,16 +99,32 @@ const Main = () => {
     const handleSubmit = async (e: any, accountId: string) => {
         e.preventDefault();
 
-        await payBill({
-            variables: {
-                billId: billId,
-                accountId: accountId,
-            },
-        });
+        try {
+            await payBill({
+                variables: {
+                    billId: billId,
+                    accountId: accountId,
+                },
+            });
 
-        await handleRefresh();
+            await handleRefresh();
 
-        console.log("Bill paid successfully: ", billId);
+            console.log("Bill paid successfully: ", billId);
+        } catch (err) {
+            console.error(err);
+            if (mError) {
+                console.error(mError);
+                setPayError((prev) => ({
+                    ...prev,
+                    state: true,
+                    error: mError.message,
+                }));
+
+                setTimeout(() => {
+                    setPayError((prev) => ({ ...prev, state: false }));
+                }, 4000);
+            }
+        }
     };
 
     // uncomment the PullToRefresh code to enable pagination, but
@@ -218,6 +233,14 @@ const Main = () => {
                 title="Paying bill..."
                 text="Please wait."
                 notifStyle="secondary"
+                showHeader={false}
+            />
+
+            <DangerNotification
+                showNotif={payError.state}
+                title="Error in paying bill"
+                text={payError.error}
+                notifStyle="danger"
                 showHeader={false}
             />
         </>
