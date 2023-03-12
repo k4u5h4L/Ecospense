@@ -95,7 +95,7 @@ model Bill {
   desc    String?
   amount  Float
   status  BillStatus @default(ACTIVE)
-  history DateTime[] @default([])
+  history String[]   @default([]) // contains a epoch DateTime as strings
 
   user User @relation(fields: [userId], references: [id])
 

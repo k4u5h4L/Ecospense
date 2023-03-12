@@ -76,7 +76,7 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
             },
             data: {
                 history: {
-                    push: new Date(),
+                    push: Date.now().toString(),
                 },
             },
         }),

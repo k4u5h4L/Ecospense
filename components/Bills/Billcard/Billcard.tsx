@@ -1,5 +1,6 @@
 import { BillStatusEnum } from "@/constants/billStatusEnum";
 import { formatMoney } from "@/utils/formatMoney";
+import { BankAccount } from "@prisma/client";
 
 type PropType = {
     status: string;
@@ -10,6 +11,7 @@ type PropType = {
     name: string;
     currency: string;
     onPayment?: () => Promise<void> | void;
+    accounts?: BankAccount[];
 };
 
 const Billcard = ({
@@ -21,6 +23,7 @@ const Billcard = ({
     name,
     currency,
     onPayment,
+    accounts,
 }: PropType) => {
     return (
         <>

@@ -8,7 +8,12 @@ import { Bill } from "@prisma/client";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 const GET_BILLS = gql`
-    query GetBills($page: Int, $itemsPerPage: Int) {
+    query GetBills(
+        $page: Int
+        $itemsPerPage: Int
+        $accountsPage: Int
+        $accountsItemsPerPage: Int
+    ) {
         getCurrency {
             id
             currencyName
@@ -22,8 +27,28 @@ const GET_BILLS = gql`
             status
             history
         }
+        getAllAccounts(
+            page: $accountsPage
+            itemsPerPage: $accountsItemsPerPage
+        ) {
+            id
+            balance
+            name
+        }
     }
 `;
+
+// {
+//     account.name
+// }{" "}
+// (
+// {formatMoney(
+//     account.balance,
+//     data
+//         .getCurrency
+//         .currencyName
+// )}
+// )
 
 let currentPage = 1;
 
@@ -32,6 +57,8 @@ const Main = () => {
         variables: {
             page: currentPage,
             itemsPerPage: 6,
+            accountsPage: 1,
+            accountsItemsPerPage: 999,
         },
     });
 
@@ -102,6 +129,10 @@ const Main = () => {
                                                             .currencyName
                                                     }
                                                     onPayment={handlePayNow}
+                                                    accounts={
+                                                        data.getAllAccounts ??
+                                                        []
+                                                    }
                                                 />
                                             ))}
                                     </>

@@ -14,7 +14,11 @@ export type MonthOldType = "NOW" | "PAST" | "FUTURE";
  * Checks if provided date is older than the current date, in terms of months.
  * @param date Returns "NOW" if given month is equal to current month, "PAST" if older, "FUTURE" otherwise.
  */
-export const isMonthOld = (date: Date): MonthOldType => {
+export const isMonthOld = (date: Date | string): MonthOldType => {
+    if (typeof date == "string") {
+        date = new Date(date);
+    }
+
     const year = date.getUTCFullYear();
     const month = date.getUTCMonth();
 
@@ -37,7 +41,11 @@ export const isMonthOld = (date: Date): MonthOldType => {
  * @param date last bill pay date.
  * @returns true is bill is overdue, else otherwise.
  */
-export const isBillOverdue = (date: Date): boolean => {
+export const isBillOverdue = (date: Date | string): boolean => {
+    if (typeof date == "string") {
+        date = new Date(date);
+    }
+
     const now = new Date();
 
     if (
