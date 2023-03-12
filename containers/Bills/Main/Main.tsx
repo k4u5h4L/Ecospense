@@ -20,6 +20,7 @@ const GET_BILLS = gql`
             id
             name
             status
+            history
         }
     }
 `;
@@ -51,6 +52,10 @@ const Main = () => {
         return !loading && data.getAllBills.length > 4;
     };
 
+    const handlePayNow = async () => {
+        console.log("PAID BILL");
+    };
+
     return (
         <>
             <div id="appCapsule" className="extra-header-active full-height">
@@ -76,7 +81,7 @@ const Main = () => {
                                         {data.getAllBills
                                             .filter(
                                                 (bill: Bill) =>
-                                                    bill.history.length > 0 &&
+                                                    bill.history.length == 0 ||
                                                     isBillOverdue(
                                                         bill.history.at(-1)
                                                     )
@@ -96,6 +101,7 @@ const Main = () => {
                                                         data.getCurrency
                                                             .currencyName
                                                     }
+                                                    onPayment={handlePayNow}
                                                 />
                                             ))}
                                     </>

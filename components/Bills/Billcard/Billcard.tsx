@@ -9,6 +9,7 @@ type PropType = {
     id: string;
     name: string;
     currency: string;
+    onPayment?: () => Promise<void> | void;
 };
 
 const Billcard = ({
@@ -19,6 +20,7 @@ const Billcard = ({
     id,
     name,
     currency,
+    onPayment,
 }: PropType) => {
     return (
         <>
@@ -40,6 +42,7 @@ const Billcard = ({
                         <a
                             style={{ cursor: "pointer" }}
                             className="btn btn-primary btn-block btn-sm"
+                            onClick={onPayment}
                         >
                             Pay Now
                         </a>
