@@ -1,4 +1,5 @@
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import NoResults from "@/components/NotFound/NoResults";
 import { GET_CURRENCY } from "@/constants/gqlQueries";
 import Link from "@/helpers/wrappers/Link/Link";
 import { formatMoney } from "@/utils/formatMoney";
@@ -39,46 +40,56 @@ const Transactions = () => {
                         View All
                     </Link>
                 </div>
-                {loading ? (
-                    <div className="transactions">
-                        <ComponentLoaderPrimary />
-                    </div>
+
+                {data && data.getAllTxns.length == 0 ? (
+                    <NoResults />
                 ) : (
-                    <div className="transactions">
-                        {data.getAllTxns.map((txn: Transaction) => (
-                            <Link
-                                key={txn.id}
-                                href={`/transaction/${encodeURIComponent(
-                                    txn.id
-                                )}`}
-                                className="item"
-                            >
-                                <div className="detail">
-                                    <img
-                                        src={txn.icon}
-                                        alt="img"
-                                        className="image-block imaged w48"
-                                    />
-                                    <div>
-                                        <strong>{txn.name}</strong>
-                                        <p>{txn.desc}</p>
-                                    </div>
-                                </div>
-                                <div className="right">
-                                    <div
-                                        className={`price ${
-                                            txn.amount < 0 ? "text-danger" : ""
-                                        }`}
+                    <>
+                        {loading ? (
+                            <div className="transactions">
+                                <ComponentLoaderPrimary />
+                            </div>
+                        ) : (
+                            <div className="transactions">
+                                {data.getAllTxns.map((txn: Transaction) => (
+                                    <Link
+                                        key={txn.id}
+                                        href={`/transaction/${encodeURIComponent(
+                                            txn.id
+                                        )}`}
+                                        className="item"
                                     >
-                                        {formatMoney(
-                                            txn.amount,
-                                            data.getCurrency.currencyName
-                                        )}
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                                        <div className="detail">
+                                            <img
+                                                src={txn.icon}
+                                                alt="img"
+                                                className="image-block imaged w48"
+                                            />
+                                            <div>
+                                                <strong>{txn.name}</strong>
+                                                <p>{txn.desc}</p>
+                                            </div>
+                                        </div>
+                                        <div className="right">
+                                            <div
+                                                className={`price ${
+                                                    txn.amount < 0
+                                                        ? "text-danger"
+                                                        : ""
+                                                }`}
+                                            >
+                                                {formatMoney(
+                                                    txn.amount,
+                                                    data.getCurrency
+                                                        .currencyName
+                                                )}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
         </>

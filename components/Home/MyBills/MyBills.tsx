@@ -1,4 +1,5 @@
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import NoResults from "@/components/NotFound/NoResults";
 import Link from "@/helpers/wrappers/Link/Link";
 import { formatMoney } from "@/utils/formatMoney";
 import { gql, useQuery } from "@apollo/client";
@@ -39,65 +40,73 @@ const MyBills = () => {
                     </Link>
                 </div>
 
-                <Splide
-                    className="carousel-multiple splide"
-                    hasTrack={false}
-                    options={{
-                        rewind: true,
-                        gap: "1rem",
-                        arrows: false,
-                        pagination: false,
-                        perPage: 2,
-                        type: "loop",
-                        padding: {
-                            left: "9%",
-                        },
-                    }}
-                >
-                    <SplideTrack className="splide__track">
-                        {loading ? (
-                            <ComponentLoaderPrimary />
-                        ) : (
-                            <>
-                                {data.getAllBills.map((bill: Bill) => (
-                                    <SplideSlide
-                                        key={bill.id}
-                                        className="splide__slide"
-                                    >
-                                        <div className="bill-box">
-                                            <div className="img-wrapper">
-                                                <img
-                                                    src={bill.icon}
-                                                    alt="img"
-                                                    className="image-block imaged w48"
-                                                />
-                                            </div>
-                                            <div className="price">
-                                                {formatMoney(
-                                                    bill.amount,
-                                                    data.getCurrency
-                                                        .currencyName
-                                                )}
-                                            </div>
-                                            <p>{bill.name}</p>
-                                            <a
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() =>
-                                                    alert(
-                                                        "Paid the bill, and send notification"
-                                                    )
-                                                }
-                                                className="btn btn-primary btn-block btn-sm"
+                {data && data.getAllBills.length == 0 ? (
+                    <NoResults />
+                ) : (
+                    <>
+                        <Splide
+                            className="carousel-multiple splide"
+                            hasTrack={false}
+                            options={{
+                                rewind: true,
+                                gap: "1rem",
+                                arrows: false,
+                                pagination: false,
+                                perPage: 2,
+                                type: "loop",
+                                padding: {
+                                    left: "9%",
+                                },
+                            }}
+                        >
+                            <SplideTrack className="splide__track">
+                                {loading ? (
+                                    <ComponentLoaderPrimary />
+                                ) : (
+                                    <>
+                                        {data.getAllBills.map((bill: Bill) => (
+                                            <SplideSlide
+                                                key={bill.id}
+                                                className="splide__slide"
                                             >
-                                                PAY NOW
-                                            </a>
-                                        </div>
-                                    </SplideSlide>
-                                ))}
-                            </>
-                        )}
-                    </SplideTrack>
-                </Splide>
+                                                <div className="bill-box">
+                                                    <div className="img-wrapper">
+                                                        <img
+                                                            src={bill.icon}
+                                                            alt="img"
+                                                            className="image-block imaged w48"
+                                                        />
+                                                    </div>
+                                                    <div className="price">
+                                                        {formatMoney(
+                                                            bill.amount,
+                                                            data.getCurrency
+                                                                .currencyName
+                                                        )}
+                                                    </div>
+                                                    <p>{bill.name}</p>
+                                                    <a
+                                                        style={{
+                                                            cursor: "pointer",
+                                                        }}
+                                                        onClick={() =>
+                                                            alert(
+                                                                "Paid the bill, and send notification"
+                                                            )
+                                                        }
+                                                        className="btn btn-primary btn-block btn-sm"
+                                                    >
+                                                        PAY NOW
+                                                    </a>
+                                                </div>
+                                            </SplideSlide>
+                                        ))}
+                                    </>
+                                )}
+                            </SplideTrack>
+                        </Splide>
+                    </>
+                )}
             </div>
         </>
     );
