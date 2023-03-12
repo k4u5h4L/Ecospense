@@ -1,5 +1,6 @@
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
 import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
+import { GET_CURRENCY } from "@/constants/gqlQueries";
 import { getIcon } from "@/utils/getNewAvatar";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Bill, BillStatus } from "@prisma/client";
@@ -27,16 +28,6 @@ const ADD_BILL = gql`
             name
             status
             history
-        }
-    }
-`;
-
-const GET_CURRENCY = gql`
-    query GetCurrency {
-        getCurrency {
-            currencyName
-            currencySymbol
-            id
         }
     }
 `;

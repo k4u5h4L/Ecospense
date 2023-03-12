@@ -76,7 +76,7 @@ const Main = () => {
     const [billId, setBillId] = useState<string>("");
 
     const handleRefresh = async () => {
-        refetch();
+        await refetch();
     };
 
     const handleFetchMore = async () => {
