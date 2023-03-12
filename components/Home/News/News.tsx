@@ -33,7 +33,7 @@ const News = () => {
             <div className="section full mt-4 mb-3">
                 <div className="section-heading padding">
                     <h2 className="title">Lastest News</h2>
-                    <Link href="/blogs" className="link">
+                    <Link href="/news" className="link">
                         View All
                     </Link>
                 </div>

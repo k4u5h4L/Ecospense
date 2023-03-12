@@ -112,6 +112,8 @@ const Main = () => {
         console.log("Bill paid successfully: ", billId);
     };
 
+    // uncomment the PullToRefresh code to enable pagination, but
+    // it may cause blank screen on account select modal
     return (
         <>
             <div id="appCapsule" className="extra-header-active full-height">
