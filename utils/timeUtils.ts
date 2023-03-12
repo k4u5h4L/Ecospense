@@ -16,7 +16,7 @@ export type MonthOldType = "NOW" | "PAST" | "FUTURE";
  */
 export const isMonthOld = (date: Date | string): MonthOldType => {
     if (typeof date == "string") {
-        date = new Date(date);
+        date = new Date(Number(date));
     }
 
     const year = date.getUTCFullYear();
@@ -43,7 +43,7 @@ export const isMonthOld = (date: Date | string): MonthOldType => {
  */
 export const isBillOverdue = (date: Date | string): boolean => {
     if (typeof date == "string") {
-        date = new Date(date);
+        date = new Date(Number(date));
     }
 
     const now = new Date();

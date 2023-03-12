@@ -10,7 +10,7 @@ type PropType = {
     id: string;
     name: string;
     currency: string;
-    onPayment?: () => Promise<void> | void;
+    onPayment?: (billId: string) => Promise<void> | void;
     accounts?: BankAccount[];
 };
 
@@ -45,9 +45,11 @@ const Billcard = ({
                         <a
                             style={{ cursor: "pointer" }}
                             className="btn btn-primary btn-block btn-sm"
-                            onClick={async () => {
-                                await onPayment();
+                            onClick={() => {
+                                onPayment(id);
                             }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#selectAccountAction"
                         >
                             Pay Now
                         </a>

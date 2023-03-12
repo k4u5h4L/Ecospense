@@ -1,10 +1,13 @@
+import SelectAccountAction from "@/components/ActionSheet/SelectAccountAction";
 import Billcard from "@/components/Bills/Billcard/Billcard";
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
 import PaginationLoader from "@/components/PaginationLoader/PaginationLoader";
 import { BillStatusEnum } from "@/constants/billStatusEnum";
 import { isBillOverdue, isMonthOld } from "@/utils/timeUtils";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Bill } from "@prisma/client";
+import { useState } from "react";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 const GET_BILLS = gql`
@@ -38,17 +41,19 @@ const GET_BILLS = gql`
     }
 `;
 
-// {
-//     account.name
-// }{" "}
-// (
-// {formatMoney(
-//     account.balance,
-//     data
-//         .getCurrency
-//         .currencyName
-// )}
-// )
+const PAY_BILL = gql`
+    mutation PayBill($billId: String!, $accountId: String!) {
+        payBill(id: $billId, accountId: $accountId) {
+            id
+            icon
+            name
+            desc
+            status
+            amount
+            history
+        }
+    }
+`;
 
 let currentPage = 1;
 
@@ -61,6 +66,11 @@ const Main = () => {
             accountsItemsPerPage: 999,
         },
     });
+
+    const [payBill, { data: mData, loading: mLoading, error: mError }] =
+        useMutation(PAY_BILL);
+
+    const [billId, setBillId] = useState<string>("");
 
     const handleRefresh = async () => {
         refetch();
@@ -79,8 +89,23 @@ const Main = () => {
         return !loading && data.getAllBills.length > 4;
     };
 
-    const handlePayNow = async () => {
-        console.log("PAID BILL");
+    const handlePayNow = (billId: string) => {
+        setBillId(billId);
+    };
+
+    const handleSubmit = async (e: any, accountId: string) => {
+        e.preventDefault();
+
+        await payBill({
+            variables: {
+                billId: billId,
+                accountId: accountId,
+            },
+        });
+
+        await handleRefresh();
+
+        console.log("Bill paid successfully: ", billId);
     };
 
     return (
@@ -180,6 +205,22 @@ const Main = () => {
                     </div>
                 </PullToRefresh>
             </div>
+
+            {data ? (
+                <SelectAccountAction
+                    accounts={data.getAllAccounts}
+                    handleSubmit={handleSubmit}
+                    currencyName={data.getCurrency.currencyName}
+                />
+            ) : null}
+
+            <PrimaryNotification
+                showNotif={mLoading}
+                title="Paying bill..."
+                text="Please wait."
+                notifStyle="secondary"
+                showHeader={false}
+            />
         </>
     );
 };
