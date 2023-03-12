@@ -1,165 +1,188 @@
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import UpdateGoal from "@/components/Dialogs/UpdateGoal/UpdateGoal";
+import GoalCard from "@/components/Goal/GoalCard/GoalCard";
+import DangerNotification from "@/components/Notifications/DangerNotification/DangerNotification";
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
+import PaginationLoader from "@/components/PaginationLoader/PaginationLoader";
+import { GoalActions } from "@/types/Common";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { Goal } from "@prisma/client";
+import { useState } from "react";
+import PullToRefresh from "react-simple-pull-to-refresh";
+
+const GET_GOALS = gql`
+    query GetAllGoals($page: Int, $itemsPerPage: Int) {
+        getCurrency {
+            currencyName
+            id
+        }
+        getAllGoals(page: $page, itemsPerPage: $itemsPerPage) {
+            collectedAmount
+            desc
+            id
+            name
+            totalAmount
+        }
+    }
+`;
+
+const UPDATE_GOAL = gql`
+    mutation UpdateGoal(
+        $updateGoalId: String!
+        $action: String!
+        $amount: Float!
+    ) {
+        updateGoal(id: $updateGoalId, action: $action, amount: $amount) {
+            collectedAmount
+            desc
+            id
+            name
+            totalAmount
+        }
+    }
+`;
+
+type InputType = {
+    action: GoalActions;
+    amount: number;
+};
+
+const initialInput: InputType = {
+    action: "+",
+    amount: 0,
+};
+
+let currentPage = 1;
+
 const Main = () => {
+    const { loading, error, data, fetchMore, refetch } = useQuery(GET_GOALS, {
+        variables: {
+            page: currentPage,
+            itemsPerPage: 999,
+        },
+    });
+
+    const [goalId, setGoalId] = useState<string>("");
+    const [input, setInput] = useState<InputType>(initialInput);
+    const [payError, setPayError] = useState({ state: false, error: "" });
+
+    const [updateGoal, { data: mData, loading: mLoading, error: mError }] =
+        useMutation(UPDATE_GOAL);
+
+    const handleActionChange = (action: GoalActions) => {
+        setInput({ ...input, action: action });
+    };
+
+    const handleRefresh = async () => {
+        await refetch();
+    };
+
+    const handleFetchMore = async () => {
+        fetchMore({
+            variables: {
+                page: ++currentPage,
+                itemsPerPage: 6,
+            },
+        });
+    };
+
+    const showFetchMore = (): boolean => {
+        return !loading && data.getAllGoals.length > 4;
+    };
+
+    const handleCancel = () => {
+        setInput(initialInput);
+    };
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        try {
+            await updateGoal({
+                variables: {
+                    updateGoalId: goalId,
+                    action: input.action,
+                    amount: input.amount,
+                },
+            });
+
+            await handleRefresh();
+
+            console.log("Goal updated successfully: ", goalId);
+
+            handleCancel();
+        } catch (err) {
+            console.error(err);
+            if (mError) {
+                console.error(mError);
+                setPayError((prev) => ({
+                    ...prev,
+                    state: true,
+                    error: mError.message,
+                }));
+
+                setTimeout(() => {
+                    setPayError((prev) => ({ ...prev, state: false }));
+                }, 4000);
+            }
+        }
+    };
+
     return (
         <>
             <div id="appCapsule">
-                <div className="section mt-2 mb-2">
-                    <div className="goals">
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>Gaming Console</h4>
-                                    <p>Gaming</p>
-                                </div>
-                                <div className="price">$ 499</div>
+                <PullToRefresh
+                    onRefresh={handleRefresh}
+                    canFetchMore={showFetchMore()}
+                    onFetchMore={handleFetchMore}
+                    pullingContent=""
+                    refreshingContent={<PaginationLoader />}
+                    resistance={1}
+                >
+                    <div className="section mt-2 mb-2">
+                        {loading ? (
+                            <ComponentLoaderPrimary />
+                        ) : (
+                            <div className="goals">
+                                {data.getAllGoals.map((goal: Goal) => (
+                                    <GoalCard
+                                        key={goal.id}
+                                        goal={goal}
+                                        setGoalId={setGoalId}
+                                        currencyName={
+                                            data.getCurrency.currencyName
+                                        }
+                                    />
+                                ))}
                             </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "85%" }}
-                                    aria-valuenow={85}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    85%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>New House</h4>
-                                    <p>Living</p>
-                                </div>
-                                <div className="price">$ 100,000</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "55%" }}
-                                    aria-valuenow={55}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    55%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>Sport Car</h4>
-                                    <p>Lifestyle</p>
-                                </div>
-                                <div className="price">$ 42,500</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "15%" }}
-                                    aria-valuenow={15}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    15%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>Education</h4>
-                                    <p>Lifestyle</p>
-                                </div>
-                                <div className="price">$ 25,200</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "35%" }}
-                                    aria-valuenow={35}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    35%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>Computer</h4>
-                                    <p>Lifestyle</p>
-                                </div>
-                                <div className="price">$ 1,500</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "60%" }}
-                                    aria-valuenow={60}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    60%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>World Tour</h4>
-                                    <p>Travel</p>
-                                </div>
-                                <div className="price">$ 10,000</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "55%" }}
-                                    aria-valuenow={55}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    55%
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="item">
-                            <div className="in">
-                                <div>
-                                    <h4>Birthday Gift</h4>
-                                    <p>Gift</p>
-                                </div>
-                                <div className="price">$ 500</div>
-                            </div>
-                            <div className="progress">
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: "90%" }}
-                                    aria-valuenow={90}
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                >
-                                    90%
-                                </div>
-                            </div>
-                        </div>
+                        )}
                     </div>
-                </div>
+                </PullToRefresh>
             </div>
+
+            <UpdateGoal
+                handleActionChange={handleActionChange}
+                handleCancel={handleCancel}
+                handleSubmit={handleSubmit}
+                input={input}
+                setInput={setInput}
+            />
+
+            <PrimaryNotification
+                showNotif={mLoading}
+                title="Updating goal..."
+                text="Please wait."
+                notifStyle="secondary"
+                showHeader={false}
+            />
+
+            <DangerNotification
+                showNotif={payError.state}
+                title="Error in updating goal"
+                text={payError.error}
+                notifStyle="danger"
+                showHeader={false}
+            />
         </>
     );
 };

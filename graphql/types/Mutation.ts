@@ -5,6 +5,7 @@ import { updateUserProfileResolver } from "../resolvers/Newuser/updateUserProfil
 import {
     Account,
     Bill,
+    Goal,
     Profile,
     User,
 } from "@/graphql/types/objectTypes/index";
@@ -14,6 +15,8 @@ import { addAccountResolver } from "../resolvers/Account/addAccountResolver";
 import { updateProfilePicResolver } from "../resolvers/Profile/updateProfilePicResolver";
 import { addBillResolver } from "../resolvers/Bill/addBillResolver";
 import { payBillResolver } from "../resolvers/Bill/payBillResolver";
+import { addGoalResolver } from "../resolvers/Goal/addGoalResolver";
+import { updateGoalResolver } from "../resolvers/Goal/updateGoalResolver";
 
 export const Mutation = mutationType({
     definition(t) {
@@ -110,6 +113,28 @@ export const Mutation = mutationType({
                 accountId: nonNull(stringArg()),
             },
             resolve: payBillResolver,
+        });
+
+        t.field("addGoal", {
+            type: Goal,
+            description: "Add a new savings goal.",
+            args: {
+                name: nonNull(stringArg()),
+                desc: nonNull(stringArg()),
+                totalAmount: nonNull(floatArg()),
+            },
+            resolve: addGoalResolver,
+        });
+
+        t.field("updateGoal", {
+            type: Goal,
+            description: "Contribute to an existing goal.",
+            args: {
+                id: nonNull(stringArg()),
+                action: nonNull(stringArg()),
+                amount: nonNull(floatArg()),
+            },
+            resolve: updateGoalResolver,
         });
     },
 });

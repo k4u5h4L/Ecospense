@@ -178,9 +178,11 @@ export interface NexusGenFieldTypes {
     addAccount: NexusGenRootTypes['Account'] | null; // Account
     addBalance: NexusGenRootTypes['Account'] | null; // Account
     addBill: NexusGenRootTypes['Bill'] | null; // Bill
+    addGoal: NexusGenRootTypes['Goal'] | null; // Goal
     payBill: NexusGenRootTypes['Bill'] | null; // Bill
     removeAccount: NexusGenRootTypes['Account'] | null; // Account
     transferBalance: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    updateGoal: NexusGenRootTypes['Goal'] | null; // Goal
     updateProfilePic: NexusGenRootTypes['Profile'] | null; // Profile
     updateUserProfile: NexusGenRootTypes['User'] | null; // User
     withdrawBalance: NexusGenRootTypes['Account'] | null; // Account
@@ -298,9 +300,11 @@ export interface NexusGenFieldTypeNames {
     addAccount: 'Account'
     addBalance: 'Account'
     addBill: 'Bill'
+    addGoal: 'Goal'
     payBill: 'Bill'
     removeAccount: 'Account'
     transferBalance: 'Account'
+    updateGoal: 'Goal'
     updateProfilePic: 'Profile'
     updateUserProfile: 'User'
     withdrawBalance: 'Account'
@@ -380,6 +384,11 @@ export interface NexusGenArgTypes {
       name: string; // String!
       status: string; // String!
     }
+    addGoal: { // args
+      desc: string; // String!
+      name: string; // String!
+      totalAmount: number; // Float!
+    }
     payBill: { // args
       accountId: string; // String!
       id: string; // String!
@@ -391,6 +400,11 @@ export interface NexusGenArgTypes {
       amount: number; // Float!
       fromAccountId: string; // String!
       toAccountId: string; // String!
+    }
+    updateGoal: { // args
+      action: string; // String!
+      amount: number; // Float!
+      id: string; // String!
     }
     updateProfilePic: { // args
       pic: string; // String!

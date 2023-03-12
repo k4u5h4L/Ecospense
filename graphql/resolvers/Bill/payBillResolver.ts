@@ -58,7 +58,7 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
                 code: "DUPLICATE_ACTION",
             },
         });
-    } else if (account.balance < bill.amount || true) {
+    } else if (account.balance < bill.amount) {
         throw new GraphQLError(
             "You do not have enough funds in this account to pay this bill.",
             {
