@@ -23,6 +23,17 @@ const StatusTabs = () => {
                             Paid
                         </a>
                     </li>
+
+                    {/* <li className="nav-item">
+                        <a
+                            className="nav-link"
+                            data-bs-toggle="tab"
+                            href="#overdue"
+                            role="tab"
+                        >
+                            Overdue
+                        </a>
+                    </li> */}
                 </ul>
             </div>
         </>

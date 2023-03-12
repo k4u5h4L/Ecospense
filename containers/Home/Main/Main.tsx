@@ -50,7 +50,7 @@ const Main = () => {
             <div id="appCapsule">
                 <PullToRefresh
                     onRefresh={handleRefresh}
-                    pullingContent={<PaginationLoader />}
+                    pullingContent=""
                     refreshingContent={<PaginationLoader />}
                     resistance={1}
                 >

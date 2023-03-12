@@ -21,7 +21,9 @@ import {
     Log,
     Transaction,
     ExpenseStatus,
+    Profile,
 } from "@/graphql/types/objectTypes/index";
+import { getProfileResolver } from "../resolvers/Profile/getProfileResolver";
 
 export const Query = queryType({
     definition(t) {
@@ -30,6 +32,14 @@ export const Query = queryType({
             description: "Health Check GraphQL resolver.",
             args: {},
             resolve: healthCheckResolver,
+        });
+
+        t.field("getProfile", {
+            type: Profile,
+            description:
+                "Get the profile of the user containing pic, currency, etc.",
+            args: {},
+            resolve: getProfileResolver,
         });
 
         t.field("getCurrency", {

@@ -15,12 +15,14 @@ import NativeAppFeel from "@/components/MetaTags/NativeAppFeel";
 
 // import "@/styles/pwa-styles.css";
 import PageAnimation from "@/containers/PageAnimation/PageAnimation";
+import { usePreserveScroll } from "@/hooks/index";
 
 export default function App({ Component, pageProps, router }: AppProps) {
     const [value, setValue] = useState<any>({
         balance: 0,
     });
     const client = useApollo();
+    usePreserveScroll();
 
     useEffect(() => {
         if (typeof window !== "undefined") {

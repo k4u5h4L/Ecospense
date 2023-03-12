@@ -6,7 +6,7 @@ export const updateUserProfileResolver: FieldResolver<
     "User"
 > = async (
     _root,
-    args: { name: string; currency: string; income: number },
+    args: { name: string; currency: string; income: number; pic: string },
     ctx: GraphQlContextType
 ) => {
     console.log(`Resolving update new user, args:`);
@@ -23,10 +23,12 @@ export const updateUserProfileResolver: FieldResolver<
                     create: {
                         currency: args.currency,
                         income: args.income,
+                        pic: args.pic,
                     },
                     update: {
                         currency: args.currency,
                         income: args.income,
+                        pic: args.pic,
                     },
                 },
             },

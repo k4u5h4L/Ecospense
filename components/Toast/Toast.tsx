@@ -11,7 +11,7 @@ const Toast = ({ icon, text, showOK, show, showOkCta, id }: PropType) => {
     return (
         <>
             <div
-                id={`toast-example-${id ? id : 1}`}
+                id={`toast-example-${id ? id : "1"}`}
                 className={`toast-box toast-bottom bg-primary ${
                     show ? "show" : ""
                 }`}

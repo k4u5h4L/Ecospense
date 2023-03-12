@@ -37,9 +37,11 @@ export interface NexusGenObjects {
   Bill: { // root type
     amount?: number | null; // Float
     desc?: string | null; // String
+    history?: Array<string | null> | null; // [String]
     icon?: string | null; // String
     id?: string | null; // String
     name?: string | null; // String
+    status?: string | null; // String
   }
   Chat: { // root type
     message?: string | null; // String
@@ -89,6 +91,7 @@ export interface NexusGenObjects {
     currency?: string | null; // String
     id?: string | null; // String
     income?: number | null; // Int
+    pic?: string | null; // String
   }
   Query: {};
   Test: { // root type
@@ -130,9 +133,11 @@ export interface NexusGenFieldTypes {
   Bill: { // field return type
     amount: number | null; // Float
     desc: string | null; // String
+    history: Array<string | null> | null; // [String]
     icon: string | null; // String
     id: string | null; // String
     name: string | null; // String
+    status: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
   }
   Chat: { // field return type
@@ -172,8 +177,11 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addAccount: NexusGenRootTypes['Account'] | null; // Account
     addBalance: NexusGenRootTypes['Account'] | null; // Account
+    addBill: NexusGenRootTypes['Bill'] | null; // Bill
+    payBill: NexusGenRootTypes['Bill'] | null; // Bill
     removeAccount: NexusGenRootTypes['Account'] | null; // Account
     transferBalance: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
+    updateProfilePic: NexusGenRootTypes['Profile'] | null; // Profile
     updateUserProfile: NexusGenRootTypes['User'] | null; // User
     withdrawBalance: NexusGenRootTypes['Account'] | null; // Account
   }
@@ -193,6 +201,7 @@ export interface NexusGenFieldTypes {
     currency: string | null; // String
     id: string | null; // String
     income: number | null; // Int
+    pic: string | null; // String
   }
   Query: { // field return type
     getAllAccounts: Array<NexusGenRootTypes['Account'] | null> | null; // [Account]
@@ -205,6 +214,7 @@ export interface NexusGenFieldTypes {
     getCurrency: NexusGenRootTypes['Currency'] | null; // Currency
     getCurrentExpenseStatus: NexusGenRootTypes['ExpenseStatus'] | null; // ExpenseStatus
     getNewsById: NexusGenRootTypes['News'] | null; // News
+    getProfile: NexusGenRootTypes['Profile'] | null; // Profile
     testing: NexusGenRootTypes['Test'] | null; // Test
   }
   Test: { // field return type
@@ -243,9 +253,11 @@ export interface NexusGenFieldTypeNames {
   Bill: { // field return type name
     amount: 'Float'
     desc: 'String'
+    history: 'String'
     icon: 'String'
     id: 'String'
     name: 'String'
+    status: 'String'
     user: 'User'
   }
   Chat: { // field return type name
@@ -285,8 +297,11 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addAccount: 'Account'
     addBalance: 'Account'
+    addBill: 'Bill'
+    payBill: 'Bill'
     removeAccount: 'Account'
     transferBalance: 'Account'
+    updateProfilePic: 'Profile'
     updateUserProfile: 'User'
     withdrawBalance: 'Account'
   }
@@ -306,6 +321,7 @@ export interface NexusGenFieldTypeNames {
     currency: 'String'
     id: 'String'
     income: 'Int'
+    pic: 'String'
   }
   Query: { // field return type name
     getAllAccounts: 'Account'
@@ -318,6 +334,7 @@ export interface NexusGenFieldTypeNames {
     getCurrency: 'Currency'
     getCurrentExpenseStatus: 'ExpenseStatus'
     getNewsById: 'News'
+    getProfile: 'Profile'
     testing: 'Test'
   }
   Test: { // field return type name
@@ -356,6 +373,17 @@ export interface NexusGenArgTypes {
       accountId: string; // String!
       amount: number; // Float!
     }
+    addBill: { // args
+      amount: number; // Float!
+      desc: string; // String!
+      icon: string; // String!
+      name: string; // String!
+      status: string; // String!
+    }
+    payBill: { // args
+      accountId: string; // String!
+      id: string; // String!
+    }
     removeAccount: { // args
       accountId: string; // String!
     }
@@ -364,10 +392,14 @@ export interface NexusGenArgTypes {
       fromAccountId: string; // String!
       toAccountId: string; // String!
     }
+    updateProfilePic: { // args
+      pic: string; // String!
+    }
     updateUserProfile: { // args
       currency: string; // String!
       income: number; // Int!
       name: string; // String!
+      pic: string; // String!
     }
     withdrawBalance: { // args
       accountId: string; // String!

@@ -1,21 +1,35 @@
 import { Currency } from "@/constants/currencyEnum";
 import { NewuserConfig } from "@/types/NewuserConfig";
+import { getNewAvatar } from "@/utils/getNewAvatar";
 import { gql, useMutation } from "@apollo/client";
+// import { avataaars } from "@dicebear/collection";
+// import { createAvatar } from "@dicebear/core";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { CloseCircle } from "react-ionicons";
+import { CloseCircle, RefreshOutline } from "react-ionicons";
 
 const defaultCurrency = "GBP";
 
 const UPDATE_USER = gql`
-    mutation Mutation($name: String!, $currency: String!, $income: Int!) {
-        updateUserProfile(name: $name, currency: $currency, income: $income) {
+    mutation Mutation(
+        $name: String!
+        $currency: String!
+        $income: Int!
+        $pic: String!
+    ) {
+        updateUserProfile(
+            name: $name
+            currency: $currency
+            income: $income
+            pic: $pic
+        ) {
             email
             name
             Profile {
                 currency
                 id
                 income
+                pic
             }
         }
     }
@@ -28,6 +42,7 @@ const Main = () => {
         currency: defaultCurrency,
         income: 0,
     });
+    const [image, setImage] = useState(getNewAvatar());
     const [agreed, setAgreed] = useState(false);
     const [updateUser, { data, loading, error }] = useMutation(UPDATE_USER);
     const router = useRouter();
@@ -55,19 +70,24 @@ const Main = () => {
         });
     };
 
+    const picHandler = () => {
+        setImage(getNewAvatar());
+    };
+
     const agreeHandler = (e) => {
         setAgreed(e.target.checked);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(config);
+        console.log({ ...config, pic: image });
 
         await updateUser({
             variables: {
                 name: config.name,
                 currency: config.currency,
                 income: config.income,
+                pic: image,
             },
         });
 
@@ -85,6 +105,25 @@ const Main = () => {
                 <div className="section mt-2 text-center">
                     <h1>Let&apos;s get to know each other!</h1>
                     <h4>Enter some of your basic details below</h4>
+                </div>
+                <div className="section mt-3 text-center">
+                    <div className="avatar-section">
+                        <a>
+                            <img
+                                src={image}
+                                alt="avatar"
+                                className="imaged w100 rounded"
+                            />
+                            <span
+                                className="button"
+                                onClick={picHandler}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <RefreshOutline color={"white"} />
+                            </span>
+                        </a>
+                    </div>
+                    <p>Choose a fun new profile pic!</p>
                 </div>
                 <div className="section mb-5 p-2">
                     <form onSubmit={handleSubmit}>

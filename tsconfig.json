@@ -26,6 +26,7 @@
             "@/prisma/*": ["prisma/*"],
             "@/middlewares/*": ["middlewares/*"],
             "@/services/*": ["services/*"],
+            "@/hooks/*": ["hooks/*"],
             "@/styles/*": ["styles/*"],
             "@/graphql/*": ["graphql/*"]
         },

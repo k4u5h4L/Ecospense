@@ -1,7 +1,145 @@
+import SelectAccountAction from "@/components/ActionSheet/SelectAccountAction";
+import Billcard from "@/components/Bills/Billcard/Billcard";
+import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
+import DangerNotification from "@/components/Notifications/DangerNotification/DangerNotification";
+import PrimaryNotification from "@/components/Notifications/PrimaryNotification/PrimaryNotification";
+import PaginationLoader from "@/components/PaginationLoader/PaginationLoader";
+import { BillStatusEnum } from "@/constants/billStatusEnum";
+import { isBillOverdue, isMonthOld } from "@/utils/timeUtils";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { Bill } from "@prisma/client";
+import { useState } from "react";
+import PullToRefresh from "react-simple-pull-to-refresh";
+
+const GET_BILLS = gql`
+    query GetBills(
+        $page: Int
+        $itemsPerPage: Int
+        $accountsPage: Int
+        $accountsItemsPerPage: Int
+    ) {
+        getCurrency {
+            id
+            currencyName
+        }
+        getAllBills(page: $page, itemsPerPage: $itemsPerPage) {
+            amount
+            desc
+            icon
+            id
+            name
+            status
+            history
+        }
+        getAllAccounts(
+            page: $accountsPage
+            itemsPerPage: $accountsItemsPerPage
+        ) {
+            id
+            balance
+            name
+        }
+    }
+`;
+
+const PAY_BILL = gql`
+    mutation PayBill($billId: String!, $accountId: String!) {
+        payBill(id: $billId, accountId: $accountId) {
+            id
+            icon
+            name
+            desc
+            status
+            amount
+            history
+        }
+    }
+`;
+
+let currentPage = 1;
+
 const Main = () => {
+    const { loading, error, data, fetchMore, refetch } = useQuery(GET_BILLS, {
+        variables: {
+            page: currentPage,
+            itemsPerPage: 999,
+            accountsPage: 1,
+            accountsItemsPerPage: 999,
+        },
+    });
+
+    const [payError, setPayError] = useState({ state: false, error: "" });
+
+    const [payBill, { data: mData, loading: mLoading, error: mError }] =
+        useMutation(PAY_BILL);
+
+    const [billId, setBillId] = useState<string>("");
+
+    const handleRefresh = async () => {
+        refetch();
+    };
+
+    const handleFetchMore = async () => {
+        fetchMore({
+            variables: {
+                page: ++currentPage,
+                itemsPerPage: 6,
+            },
+        });
+    };
+
+    const showFetchMore = (): boolean => {
+        return !loading && data.getAllBills.length > 4;
+    };
+
+    const handlePayNow = (billId: string) => {
+        setBillId(billId);
+    };
+
+    const handleSubmit = async (e: any, accountId: string) => {
+        e.preventDefault();
+
+        try {
+            await payBill({
+                variables: {
+                    billId: billId,
+                    accountId: accountId,
+                },
+            });
+
+            await handleRefresh();
+
+            console.log("Bill paid successfully: ", billId);
+        } catch (err) {
+            console.error(err);
+            if (mError) {
+                console.error(mError);
+                setPayError((prev) => ({
+                    ...prev,
+                    state: true,
+                    error: mError.message,
+                }));
+
+                setTimeout(() => {
+                    setPayError((prev) => ({ ...prev, state: false }));
+                }, 4000);
+            }
+        }
+    };
+
+    // uncomment the PullToRefresh code to enable pagination, but
+    // it may cause blank screen on account select modal
     return (
         <>
             <div id="appCapsule" className="extra-header-active full-height">
+                {/* <PullToRefresh
+                    onRefresh={handleRefresh}
+                    canFetchMore={showFetchMore()}
+                    onFetchMore={handleFetchMore}
+                    pullingContent=""
+                    refreshingContent={<PaginationLoader />}
+                    resistance={1}
+                > */}
                 <div className="section tab-content mt-2 mb-1">
                     <div
                         className="tab-pane fade show active"
@@ -9,186 +147,102 @@ const Main = () => {
                         role="tabpanel"
                     >
                         <div className="row">
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/1.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 14</div>
-                                    <p>Prime Monthly Subscription</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/2.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 8</div>
-                                    <p>Monthly Payment</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/3.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 15</div>
-                                    <p>Envato Elements Subscription</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/4.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 49</div>
-                                    <p>Subscription Fees</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/5.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 12</div>
-                                    <p>Pro Membership</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/1.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 14</div>
-                                    <p>Prime Monthly Subscription</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/2.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 8</div>
-                                    <p>Monthly Payment</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/3.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 15</div>
-                                    <p>Envato Elements Subscription</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        PAY NOW
-                                    </a>
-                                </div>
-                            </div>
+                            {loading ? (
+                                <ComponentLoaderPrimary />
+                            ) : (
+                                <>
+                                    {data.getAllBills
+                                        .filter(
+                                            (bill: Bill) =>
+                                                bill.history.length == 0 ||
+                                                isBillOverdue(
+                                                    bill.history.at(-1)
+                                                )
+                                        )
+                                        .map((bill: Bill) => (
+                                            <Billcard
+                                                key={bill.id}
+                                                status={BillStatusEnum.waiting}
+                                                name={bill.name}
+                                                amount={bill.amount}
+                                                desc={bill.desc}
+                                                icon={bill.icon}
+                                                id={bill.id}
+                                                currency={
+                                                    data.getCurrency
+                                                        .currencyName
+                                                }
+                                                onPayment={handlePayNow}
+                                                accounts={
+                                                    data.getAllAccounts ?? []
+                                                }
+                                            />
+                                        ))}
+                                </>
+                            )}
                         </div>
                     </div>
 
                     <div className="tab-pane fade" id="paid" role="tabpanel">
                         <div className="row">
-                            <div className="col-6 mb-2">
-                                <div className="bill-box">
-                                    <div className="img-wrapper">
-                                        <img
-                                            src="assets/img/sample/brand/1.jpg"
-                                            alt="img"
-                                            className="image-block imaged w48"
-                                        />
-                                    </div>
-                                    <div className="price">$ 14</div>
-                                    <p>Prime Monthly Subscription</p>
-                                    <a
-                                        href="#"
-                                        className="btn btn-primary btn-block btn-sm"
-                                    >
-                                        DETAIL
-                                    </a>
-                                </div>
-                            </div>
+                            {loading ? (
+                                <ComponentLoaderPrimary />
+                            ) : (
+                                <>
+                                    {data.getAllBills
+                                        .filter(
+                                            (bill: Bill) =>
+                                                bill.history.length > 0 &&
+                                                isMonthOld(
+                                                    bill.history.at(-1)
+                                                ) == "NOW"
+                                        )
+                                        .map((bill: Bill) => (
+                                            <Billcard
+                                                key={bill.id}
+                                                status={BillStatusEnum.paid}
+                                                name={bill.name}
+                                                amount={bill.amount}
+                                                desc={bill.desc}
+                                                icon={bill.icon}
+                                                id={bill.id}
+                                                currency={
+                                                    data.getCurrency
+                                                        .currencyName
+                                                }
+                                            />
+                                        ))}
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
+                {/* </PullToRefresh> */}
             </div>
+
+            {data ? (
+                <SelectAccountAction
+                    accounts={data.getAllAccounts}
+                    handleSubmit={handleSubmit}
+                    currencyName={data.getCurrency.currencyName}
+                />
+            ) : null}
+
+            <PrimaryNotification
+                showNotif={mLoading}
+                title="Paying bill..."
+                text="Please wait."
+                notifStyle="secondary"
+                showHeader={false}
+            />
+
+            <DangerNotification
+                showNotif={payError.state}
+                title="Error in paying bill"
+                text={payError.error}
+                notifStyle="danger"
+                showHeader={false}
+            />
         </>
     );
 };

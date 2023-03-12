@@ -13,9 +13,11 @@ type Account {
 type Bill {
   amount: Float
   desc: String
+  history: [String]
   icon: String
   id: String
   name: String
+  status: String
   user: User
 }
 
@@ -65,14 +67,23 @@ type Mutation {
   """Add balance to your account"""
   addBalance(accountId: String!, amount: Float!): Account
 
+  """Add a monthly bill to your user."""
+  addBill(amount: Float!, desc: String!, icon: String!, name: String!, status: String!): Bill
+
+  """Pay a monthly bill for the current month"""
+  payBill(accountId: String!, id: String!): Bill
+
   """Remove the bank account from your user profile."""
   removeAccount(accountId: String!): Account
 
   """Transfer money from one account to another."""
   transferBalance(amount: Float!, fromAccountId: String!, toAccountId: String!): [Account]
 
+  """Update your profile pic."""
+  updateProfilePic(pic: String!): Profile
+
   """Update your profile."""
-  updateUserProfile(currency: String!, income: Int!, name: String!): User
+  updateUserProfile(currency: String!, income: Int!, name: String!, pic: String!): User
 
   """Withdraw balance from your account"""
   withdrawBalance(accountId: String!, amount: Float!): Account
@@ -95,6 +106,7 @@ type Profile {
   currency: String
   id: String
   income: Int
+  pic: String
 }
 
 type Query {
@@ -127,6 +139,9 @@ type Query {
 
   """Get the news by ID"""
   getNewsById(id: ID!): News
+
+  """Get the profile of the user containing pic, currency, etc."""
+  getProfile: Profile
 
   """Health Check GraphQL resolver."""
   testing: Test

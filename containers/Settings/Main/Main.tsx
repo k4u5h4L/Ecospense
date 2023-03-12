@@ -1,11 +1,60 @@
 // import { CameraOutline } from "react-ionicons";
 
+import ImageDialog from "@/components/Dialogs/ImageDialog/ImageDialog";
+import ImageNotification from "@/components/Notifications/ImageNotification";
+import Toast from "@/components/Toast/Toast";
+import { GET_PROFILE } from "@/constants/gqlQueries";
+import { getNewAvatar } from "@/utils/getNewAvatar";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { CameraOutline } from "react-ionicons";
+import { CameraOutline, HelpOutline, RefreshOutline } from "react-ionicons";
+
+const UPDATE_PROFILE_PIC = gql`
+    mutation UpdateProfilePic($pic: String!) {
+        updateProfilePic(pic: $pic) {
+            id
+            pic
+            income
+            currency
+        }
+    }
+`;
 
 const Main = () => {
     const [isdarkMode, setIsDarkMode] = useState<boolean>();
+    const { loading, error, data } = useQuery(GET_PROFILE);
+    const [avatar, setAvatar] = useState<string>("");
+    const [startChange, setStartChange] = useState<boolean>(false);
+
+    const [
+        updateProfilePic,
+        { data: mData, loading: mLoading, error: mError },
+    ] = useMutation(UPDATE_PROFILE_PIC, {
+        update(cache, { data: { updateProfilePic } }) {
+            cache.modify({
+                fields: {
+                    getProfile(existingProfile = {}) {
+                        const newProfileRef = cache.writeFragment({
+                            data: updateProfilePic,
+                            fragment: gql`
+                                fragment NewProfile on profile {
+                                    id
+                                    pic
+                                    income
+                                    currency
+                                }
+                            `,
+                        });
+
+                        console.log("profile pic cache updated");
+
+                        return { ...existingProfile, newProfileRef };
+                    },
+                },
+            });
+        },
+    });
 
     useEffect(() => {
         if (typeof document !== "undefined") {
@@ -24,20 +73,59 @@ const Main = () => {
         }
     };
 
+    const handlePicChange = () => {
+        const newAvatar = getNewAvatar();
+        console.log("New avatar url: ", newAvatar);
+        setAvatar(newAvatar);
+    };
+
+    const handlePicCancel = () => {
+        setStartChange(false);
+        setAvatar(data.getProfile.pic);
+    };
+
+    const handlePicUpdate = async () => {
+        setStartChange(false);
+
+        await updateProfilePic({
+            variables: {
+                pic: avatar,
+            },
+        });
+
+        console.log("Profile pic updated");
+    };
+
+    const handleToastOk = () => {
+        setStartChange(true);
+    };
+
     return (
         <>
             <br />
             <br />
             <div className="section mt-3 text-center">
                 <div className="avatar-section">
-                    <a href="#">
-                        <img
-                            src="/assets/img/icon/settings.svg"
-                            alt="avatar"
-                            className="imaged w100 rounded"
-                        />
-                        <span className="button">
-                            <CameraOutline color={"white"} />
+                    <a>
+                        {loading ? (
+                            <img
+                                src="/assets/img/icon/settings.svg"
+                                alt="avatar"
+                                className="imaged w100 rounded"
+                            />
+                        ) : (
+                            <img
+                                src={avatar ? avatar : data.getProfile.pic}
+                                alt="avatar"
+                                className="imaged w100 rounded"
+                            />
+                        )}
+                        <span
+                            className="button"
+                            onClick={handlePicChange}
+                            style={{ cursor: "pointer" }}
+                        >
+                            <RefreshOutline color={"white"} />
                         </span>
                     </a>
                 </div>
@@ -199,6 +287,29 @@ const Main = () => {
                     </a>
                 </li>
             </ul>
+            <br />
+            <br />
+
+            {data ? (
+                <>
+                    <Toast
+                        show={!startChange && avatar.length > 0 && !mData}
+                        text="Change profile photo?"
+                        showOK={true}
+                        icon={<HelpOutline color={"#white"} />}
+                        showOkCta={handleToastOk}
+                    />
+
+                    <ImageNotification
+                        text="Are you sure?"
+                        body="Do you want to update your profile picture?"
+                        show={startChange}
+                        image={avatar ? avatar : data.getProfile.pic}
+                        cancelCta={handlePicCancel}
+                        proceedCta={handlePicUpdate}
+                    />
+                </>
+            ) : null}
         </>
     );
 };

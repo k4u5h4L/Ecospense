@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -34,7 +34,7 @@ model Account {
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -89,11 +89,13 @@ model BankAccount {
 }
 
 model Bill {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  icon   String
-  name   String
-  desc   String?
-  amount Float
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  icon    String
+  name    String
+  desc    String?
+  amount  Float
+  status  BillStatus @default(ACTIVE)
+  history String[]   @default([]) // contains a epoch DateTime as strings
 
   user User @relation(fields: [userId], references: [id])
 
@@ -132,9 +134,10 @@ model Transaction {
 }
 
 model Profile {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  currency String @default("$")
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  currency String  @default("$")
   income   Int?
+  pic      String?
 
   user User? @relation(fields: [userId], references: [id])
 
@@ -178,4 +181,9 @@ model News {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum BillStatus {
+  ACTIVE
+  INACTIVE
 }

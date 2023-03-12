@@ -15,3 +15,7 @@ export const TWO_MINS_IN_S = 2 * 60;
 export const TWO_MINS_IN_MS = 2 * 60 * 1000;
 
 export const TWELVE_HOURS_IN_S = 12 * 60 * 60;
+
+export const DICEBEAR_API_URL = "https://api.dicebear.com/5.x/avataaars/svg";
+
+export const DICEBEAR_ICON_API_URL = "https://api.dicebear.com/5.x/icons/svg";
