@@ -42,7 +42,9 @@ const Billcard = ({
                         <a
                             style={{ cursor: "pointer" }}
                             className="btn btn-primary btn-block btn-sm"
-                            onClick={onPayment}
+                            onClick={async () => {
+                                await onPayment();
+                            }}
                         >
                             Pay Now
                         </a>
