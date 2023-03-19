@@ -1,6 +1,7 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import logger from "@/config/winstonConfig";
 
 export const withdrawBalanceResolver: FieldResolver<
     "Mutation",
@@ -12,8 +13,10 @@ export const withdrawBalanceResolver: FieldResolver<
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving withdraw account balance for user ${email}, args:`);
-    console.log(args);
+    logger.info(
+        `Resolving withdraw account balance for user ${email}, args: `,
+        args
+    );
 
     const account = await ctx.prisma.bankAccount.update({
         where: {
@@ -26,7 +29,7 @@ export const withdrawBalanceResolver: FieldResolver<
         },
     });
 
-    console.log(`Successfully withdrew balance to account: ${account.id}`);
+    logger.info(`Successfully withdrew balance to account: ${account.id}`);
 
     return account;
 };

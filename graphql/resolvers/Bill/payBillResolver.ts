@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { isMonthOld } from "@/utils/timeUtils";
@@ -17,7 +18,7 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving pay bill of user ${email}`);
+    logger.info(`Resolving pay bill of user ${email}`);
 
     const bill = await ctx.prisma.bill.findFirst({
         where: {
@@ -92,7 +93,7 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
         }),
     ]);
 
-    console.log(
+    logger.info(
         `Successfully paid bill for user ${email}, name: ${updatedBill.name}. New account balance: ${updatedAccount.balance}`
     );
 

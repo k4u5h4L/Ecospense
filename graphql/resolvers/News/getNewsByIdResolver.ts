@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { GraphQLError } from "graphql";
 import { FieldResolver } from "nexus";
@@ -11,7 +12,7 @@ export const getNewsByIdResolver: FieldResolver<"Query", "News"> = async (
     args: ArgType,
     ctx: GraphQlContextType
 ) => {
-    console.log(`Resolving single article by ID: ${args.id}`);
+    logger.info(`Resolving single article by ID: ${args.id}`);
 
     try {
         const news = await ctx.prisma.news.findFirst({
@@ -26,7 +27,7 @@ export const getNewsByIdResolver: FieldResolver<"Query", "News"> = async (
 
         return news;
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         throw new GraphQLError("No news articles with this ID exist.", {
             extensions: {
                 code: "NOT_FOUND",

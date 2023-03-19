@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ChatMessage } from "@/types/ChatMessage";
 import { getAiResponse } from "@/graphql/utils/getAiResponse";
 import { getSession } from "next-auth/react";
+import logger from "@/config/winstonConfig";
 
 interface Response extends ChatMessage {
     error?: string;
@@ -14,7 +15,7 @@ export default async function handler(
     if (req.method == "POST") {
         const { message: m, sender: s } = req.body;
 
-        console.log(`Resolving chat response, message: ${m}, sender: ${s}`);
+        logger.info(`Resolving chat response, message: ${m}, sender: ${s}`);
 
         const session = await getSession({ req });
 
@@ -31,7 +32,7 @@ export default async function handler(
             user: session?.user?.email ?? "Unknown",
         };
 
-        console.log(`query: ${m}, response: ${message}`);
+        logger.info(`query: ${m}, response: ${message}`);
 
         res.status(200).json(response);
     } else {

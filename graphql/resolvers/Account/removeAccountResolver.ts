@@ -1,6 +1,7 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import logger from "@/config/winstonConfig";
 
 export const removeAccountResolver: FieldResolver<
     "Mutation",
@@ -8,8 +9,10 @@ export const removeAccountResolver: FieldResolver<
 > = async (_root, args: { accountId: string }, ctx: GraphQlContextType) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving remove bank account for user ${email}, args:`);
-    console.log(args);
+    logger.info(
+        `Resolving remove bank account for user ${email}, args: `,
+        args
+    );
 
     const account = await ctx.prisma.bankAccount.delete({
         where: {
@@ -17,7 +20,7 @@ export const removeAccountResolver: FieldResolver<
         },
     });
 
-    console.log(
+    logger.info(
         `Successfully deleted bank account:: ID: ${account.id}, name: ${account.name}}`
     );
 

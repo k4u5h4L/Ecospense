@@ -3,6 +3,7 @@ import { ExpenseStatusType } from "@/types/ExpenseStatusType";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { FieldResolver } from "nexus";
 import * as expenseStatusUtil from "@/graphql/utils/expenseStatusUtil";
+import logger from "@/config/winstonConfig";
 
 export const getCurrentExpenseStatusResolver: FieldResolver<
     "Query",
@@ -10,7 +11,7 @@ export const getCurrentExpenseStatusResolver: FieldResolver<
 > = async (_root, _args, ctx: GraphQlContextType) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving current expense status, user: ${email}`);
+    logger.info(`Resolving current expense status, user: ${email}`);
 
     const data = await ctx.prisma.user.findFirst({
         where: {

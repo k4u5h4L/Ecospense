@@ -1,5 +1,6 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
+import logger from "@/config/winstonConfig";
 
 export const updateUserProfileResolver: FieldResolver<
     "Mutation",
@@ -9,8 +10,7 @@ export const updateUserProfileResolver: FieldResolver<
     args: { name: string; currency: string; income: number; pic: string },
     ctx: GraphQlContextType
 ) => {
-    console.log(`Resolving update new user, args:`);
-    console.log(args);
+    logger.info(`Resolving update new user, args: `, args);
 
     const user = await ctx.prisma.user.update({
         where: {
@@ -35,7 +35,7 @@ export const updateUserProfileResolver: FieldResolver<
         },
     });
 
-    console.log(`Successfully updated details of user: ${user.email}`);
+    logger.info(`Successfully updated details of user: ${user.email}`);
 
     return user;
 };

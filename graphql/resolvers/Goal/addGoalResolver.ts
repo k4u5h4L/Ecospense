@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { BillStatus } from "@prisma/client";
@@ -16,7 +17,7 @@ export const addGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving add goal of user ${email}`);
+    logger.info(`Resolving add goal of user ${email}`);
 
     const goal = await ctx.prisma.goal.create({
         data: {
@@ -32,7 +33,7 @@ export const addGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
         },
     });
 
-    console.log(
+    logger.info(
         `Successfully added goal for user ${email}, name: ${goal.name}`
     );
 

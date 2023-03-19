@@ -1,6 +1,7 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import logger from "@/config/winstonConfig";
 
 export const transferBalanceResolver: FieldResolver<
     "Mutation",
@@ -12,8 +13,7 @@ export const transferBalanceResolver: FieldResolver<
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving transfer balance for user ${email}, args:`);
-    console.log(args);
+    logger.info(`Resolving transfer balance for user ${email}, args: `, args);
 
     const [fromAccount, toAccount] = await ctx.prisma.$transaction([
         ctx.prisma.bankAccount.update({
@@ -38,7 +38,7 @@ export const transferBalanceResolver: FieldResolver<
         }),
     ]);
 
-    console.log(
+    logger.info(
         `Successfully transferred ${args.amount} from account ${fromAccount.id} to account ${toAccount.id}`
     );
 
