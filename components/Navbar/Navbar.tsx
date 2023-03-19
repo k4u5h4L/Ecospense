@@ -1,5 +1,6 @@
 import { PRIMARY_COLOUR } from "@/constants/commonConstants";
 import Link from "@/helpers/wrappers/Link/Link";
+import { isItOniOS } from "@/utils/platformUtils";
 import { useRouter } from "next/router";
 import {
     PieChartOutline,
@@ -58,9 +59,10 @@ const Navbar = ({ curRoute }: PropType) => {
         <>
             <div
                 className="appBottomMenu"
-                // style={{
-                //     position: "sticky",
-                // }}
+                style={{
+                    // position: "sticky",
+                    paddingBottom: isItOniOS() ? "10px" : "0px",
+                }}
             >
                 {routes.map((route, index) => (
                     <Link
