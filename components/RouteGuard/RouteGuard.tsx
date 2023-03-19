@@ -27,22 +27,20 @@ export default function RouteGuard({ children }) {
             };
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [status]);
-
-    function authCheck(url) {
-        // redirect to login page if accessing a private page and not logged in
-        const path = url.split("?")[0];
-        if (status != "authenticated" && !PUBLIC_PATHS.includes(path)) {
-            setAuthorized(false);
-            router.replace({
-                pathname: "/splash",
-                query: { returnUrl: router.asPath },
-            });
-        } else {
-            setAuthorized(true);
+        function authCheck(url: string) {
+            // redirect to login page if accessing a private page and not logged in
+            const path = url.split("?")[0];
+            if (status != "authenticated" && !PUBLIC_PATHS.includes(path)) {
+                setAuthorized(false);
+                router.replace({
+                    pathname: "/splash",
+                    query: { returnUrl: router.asPath },
+                });
+            } else {
+                setAuthorized(true);
+            }
         }
-    }
+    }, [router, status]);
 
     return authorized && children;
 }
