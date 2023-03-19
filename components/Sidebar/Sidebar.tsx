@@ -156,7 +156,10 @@ const Sidebar = () => {
                                         Menu
                                     </div>
                                     <ul className="listview flush transparent no-line image-listview">
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <Link
                                                 href="/visualise"
                                                 className="item"
@@ -174,7 +177,10 @@ const Sidebar = () => {
                                                 </div>
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <a
                                                 href="app-pages.html"
                                                 className="item"
@@ -187,7 +193,10 @@ const Sidebar = () => {
                                                 <div className="in">Chat</div>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <Link href="/news" className="item">
                                                 <div className="icon-box bg-primary">
                                                     <NewspaperOutline
@@ -199,7 +208,10 @@ const Sidebar = () => {
                                                 </div>
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <Link
                                                 href="/accounts"
                                                 className="item"
@@ -220,10 +232,15 @@ const Sidebar = () => {
                                         Others
                                     </div>
                                     <ul className="listview flush transparent no-line image-listview">
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <Link
                                                 href="/settings"
                                                 className="item"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#sidebarPanel"
                                             >
                                                 <div className="icon-box bg-primary">
                                                     <SettingsOutline
@@ -235,7 +252,10 @@ const Sidebar = () => {
                                                 </div>
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <Link href="/logs" className="item">
                                                 <div className="icon-box bg-primary">
                                                     <ClipboardOutline
@@ -247,7 +267,10 @@ const Sidebar = () => {
                                                 </div>
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sidebarPanel"
+                                        >
                                             <a
                                                 onClick={() => signOut()}
                                                 className="item"
