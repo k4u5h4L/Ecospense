@@ -34,23 +34,23 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
-            <ApolloProvider client={client}>
-                <AppContext.Provider value={{ value, setValue }}>
-                    <Head>
-                        <NativeAppFeel />
-                        <PwaIcons />
-                        <title>Ecospense</title>
-                        <link rel="manifest" href="/site.webmanifest" />
-                    </Head>
+            <AppContext.Provider value={{ value, setValue }}>
+                <Head>
+                    <NativeAppFeel />
+                    <PwaIcons />
+                    <title>Ecospense</title>
+                    <link rel="manifest" href="/site.webmanifest" />
+                </Head>
 
-                    <NextNprogress
-                        color="#ededf5"
-                        startPosition={0.3}
-                        stopDelayMs={200}
-                        height={3}
-                        options={{ showSpinner: false }}
-                    />
-                    <RouteGuard>
+                <NextNprogress
+                    color="#ededf5"
+                    startPosition={0.3}
+                    stopDelayMs={200}
+                    height={3}
+                    options={{ showSpinner: false }}
+                />
+                <RouteGuard>
+                    <ApolloProvider client={client}>
                         <PageAnimation router={router}>
                             <div
                                 style={{
@@ -61,9 +61,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
                             </div>
                         </PageAnimation>
                         <Interactivity />
-                    </RouteGuard>
-                </AppContext.Provider>
-            </ApolloProvider>
+                    </ApolloProvider>
+                </RouteGuard>
+            </AppContext.Provider>
         </SessionProvider>
     );
 }
