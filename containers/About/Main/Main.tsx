@@ -31,18 +31,19 @@ const Main = () => {
                             <p>
                                 Ecospense is a web app that helps you manage
                                 your expenses and make better financial
-                                decisions. It is a free app and will always be
+                                decisions.
+                                {/* It is a free app and will always be
                                 free. It is also open source, and hosted
-                                publicly on GitHub. You can find it here:{" "}
+                                publicly on GitHub. You can find it here:{" "} */}
                             </p>
-                            <a
+                            {/* <a
                                 href="https://github.com/k4u5h4L/Ecospense"
                                 className="btn btn-primary"
                                 target="_blank"
                                 rel="noreferrer"
                             >
                                 Ecospense GitHub
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </div>
@@ -79,7 +80,7 @@ const Main = () => {
                     </div>
                 </div> */}
 
-                <div className="section mt-3 mb-3">
+                {/* <div className="section mt-3 mb-3">
                     <div className="card">
                         <div className="card-body">
                             <h2 className="card-title">Have a Question?</h2>
@@ -100,7 +101,7 @@ const Main = () => {
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );
