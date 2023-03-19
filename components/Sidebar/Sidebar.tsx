@@ -188,17 +188,14 @@ const Sidebar = () => {
                                             </a>
                                         </li>
                                         <li>
-                                            <Link
-                                                href="/news/search"
-                                                className="item"
-                                            >
+                                            <Link href="/news" className="item">
                                                 <div className="icon-box bg-primary">
                                                     <NewspaperOutline
                                                         color={"white"}
                                                     />
                                                 </div>
                                                 <div className="in">
-                                                    Search News
+                                                    Check News
                                                 </div>
                                             </Link>
                                         </li>
