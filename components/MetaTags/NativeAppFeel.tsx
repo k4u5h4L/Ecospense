@@ -16,7 +16,7 @@ const NativeAppFeel = () => {
             />
             <meta
                 name="viewport"
-                content="width=device-width, viewport-fit=cover, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+                content="width=device-width, viewport-fit=cover, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, height=device-height, user-scalable=no"
             />
             <meta name="HandheldFriendly" content="true" />
         </>
