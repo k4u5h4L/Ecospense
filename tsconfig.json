@@ -28,7 +28,8 @@
             "@/services/*": ["services/*"],
             "@/hooks/*": ["hooks/*"],
             "@/styles/*": ["styles/*"],
-            "@/graphql/*": ["graphql/*"]
+            "@/graphql/*": ["graphql/*"],
+            "@/config/*": ["config/*"]
         },
         "incremental": true
     },

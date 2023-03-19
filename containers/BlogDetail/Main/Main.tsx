@@ -39,6 +39,8 @@ interface QueryResultType {
     error?: ApolloError;
 }
 
+const newsError = "The news you searched for wasn't found :(";
+
 const Main = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -52,9 +54,7 @@ const Main = () => {
     });
 
     if (error) {
-        router.push(
-            `/error?q=${encodeURIComponent("Error fetching news article.")}`
-        );
+        router.replace(`/error?error=${encodeURIComponent(newsError)}`);
     }
 
     return (

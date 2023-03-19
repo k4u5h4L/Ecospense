@@ -25,7 +25,7 @@ const SavingGoals = () => {
     const { loading, error, data } = useQuery(GET_GOALS, {
         variables: {
             page: 1,
-            itemsPerPage: 4,
+            itemsPerPage: 3,
         },
     });
 

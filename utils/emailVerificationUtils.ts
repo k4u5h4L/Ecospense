@@ -5,12 +5,13 @@ import { createTransport } from "nodemailer";
 async function sendVerificationRequest(params: SendVerificationRequestParams) {
     const { identifier, url, provider, theme } = params;
     const { host } = new URL(url);
+    const otp = getOtp(url);
     // NOTE: You are not required to use `nodemailer`, use whatever you want.
     const transport = createTransport(provider.server);
     const result = await transport.sendMail({
         to: identifier,
         from: provider.from,
-        subject: `Sign in to ${host} (${new Date().toUTCString()} UTC)`,
+        subject: `Use OTP: ${otp} to sign in to ${host} (${new Date().toUTCString()} UTC)`,
         text: text({ url, host }),
         html: html({ url, host, theme }),
     });
