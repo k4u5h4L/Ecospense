@@ -1,5 +1,7 @@
 import logger from "@/config/winstonConfig";
+import { LogActions } from "@/constants/logActionConstants";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import { addLog } from "@/helpers/addLog";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { BillStatus } from "@prisma/client";
 import { FieldResolver } from "nexus";
@@ -36,6 +38,8 @@ export const addGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
     logger.info(
         `Successfully added goal for user ${email}, name: ${goal.name}`
     );
+
+    addLog(`Added goal: ${goal.name}`, LogActions.ADD_GOAL, email, ctx.prisma);
 
     return goal;
 };

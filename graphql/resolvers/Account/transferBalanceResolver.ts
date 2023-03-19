@@ -2,6 +2,8 @@ import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import logger from "@/config/winstonConfig";
+import { addLog } from "@/helpers/addLog";
+import { LogActions } from "@/constants/logActionConstants";
 
 export const transferBalanceResolver: FieldResolver<
     "Mutation",
@@ -40,6 +42,13 @@ export const transferBalanceResolver: FieldResolver<
 
     logger.info(
         `Successfully transferred ${args.amount} from account ${fromAccount.id} to account ${toAccount.id}`
+    );
+
+    addLog(
+        `Transferred balance of ${args.amount} from ${fromAccount.name} to ${toAccount.name}`,
+        LogActions.TRANSFER_BALANCE,
+        email,
+        ctx.prisma
     );
 
     return [fromAccount, toAccount];

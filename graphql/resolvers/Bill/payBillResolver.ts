@@ -1,5 +1,7 @@
 import logger from "@/config/winstonConfig";
+import { LogActions } from "@/constants/logActionConstants";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import { addLog } from "@/helpers/addLog";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { isMonthOld } from "@/utils/timeUtils";
 import { BillStatus } from "@prisma/client";
@@ -96,6 +98,8 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
     logger.info(
         `Successfully paid bill for user ${email}, name: ${updatedBill.name}. New account balance: ${updatedAccount.balance}`
     );
+
+    addLog(`Paid bill: ${bill.name}`, LogActions.PAY_BILL, email, ctx.prisma);
 
     return updatedBill;
 };

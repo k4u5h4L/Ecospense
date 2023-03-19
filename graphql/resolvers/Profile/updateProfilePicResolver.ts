@@ -2,6 +2,8 @@ import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import logger from "@/config/winstonConfig";
+import { addLog } from "@/helpers/addLog";
+import { LogActions } from "@/constants/logActionConstants";
 
 export const updateProfilePicResolver: FieldResolver<
     "Mutation",
@@ -27,6 +29,13 @@ export const updateProfilePicResolver: FieldResolver<
     });
 
     logger.info(`Successfully updated details of user: ${email}`);
+
+    addLog(
+        `Updated your profile pic!`,
+        LogActions.UPDATE_PFP,
+        email,
+        ctx.prisma
+    );
 
     return user.Profile;
 };

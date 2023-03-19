@@ -1,6 +1,8 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import logger from "@/config/winstonConfig";
+import { addLog } from "@/helpers/addLog";
+import { LogActions } from "@/constants/logActionConstants";
 
 export const updateUserProfileResolver: FieldResolver<
     "Mutation",
@@ -36,6 +38,13 @@ export const updateUserProfileResolver: FieldResolver<
     });
 
     logger.info(`Successfully updated details of user: ${user.email}`);
+
+    addLog(
+        `Created your Account!`,
+        LogActions.ACCOUNT_CREATION,
+        user.email,
+        ctx.prisma
+    );
 
     return user;
 };

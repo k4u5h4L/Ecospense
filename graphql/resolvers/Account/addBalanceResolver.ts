@@ -2,6 +2,8 @@ import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import logger from "@/config/winstonConfig";
+import { addLog } from "@/helpers/addLog";
+import { LogActions } from "@/constants/logActionConstants";
 
 export const addBalanceResolver: FieldResolver<"Mutation", "Account"> = async (
     _root,
@@ -27,6 +29,13 @@ export const addBalanceResolver: FieldResolver<"Mutation", "Account"> = async (
     });
 
     logger.info(`Successfully added balance to account: ${account.id}`);
+
+    addLog(
+        `Added balance of ${args.amount}`,
+        LogActions.ADD_BALANCE,
+        email,
+        ctx.prisma
+    );
 
     return account;
 };
