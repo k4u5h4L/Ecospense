@@ -88,10 +88,6 @@ const Main = () => {
         });
     };
 
-    const showFetchMore = (): boolean => {
-        return !loading && data.getAllBills.length > 4;
-    };
-
     const handlePayNow = (billId: string) => {
         setBillId(billId);
     };
@@ -132,92 +128,98 @@ const Main = () => {
     return (
         <>
             <div id="appCapsule" className="extra-header-active full-height">
-                {/* <PullToRefresh
+                <PullToRefresh
                     onRefresh={handleRefresh}
-                    canFetchMore={showFetchMore()}
                     onFetchMore={handleFetchMore}
                     pullingContent=""
                     refreshingContent={<PaginationLoader />}
                     resistance={1}
-                > */}
-                <div className="section tab-content mt-2 mb-1">
-                    <div
-                        className="tab-pane fade show active"
-                        id="waiting"
-                        role="tabpanel"
-                    >
-                        <div className="row">
-                            {loading ? (
-                                <ComponentLoaderPrimary />
-                            ) : (
-                                <>
-                                    {data.getAllBills
-                                        .filter(
-                                            (bill: Bill) =>
-                                                bill.history.length == 0 ||
-                                                isBillOverdue(
-                                                    bill.history.at(-1)
-                                                )
-                                        )
-                                        .map((bill: Bill) => (
-                                            <Billcard
-                                                key={bill.id}
-                                                status={BillStatusEnum.waiting}
-                                                name={bill.name}
-                                                amount={bill.amount}
-                                                desc={bill.desc}
-                                                icon={bill.icon}
-                                                id={bill.id}
-                                                currency={
-                                                    data.getCurrency
-                                                        .currencyName
-                                                }
-                                                onPayment={handlePayNow}
-                                                accounts={
-                                                    data.getAllAccounts ?? []
-                                                }
-                                            />
-                                        ))}
-                                </>
-                            )}
+                >
+                    <div className="section tab-content mt-2 mb-1">
+                        <div
+                            className="tab-pane fade show active"
+                            id="waiting"
+                            role="tabpanel"
+                        >
+                            <div className="row">
+                                {loading ? (
+                                    <ComponentLoaderPrimary />
+                                ) : (
+                                    <>
+                                        {data.getAllBills
+                                            .filter(
+                                                (bill: Bill) =>
+                                                    bill.history.length == 0 ||
+                                                    isBillOverdue(
+                                                        bill.history.at(-1)
+                                                    )
+                                            )
+                                            .map((bill: Bill) => (
+                                                <Billcard
+                                                    key={bill.id}
+                                                    status={
+                                                        BillStatusEnum.waiting
+                                                    }
+                                                    name={bill.name}
+                                                    amount={bill.amount}
+                                                    desc={bill.desc}
+                                                    icon={bill.icon}
+                                                    id={bill.id}
+                                                    currency={
+                                                        data.getCurrency
+                                                            .currencyName
+                                                    }
+                                                    onPayment={handlePayNow}
+                                                    accounts={
+                                                        data.getAllAccounts ??
+                                                        []
+                                                    }
+                                                />
+                                            ))}
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="tab-pane fade" id="paid" role="tabpanel">
-                        <div className="row">
-                            {loading ? (
-                                <ComponentLoaderPrimary />
-                            ) : (
-                                <>
-                                    {data.getAllBills
-                                        .filter(
-                                            (bill: Bill) =>
-                                                bill.history.length > 0 &&
-                                                isMonthOld(
-                                                    bill.history.at(-1)
-                                                ) == "NOW"
-                                        )
-                                        .map((bill: Bill) => (
-                                            <Billcard
-                                                key={bill.id}
-                                                status={BillStatusEnum.paid}
-                                                name={bill.name}
-                                                amount={bill.amount}
-                                                desc={bill.desc}
-                                                icon={bill.icon}
-                                                id={bill.id}
-                                                currency={
-                                                    data.getCurrency
-                                                        .currencyName
-                                                }
-                                            />
-                                        ))}
-                                </>
-                            )}
+                        <div
+                            className="tab-pane fade"
+                            id="paid"
+                            role="tabpanel"
+                        >
+                            <div className="row">
+                                {loading ? (
+                                    <ComponentLoaderPrimary />
+                                ) : (
+                                    <>
+                                        {data.getAllBills
+                                            .filter(
+                                                (bill: Bill) =>
+                                                    bill.history.length > 0 &&
+                                                    isMonthOld(
+                                                        bill.history.at(-1)
+                                                    ) == "NOW"
+                                            )
+                                            .map((bill: Bill) => (
+                                                <Billcard
+                                                    key={bill.id}
+                                                    status={BillStatusEnum.paid}
+                                                    name={bill.name}
+                                                    amount={bill.amount}
+                                                    desc={bill.desc}
+                                                    icon={bill.icon}
+                                                    id={bill.id}
+                                                    currency={
+                                                        data.getCurrency
+                                                            .currencyName
+                                                    }
+                                                />
+                                            ))}
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/* </PullToRefresh> */}
+                </PullToRefresh>
             </div>
 
             {data ? (
