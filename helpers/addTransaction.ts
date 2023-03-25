@@ -5,6 +5,7 @@ export const addTransaction = async (
     icon: string,
     name: string,
     desc: string,
+    action: string,
     amount: number,
     email: string,
     prisma: PrismaClient
@@ -18,6 +19,7 @@ export const addTransaction = async (
                 name: name,
                 desc: desc,
                 amount: amount,
+                action: action,
                 user: {
                     connect: {
                         email: email,

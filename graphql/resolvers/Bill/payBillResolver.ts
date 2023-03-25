@@ -1,7 +1,9 @@
 import logger from "@/config/winstonConfig";
 import { LogActions } from "@/constants/logActionConstants";
+import { TxnIcons, TxnAction } from "@/constants/txnConstants";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import { addLog } from "@/helpers/addLog";
+import { addTransaction } from "@/helpers/addTransaction";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { isMonthOld } from "@/utils/timeUtils";
 import { BillStatus } from "@prisma/client";
@@ -100,6 +102,16 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
     );
 
     addLog(`Paid bill: ${bill.name}`, LogActions.PAY_BILL, email, ctx.prisma);
+
+    addTransaction(
+        TxnIcons.WITHDRAW,
+        `Paid bill: ${bill.name}`,
+        ``,
+        TxnAction.WITHDRAW,
+        updatedBill.amount,
+        email,
+        ctx.prisma
+    );
 
     return updatedBill;
 };

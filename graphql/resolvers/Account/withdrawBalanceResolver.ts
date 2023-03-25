@@ -4,6 +4,8 @@ import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import logger from "@/config/winstonConfig";
 import { addLog } from "@/helpers/addLog";
 import { LogActions } from "@/constants/logActionConstants";
+import { addTransaction } from "@/helpers/addTransaction";
+import { TxnIcons, TxnAction } from "@/constants/txnConstants";
 
 export const withdrawBalanceResolver: FieldResolver<
     "Mutation",
@@ -36,6 +38,16 @@ export const withdrawBalanceResolver: FieldResolver<
     addLog(
         `Withdrew balance of ${args.amount}`,
         LogActions.WITHDRAW_BALANCE,
+        email,
+        ctx.prisma
+    );
+
+    addTransaction(
+        TxnIcons.WITHDRAW,
+        `Withdrew balance of ${args.amount}`,
+        ``,
+        TxnAction.WITHDRAW,
+        args.amount,
         email,
         ctx.prisma
     );

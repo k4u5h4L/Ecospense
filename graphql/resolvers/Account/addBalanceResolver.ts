@@ -4,6 +4,8 @@ import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import logger from "@/config/winstonConfig";
 import { addLog } from "@/helpers/addLog";
 import { LogActions } from "@/constants/logActionConstants";
+import { addTransaction } from "@/helpers/addTransaction";
+import { TxnAction, TxnIcons } from "@/constants/txnConstants";
 
 export const addBalanceResolver: FieldResolver<"Mutation", "Account"> = async (
     _root,
@@ -33,6 +35,16 @@ export const addBalanceResolver: FieldResolver<"Mutation", "Account"> = async (
     addLog(
         `Added balance of ${args.amount}`,
         LogActions.ADD_BALANCE,
+        email,
+        ctx.prisma
+    );
+
+    addTransaction(
+        TxnIcons.ADD,
+        `Added balance of ${args.amount}`,
+        ``,
+        TxnAction.ADD,
+        args.amount,
         email,
         ctx.prisma
     );
