@@ -12,6 +12,7 @@ const Seo = ({ router }: { router: Router }) => {
                 openGraph={{
                     url: getCurrentUrl(),
                     title: "Ecospense",
+                    locale: "en_IE",
                     description:
                         "A plan old expense tracker without the fluff.",
                     images: [
@@ -22,7 +23,8 @@ const Seo = ({ router }: { router: Router }) => {
                             alt: "Ecospense logo",
                         },
                     ],
-                    site_name: "ecospense.kaush.me",
+                    siteName: "Ecospense",
+                    type: "website",
                 }}
                 // twitter={{
                 //     handle: "@handle",
