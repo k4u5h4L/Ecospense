@@ -16,6 +16,7 @@ import NativeAppFeel from "@/components/MetaTags/NativeAppFeel";
 // import "@/styles/pwa-styles.css";
 // import PageAnimation from "@/containers/PageAnimation/PageAnimation";
 import { usePreserveScroll } from "@/hooks/index";
+import Seo from "@/components/Seo/Seo";
 
 export default function App({ Component, pageProps, router }: AppProps) {
     const [value, setValue] = useState<any>({
@@ -41,6 +42,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
                     <title>Ecospense</title>
                     <link rel="manifest" href="/site.webmanifest" />
                 </Head>
+
+                <Seo router={router} />
 
                 <NextNprogress
                     color="#ededf5"
