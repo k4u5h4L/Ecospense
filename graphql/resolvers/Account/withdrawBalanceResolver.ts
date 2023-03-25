@@ -44,7 +44,7 @@ export const withdrawBalanceResolver: FieldResolver<
 
     addTransaction(
         TxnIcons.WITHDRAW,
-        `Withdrew balance of ${args.amount}`,
+        `Withdrew balance`,
         ``,
         TxnAction.WITHDRAW,
         args.amount,

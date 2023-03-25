@@ -98,6 +98,7 @@ export interface NexusGenObjects {
     message?: string | null; // String
   }
   Transaction: { // root type
+    action?: string | null; // String
     amount?: number | null; // Float
     desc?: string | null; // String
     icon?: string | null; // String
@@ -223,6 +224,7 @@ export interface NexusGenFieldTypes {
     message: string | null; // String
   }
   Transaction: { // field return type
+    action: string | null; // String
     amount: number | null; // Float
     desc: string | null; // String
     icon: string | null; // String
@@ -345,6 +347,7 @@ export interface NexusGenFieldTypeNames {
     message: 'String'
   }
   Transaction: { // field return type name
+    action: 'String'
     amount: 'Float'
     desc: 'String'
     icon: 'String'

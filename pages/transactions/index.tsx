@@ -17,10 +17,10 @@ const Transactions = () => {
 const Cta = () => {
     return (
         <>
-            <Link href={"/notifications"} className="headerButton">
+            {/* <Link href={"/notifications"} className="headerButton">
                 <NotificationsOutline color={"#256l144"} />
-                {/* <span className="badge badge-danger">4</span> */}
-            </Link>
+                <span className="badge badge-danger">4</span>
+            </Link> */}
         </>
     );
 };

@@ -41,7 +41,7 @@ export const addBalanceResolver: FieldResolver<"Mutation", "Account"> = async (
 
     addTransaction(
         TxnIcons.ADD,
-        `Added balance of ${args.amount}`,
+        `Added balance`,
         ``,
         TxnAction.ADD,
         args.amount,

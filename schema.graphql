@@ -158,6 +158,7 @@ type Test {
 }
 
 type Transaction {
+  action: String
   amount: Float
   desc: String
   icon: String

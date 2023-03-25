@@ -29,3 +29,22 @@ export const GET_PROFILE = gql`
         }
     }
 `;
+
+export const GET_TXNS = gql`
+    query GetAllTxns($page: Int, $itemsPerPage: Int) {
+        getAllTxns(page: $page, itemsPerPage: $itemsPerPage) {
+            amount
+            desc
+            icon
+            id
+            name
+            timestamp
+            action
+        }
+
+        getCurrency {
+            id
+            currencyName
+        }
+    }
+`;

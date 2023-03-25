@@ -1,27 +1,10 @@
 import ComponentLoaderPrimary from "@/components/ComponentLoader/ComponentLoaderPrimary";
 import NoResults from "@/components/NotFound/NoResults";
-import { GET_CURRENCY } from "@/constants/gqlQueries";
+import { GET_CURRENCY, GET_TXNS } from "@/constants/gqlQueries";
 import Link from "@/helpers/wrappers/Link/Link";
 import { formatMoney } from "@/utils/formatMoney";
 import { gql, useQuery } from "@apollo/client";
 import { Transaction } from "@prisma/client";
-
-const GET_TXNS = gql`
-    query GetAllTxns($page: Int, $itemsPerPage: Int) {
-        getAllTxns(page: $page, itemsPerPage: $itemsPerPage) {
-            amount
-            desc
-            icon
-            id
-            name
-        }
-
-        getCurrency {
-            id
-            currencyName
-        }
-    }
-`;
 
 const Transactions = () => {
     const { loading, error, data } = useQuery(GET_TXNS, {

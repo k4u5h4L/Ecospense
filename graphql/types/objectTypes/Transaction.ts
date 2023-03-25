@@ -10,6 +10,7 @@ export const Transaction = objectType({
         t.string("name");
         t.string("desc");
         t.float("amount");
+        t.string("action");
         t.string("timestamp");
         t.field("user", {
             type: User,

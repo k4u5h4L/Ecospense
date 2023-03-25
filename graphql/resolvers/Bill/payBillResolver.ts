@@ -6,7 +6,6 @@ import { addLog } from "@/helpers/addLog";
 import { addTransaction } from "@/helpers/addTransaction";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { isMonthOld } from "@/utils/timeUtils";
-import { BillStatus } from "@prisma/client";
 import { GraphQLError } from "graphql";
 import { FieldResolver } from "nexus";
 
@@ -104,7 +103,7 @@ export const payBillResolver: FieldResolver<"Mutation", "Bill"> = async (
     addLog(`Paid bill: ${bill.name}`, LogActions.PAY_BILL, email, ctx.prisma);
 
     addTransaction(
-        TxnIcons.WITHDRAW,
+        updatedBill.icon,
         `Paid bill: ${bill.name}`,
         ``,
         TxnAction.WITHDRAW,

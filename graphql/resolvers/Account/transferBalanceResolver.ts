@@ -55,7 +55,7 @@ export const transferBalanceResolver: FieldResolver<
 
     addTransaction(
         TxnIcons.TRANSFER,
-        `Transferred balance of ${args.amount} from ${fromAccount.name} to ${toAccount.name}`,
+        `Transferred balance`,
         ``,
         TxnAction.TRANSFER,
         args.amount,
