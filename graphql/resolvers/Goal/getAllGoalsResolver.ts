@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { getPagination } from "@/graphql/utils/getPagination";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import { GraphQlContextType } from "@/types/GraphQL";
@@ -13,7 +14,7 @@ export const getAllGoalsResolver: FieldResolver<"Query", "Goal"> = async (
     args: ArgType,
     ctx: GraphQlContextType
 ) => {
-    console.log(
+    logger.info(
         `Resolving all goals of user ${getUserEmail(ctx)}, page: ${
             args.page
         }, perPage: ${args.itemsPerPage}`

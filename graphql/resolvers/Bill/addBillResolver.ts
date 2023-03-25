@@ -1,4 +1,7 @@
+import logger from "@/config/winstonConfig";
+import { LogActions } from "@/constants/logActionConstants";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import { addLog } from "@/helpers/addLog";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { BillStatus } from "@prisma/client";
 import { FieldResolver } from "nexus";
@@ -18,7 +21,7 @@ export const addBillResolver: FieldResolver<"Mutation", "Bill"> = async (
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving add bill of user ${email}`);
+    logger.info(`Resolving add bill of user ${email}`);
 
     const bill = await ctx.prisma.bill.create({
         data: {
@@ -36,9 +39,11 @@ export const addBillResolver: FieldResolver<"Mutation", "Bill"> = async (
         },
     });
 
-    console.log(
+    logger.info(
         `Successfully added bill for user ${email}, name: ${bill.name}`
     );
+
+    addLog(`Added bill: ${bill.name}`, LogActions.ADD_BILL, email, ctx.prisma);
 
     return bill;
 };

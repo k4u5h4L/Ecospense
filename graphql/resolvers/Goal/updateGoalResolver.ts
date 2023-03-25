@@ -1,4 +1,7 @@
+import logger from "@/config/winstonConfig";
+import { LogActions } from "@/constants/logActionConstants";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import { addLog } from "@/helpers/addLog";
 import { GoalActions } from "@/types/Common";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { Goal } from "@prisma/client";
@@ -18,7 +21,7 @@ export const updateGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving update goal of user ${email}`);
+    logger.info(`Resolving update goal of user ${email}`);
     let updatedGoal: Goal;
 
     const goal = await ctx.prisma.goal.findFirst({
@@ -52,7 +55,7 @@ export const updateGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
                 },
             },
         });
-        console.log("Added amount");
+        logger.debug("Added amount");
     } else if (args.action == "-") {
         updatedGoal = await ctx.prisma.goal.update({
             where: {
@@ -64,11 +67,18 @@ export const updateGoalResolver: FieldResolver<"Mutation", "Goal"> = async (
                 },
             },
         });
-        console.log("Subtracted amount");
+        logger.debug("Subtracted amount");
     }
 
-    console.log(
+    logger.info(
         `Successfully updated goal for user ${email}, name: ${goal.name}`
+    );
+
+    addLog(
+        `Updated goal: ${goal.name}`,
+        LogActions.UPDATE_GOAL,
+        email,
+        ctx.prisma
     );
 
     return updatedGoal;

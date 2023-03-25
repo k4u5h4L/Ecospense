@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { getAiResponse } from "@/graphql/utils/getAiResponse";
 import { FieldResolver } from "nexus";
 
@@ -5,7 +6,7 @@ export const getChatResponseResolver: FieldResolver<
     "Query",
     "ChatResponse"
 > = async (_root, args: { message: string; sender: string }, ctx) => {
-    console.log(
+    logger.info(
         `Resolving chat response, message: ${args.message}, sender: ${args.sender}`
     );
 
@@ -18,7 +19,7 @@ export const getChatResponseResolver: FieldResolver<
         user: ctx.session?.user?.email ?? "Unknown",
     };
 
-    console.log(`query: ${args.message}, response: ${message}`);
+    logger.info(`query: ${args.message}, response: ${message}`);
 
     return response;
 };

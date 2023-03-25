@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { getPagination } from "@/graphql/utils/getPagination";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { arg, FieldResolver } from "nexus";
@@ -12,7 +13,7 @@ export const getAllNewsResolver: FieldResolver<"Query", "News"> = async (
     args: ArgType,
     ctx: GraphQlContextType
 ) => {
-    console.log(
+    logger.info(
         `Resolving all news articles, page: ${args.page}, perPage: ${args.itemsPerPage}`
     );
 

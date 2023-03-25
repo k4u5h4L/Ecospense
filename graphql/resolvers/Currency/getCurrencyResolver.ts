@@ -1,3 +1,4 @@
+import logger from "@/config/winstonConfig";
 import { Currency as Currencies } from "@/constants/currencyEnum";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
 import { GraphQlContextType } from "@/types/GraphQL";
@@ -9,7 +10,7 @@ export const getCurrencyResolver: FieldResolver<"Query", "Testing"> = async (
     ctx: GraphQlContextType
 ) => {
     const email = getUserEmail(ctx);
-    console.log(`Resolving selected currency of the user: ${email}`);
+    logger.info(`Resolving selected currency of the user: ${email}`);
 
     const data = await ctx.prisma.user.findFirst({
         where: {
@@ -25,7 +26,7 @@ export const getCurrencyResolver: FieldResolver<"Query", "Testing"> = async (
     try {
         curSymbol = Currencies[data.Profile.currency];
     } catch (e) {
-        console.error(e);
+        logger.error(e);
     }
 
     return {

@@ -151,6 +151,8 @@ model Log {
   name   String?
   action String?
 
+  timestamp DateTime @default(now())
+
   user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())

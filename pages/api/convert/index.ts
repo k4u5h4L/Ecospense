@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import CC from "currency-converter-lt";
 import { ConvertApiRequest, ConvertApiResponse } from "@/types/ConvertApi";
 import { Currency } from "@/constants/currencyEnum";
+import logger from "@/config/winstonConfig";
 
 let currencyConverter = new CC();
 
@@ -32,7 +33,7 @@ export default async function handler(
 
                 const result = { from: from, to: to, value: val, rate: rate };
 
-                console.log("Converted currency: ", result);
+                logger.info("Converted currency: ", result);
 
                 res.status(200).json(result);
             }

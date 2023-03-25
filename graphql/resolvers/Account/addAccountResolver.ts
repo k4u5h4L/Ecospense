@@ -1,6 +1,9 @@
 import { FieldResolver } from "nexus";
 import { GraphQlContextType } from "@/types/GraphQL";
 import { getUserEmail } from "@/graphql/utils/getUserEmail";
+import logger from "@/config/winstonConfig";
+import { LogActions } from "@/constants/logActionConstants";
+import { addLog } from "@/helpers/addLog";
 
 export const addAccountResolver: FieldResolver<"Mutation", "Account"> = async (
     _root,
@@ -9,8 +12,7 @@ export const addAccountResolver: FieldResolver<"Mutation", "Account"> = async (
 ) => {
     const email = getUserEmail(ctx);
 
-    console.log(`Resolving add bank account for user ${email}, args:`);
-    console.log(args);
+    logger.info(`Resolving add bank account for user ${email}, args: `, args);
 
     const account = await ctx.prisma.bankAccount.create({
         data: {
@@ -25,8 +27,15 @@ export const addAccountResolver: FieldResolver<"Mutation", "Account"> = async (
         },
     });
 
-    console.log(
+    logger.info(
         `Successfully added bank account:: ID: ${account.id}, name: ${account.name}}`
+    );
+
+    addLog(
+        `Added a new account: ${args.name}`,
+        LogActions.ADD_ACCOUNT,
+        email,
+        ctx.prisma
     );
 
     return account;
